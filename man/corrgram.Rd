@@ -1,0 +1,136 @@
+\name{corrgram}
+\alias{corrgram}
+\alias{panel.bar}
+\alias{panel.conf}
+\alias{panel.density}
+\alias{panel.ellipse}
+\alias{panel.minmax}
+\alias{panel.pie}
+\alias{panel.pts}
+\alias{panel.shade}
+\alias{panel.txt}
+
+\title{Draw a correlogram}
+
+\description{
+  The corrgram function produces a graphical display of a correlation
+  matrix, called a correlogram.  The cells of the matrix can be shaded
+  or colored to show the correlation value.
+}
+
+\usage{
+corrgram(x, type=NULL, order = FALSE, labels, panel=panel.shade,
+  lower.panel=panel, upper.panel=panel, diag.panel=NULL,
+  text.panel=textPanel, label.pos=c(0.5, 0.5), label.srt=0, cex.labels=NULL,
+  font.labels=1, row1attop=TRUE, dir="", gap=0, abs=FALSE,
+  col.regions=colorRampPalette(c("red","salmon","white","royalblue","navy")),
+  cor.method="pearson",
+  ...)
+}
+
+\arguments{
+  \item{x}{A \emph{tall} data frame with one observation per row, or a
+    correlation matrix.}
+  \item{type}{Use 'data' or 'cor'/'corr' to explicitly specify that 'x' is
+    data or a correlation matrix.  Rarely needed.}
+  \item{order}{Should variables be re-ordered?  Use TRUE/"PCA" for
+    PCA-based re-ordering, "OLO" for optimal leaf ordering.
+  }
+  \item{labels}{Labels to use (instead of data frame variable names) for diagonal panels}
+  \item{panel}{Function used to plot the contents of each panel}
+  \item{lower.panel, upper.panel}{Separate panel functions used
+    below/above the diagonal}
+  \item{diag.panel, text.panel}{Panel function used on the diagonal}
+  \item{label.pos}{Horizontal and vertical placement of label in diagonal panels}
+  \item{label.srt}{String rotation for diagonal labels}
+  \item{cex.labels, font.labels}{Graphics parameter for diagonal panels}
+  \item{row1attop}{TRUE for diagonal like " \ ", FALSE for diagonal like
+    " / ".}
+  \item{dir}{Use \code{dir="left"} instead of 'row1attop'}
+  \item{gap}{Distance between panels}
+  \item{abs}{Use absolute value of correlations for clustering?  Default
+    FALSE}
+  \item{col.regions}{A \emph{function} returning a vector of colors}
+  \item{cor.method}{Correlation method to use in panel functions.
+    Default is 'pearson'.  Alternatives: 'spearman', 'kendall'}
+  \item{...}{Additional arguments passed to plotting methods.}
+}
+
+\details{
+
+  Note: Use the 'col.regions' argument to specify colors.
+  Earlier versions used a function 'col.corrgram' to specify colors.
+
+  Non-numeric columns in the data will be ignored.
+
+  The off-diagonal panels are specified with \code{panel.pts},
+  \code{panel.pie}, \code{panel.shade}, \code{panel.bar},
+  \code{panel.ellipse}, \code{panel.conf}.
+
+  Diagonal panels are specified with
+  \code{panel.txt}, \code{panel.minmax}, \code{panel.density}.
+
+  Use a NULL panel to omit drawing the panel.
+
+  This function is basically a modification of the \code{pairs.default}
+  function with the use of customized panel functions.
+
+  The panel.conf function uses \code{cor.test} and calculates pearson
+  correlations.
+
+  You can create your own panel functions by starting with one of the
+  included panel functions and making suitable modifications.  Note that
+  because of the way the panel functions are called inside the main
+  function, your custom panel function must include the arguments shown
+  in the \code{panel.pts} function, even if the custom panel function
+  does not use those arguments!
+
+  TODO: legend, grid graphics version.
+}
+
+\value{
+  No value is returned.  A plot is created.
+}
+
+\references{
+  Friendly, Michael.  2002.  Corrgrams: Exploratory Displays for Correlation
+  Matrices.  \emph{The American Statistician}, 56, 316--324.
+  \url{http://datavis.ca/papers/corrgram.html}
+
+  A SAS macro by Michael Friendly is at
+  \url{http://datavis.ca/sasmac/corrgram.html}.
+}
+
+\author{Kevin Wright}
+
+\examples{
+# To reproduce the figures in Michael Friendly's paper, see the file
+# 'friendly.r' in this package's test directory.
+
+# Demonstrate density panel, correlation confidence panel
+corrgram(iris, lower.panel=panel.pts, upper.panel=panel.conf,
+         diag.panel=panel.density)
+
+# Demonstrate panel.shade, panel.pie, principal component ordering
+vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
+           "Putouts","RBI","Runs","Walks","Years")
+corrgram(baseball[vars2], order=TRUE, main="Baseball data PC2/PC1 order",
+         lower.panel=panel.shade, upper.panel=panel.pie)
+
+# CAUTION: The latticeExtra package also has a 'panel.ellipse' function
+# that clashes with the same-named function in corrgram. In order to use
+# the right one, the example below uses 'lower.panel=corrgram::panel.ellipse'.
+# If you do not have latticeExtra loaded, you can just use
+# 'lower.panel=panel.ellipse'.
+
+# Demonstrate panel.bar, panel.ellipse, panel.minmax, col.regions
+corrgram(auto, order=TRUE, main="Auto data (PC order)",
+lower.panel=corrgram::panel.ellipse, upper.panel=panel.bar, diag.panel=panel.minmax,
+col.regions=colorRampPalette(c("darkgoldenrod4", "burlywood1", "darkkhaki", "darkgreen")))
+
+# 'vote' is a correlation matrix, not a data frame
+corrgram(vote, order=TRUE)
+
+}
+
+\keyword{hplot}
