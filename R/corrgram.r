@@ -373,7 +373,7 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.c
     text(0.5, 0.6, est, cex=cex.cor)
 
   } else { # Calculate correlation and confidence interval
-    results <- cor.test(x, y, alternative = "two.sided")
+    results <- cor.test(x, y, alternative = "two.sided", method = cor.method)
 
     est <- results$estimate
     est <- formatC(est, digits=digits, format='f')
