@@ -1,4 +1,6 @@
+import(graphics)
 import(seriation)
+import(stats)
 export(corrgram)
 export(panel.bar)
 export(panel.conf)

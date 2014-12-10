@@ -38,6 +38,7 @@ corrgram(cmat, type="cor", order=FALSE,
 # ----------------------------------------------------------------------------
 
 # Modify the panel function to  use only spearman correlations.
+# Outdated.  Now use 'cor.method' argument.
 
 spearman.panel.shade <- function(x, y, corr=NULL, col.regions, ...){
 
@@ -62,3 +63,5 @@ spearman.panel.shade <- function(x, y, corr=NULL, col.regions, ...){
 }
 
 corrgram(dat, lower.panel=spearman.panel.shade, upper.panel=panel.pts)
+corrgram(dat)
+corrgram(dat, cor.method="pearson")

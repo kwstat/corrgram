@@ -1,5 +1,5 @@
 # misc.r
-# Time-stamp: <30 Jan 2014 16:57:04 c:/x/rpack/corrgram/tests/misc.r>
+# Time-stamp: <08 Aug 2014 16:26:23 c:/x/rpack/corrgram/tests/misc.r>
 
 if(FALSE){ # No need to test automatically
 
@@ -207,6 +207,13 @@ pushViewport(viewport(.5, .95, width=stringWidth("Group1"),
 grid.legend(pch=1:2, labels=c("Group1","Group2"), gp=gpar(col=c('red')))
 popViewport()
 
+# ----------------------------------------------------------------------------
+
+# Test pearson vs spearman.
+
+corrgram(auto)
+corrgram(auto, cor.method="pearson")
+corrgram(auto, cor.method="spearman") # Slight change in colors
+
 } # end if
 
-# ----------------------------------------------------------------------------

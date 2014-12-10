@@ -1,3 +1,4 @@
+import(seriation)
 export(corrgram)
 export(panel.bar)
 export(panel.conf)

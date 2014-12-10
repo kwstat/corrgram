@@ -36,32 +36,3 @@ corrgram(cmat, type="cor", order=FALSE,
          text.panel=panel.txt, diag.panel=panel.minmax, main="Data")
 
 # ----------------------------------------------------------------------------
-
-# Modify the panel function to  use only spearman correlations.
-# Outdated.  Now use 'cor.method' argument.
-
-spearman.panel.shade <- function(x, y, corr=NULL, col.regions, ...){
-
-  if(is.null(corr))
-    corr <- cor(x, y, use='pair', method="spearman")
-
-  ncol <- 14
-  pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length=ncol+1),
-                            include.lowest=TRUE))
-  usr <- par("usr")
-  # Solid fill
-  rect(usr[1], usr[3], usr[2], usr[4], col=pal[col.ind], border=NA)
-  # Add diagonal lines
-
-  if(!is.na(corr)) {
-    rect(usr[1], usr[3], usr[2], usr[4], density=5,
-         angle=ifelse(corr>0, 45, 135), col="white")
-  }
-  # Boounding box needs to plot on top of the shading, so do it last.
-  box(col='lightgray')
-}
-
-corrgram(dat, lower.panel=spearman.panel.shade, upper.panel=panel.pts)
-corrgram(dat)
-corrgram(dat, cor.method="pearson")

@@ -76,7 +76,8 @@ corrgram(x, type=NULL, order = FALSE, labels, panel=panel.shade,
   function with the use of customized panel functions.
 
   The panel.conf function uses \code{cor.test} and calculates pearson
-  correlations.
+  correlations.  Confidence intervals are not available
+  in \code{cor.test} for other methods (kendall, spearman).
 
   You can create your own panel functions by starting with one of the
   included panel functions and making suitable modifications.  Note that

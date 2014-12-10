@@ -1,10 +1,12 @@
 
 Changes in version 1.6 (Aug 2014)
 
+  * Move packages from Depends to Imports.
+
   * Argument label.pos now defaults to c(.5, .5) for x,y
   positioning. (Request of Evan Williams).
 
-  * New argument 'cor.type'. (Request of Evan Williams).
+  * New argument 'cor.method'. (Request of Evan Williams).
 
   * Added vignette.
 
@@ -32,7 +34,6 @@ Changes in version 1.2
 
   * Small bug.  Now accepts NA values in correlation matrices, and
     NAs caused by missing combinations of data and cor( use="pair").
-    Added to test suite.
 
   * Non-numeric columns in the data will be ignored. (Request of JZ)
 

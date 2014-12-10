@@ -21,7 +21,7 @@
 \usage{
 corrgram(x, type=NULL, order = FALSE, labels, panel=panel.shade,
   lower.panel=panel, upper.panel=panel, diag.panel=NULL,
-  text.panel=textPanel, label.pos=0.5, label.srt=0, cex.labels=NULL,
+  text.panel=textPanel, label.pos=c(0.5, 0.5), label.srt=0, cex.labels=NULL,
   font.labels=1, row1attop=TRUE, dir="", gap=0, abs=FALSE,
   col.regions=colorRampPalette(c("red","salmon","white","royalblue","navy")),
   cor.method="pearson",

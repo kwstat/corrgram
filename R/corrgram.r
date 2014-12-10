@@ -1,5 +1,5 @@
 # corrgram.r
-# Time-stamp: <08 Aug 2014 15:29:48 c:/x/rpack/corrgram/R/corrgram.r>
+# Time-stamp: <28 Aug 2014 16:26:25 c:/x/rpack/corrgram/R/corrgram.r>
 
 # Author: Kevin Wright
 # Copyright 2006-2012 Kevin Wright
@@ -236,7 +236,7 @@ panel.pts <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
   # Coordinates of box
-  usr <- par()$usr
+  usr <- par()$usr  # par is in graphics package
   minx <- usr[1]; maxx <- usr[2]
   miny <- usr[3]; maxy <- usr[4]
   # Multiply the radius by .97 so the circles do not overlap
@@ -250,7 +250,8 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   circ <- cbind(centerx + cos(angles)*rx, centery + sin(angles)*ry)
   lines(circ[,1], circ[,2], col='gray30',...)
 
-  corr <- cor(x, y, use='pair', method=cor.method)
+  if(is.null(corr))
+    corr <- cor(x, y, use='pair', method=cor.method)
 
   # Overlay a colored polygon
   ncol <- 14

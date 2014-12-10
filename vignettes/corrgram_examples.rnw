@@ -1,44 +1,38 @@
-% corrgram_examples.rnw
-% Time-stamp: c:/x/rpack/corrgram/vignettes/custom_corrgram.rnw
+% corrgram_examples.Rnw
+% Time-stamp: <26 Nov 2014 10:54:38 c:/x/rpack/corrgram/vignettes/corrgram_examples.Rnw>
 
 % \VignetteIndexEntry{Customizing corrgram}
-% \VignettePackage{corrgram}
 % \VignetteEngine{knitr::knitr}
 
 \documentclass[12pt]{article}
 % Note, 11 pt fails with a missing font unless we have \usepackage{ae}
 
 \usepackage{color}
-\definecolor{darkblue}{rgb}{0,0,0.5}
-\definecolor{darkred}{rgb}{0.6,0.0,0.0}
+\definecolor{navy}{rgb}{0,0,0.5}
+\definecolor{maroon}{rgb}{0.6,0.0,0.0}
 \definecolor{lightgray}{rgb}{0.7,0.7,0.7}
 
-% Hyperref
-\usepackage[colorlinks,pagebackref,plainpages=false,
-  citecolor=darkblue,linkcolor=darkblue,urlcolor=darkblue,plainpages]{hyperref}
+\usepackage[colorlinks,citecolor=navy,linkcolor=navy,urlcolor=navy]{hyperref}
 
-\usepackage{url}     % Don't break long URLs
+%\usepackage{url}     % Don't break long URLs
 \raggedright         % Don't right-justify
 \usepackage{parskip} % Extra vertical space between paragraphs
+
 \usepackage{enumitem}
 \setlist{nolistsep}  % Reduce spacing between list items
 
 \usepackage[left=.5in,top=.5in,right=.5in,bottom=1in]{geometry}
 
-% \code mini environment ttfamily->texttt
-\newcommand{\code}[1]{\texttt{\textcolor{darkred}{#1}}}
-
-% Define myTitle to be the title of the document
-\let\oldTitle\title
-\renewcommand{\title}[1]{\newcommand{\myTitle}{#1}\oldTitle{\sf #1}}
+\newcommand{\code}[1]{\texttt{\textcolor{maroon}{#1}}}
 
 % Header & footer
+\usepackage{titling} % copy \title{} into \thetitle
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \renewcommand{\headrule}{}  % no line between header and body
 \renewcommand{\footrule}{}  % no line between body and footer
 \fancyhf{} % clear header and footer fields
-\fancyfoot[L]{\small \color{lightgray} \myTitle} % \FileName
+\fancyfoot[L]{\small \color{lightgray} \thetitle}
 \fancyfoot[R]{\small \thepage}
 
 \usepackage[round]{natbib}
@@ -62,10 +56,8 @@
 % Setup stuff.
 <<setup, echo=FALSE, results="hide">>=
 library("knitr")
-opts_chunk$set(fig.align="center",
-  fig.width=7, fig.height=7)
+opts_chunk$set(fig.align="center", fig.width=7, fig.height=7)
 options(width=90)
-if(!file.exists("figs")) dir.create("figs")
 @
 
 % ----------------------------------------------------------------------------
@@ -81,7 +73,7 @@ Friendly, Michael.  2002.  Corrgrams: Exploratory Displays for Correlation
 
 Load the package.
 <<>>=
-library(corrgram)
+library("corrgram")
 @
 
 Figure 2
@@ -145,7 +137,6 @@ rinv <- function(r){
 vars7 <- c("Years", "logSal", "Homer", "Putouts", "RBI", "Walks",
            "Runs", "Hits", "Atbat", "Errors", "Assists")
 cb <- cor(baseball[,vars7], use="pair")
-require(graphics)
 corrgram(-rinv(cb), main=expression(paste("Baseball data ", R^-1)))
 
 @
@@ -178,8 +169,6 @@ corrgram(auto.par, lower.panel=panel.pie, upper.panel=panel.pie,
          main="Auto data, partialing out Price,MPG")
 @
 
-Figure 9
-
 Figure 11
 <<>>=
 corrgram(baseball[,vars2], order=TRUE,
@@ -188,11 +177,11 @@ corrgram(baseball[,vars2], order=TRUE,
          text.panel=panel.txt, diag.panel=panel.minmax)
 @
 
-\section*{Appendix}
-This document was prepared \today with the following configuration:
+\section{Appendix}
+
+Session information:
 <<finish, echo=FALSE, results="asis">>=
-knit_hooks$set(output = function(x, options) { x })
 toLatex(sessionInfo(), locale=FALSE)
 @
-\bibliography{agridat}
+
 \end{document}
