@@ -34,7 +34,8 @@ corrgram(x, type=NULL, order = FALSE, labels, panel=panel.shade,
   \item{type}{Use 'data' or 'cor'/'corr' to explicitly specify that 'x' is
     data or a correlation matrix.  Rarely needed.}
   \item{order}{Should variables be re-ordered?  Use TRUE/"PCA" for
-    PCA-based re-ordering, "OLO" for optimal leaf ordering.
+    PCA-based re-ordering.  Options from the 'seriate' package include
+    "OLO" for optimal leaf ordering, "GW", and "HC".
   }
   \item{labels}{Labels to use (instead of data frame variable names) for diagonal panels}
   \item{panel}{Function used to plot the contents of each panel}

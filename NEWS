@@ -1,4 +1,8 @@
 
+Changes in version 1.7 (Feb 2015)
+
+  * Support more seriate options.
+
 Changes in version 1.6 (Aug 2014)
 
   * Move packages from Depends to Imports.
