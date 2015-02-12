@@ -89,6 +89,16 @@ corrgram <-
     ss <- seriate(distx, method="OLO")
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
+ }else if (order=="GW"){ # GW order
+    distx <- dist(cmat)
+    ss <- seriate(distx, method="GW")
+    ord <- get_order(ss)
+    x <- if(type=="data") x[,ord] else x[ord,ord]
+} else if (order=="HC"){ # HC ... just for comparision really
+    distx <- dist(cmat)
+    ss <- seriate(distx, method="HC")
+    ord <- get_order(ss)
+    x <- if(type=="data") x[,ord] else x[ord,ord]
   } else if(order!=FALSE){
     stop("Unknown order argument in 'corrgram'.")
   }
