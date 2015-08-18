@@ -1,7 +1,7 @@
 % corrgram_examples.Rnw
-% Time-stamp: <26 Nov 2014 10:54:38 c:/x/rpack/corrgram/vignettes/corrgram_examples.Rnw>
+% Time-stamp: <05 Jun 2015 10:49:16 c:/x/rpack/corrgram/vignettes/corrgram_examples.Rnw>
 
-% \VignetteIndexEntry{Customizing corrgram}
+% \VignetteIndexEntry{Examples for the corrgram package}
 % \VignetteEngine{knitr::knitr}
 
 \documentclass[12pt]{article}
@@ -14,7 +14,6 @@
 
 \usepackage[colorlinks,citecolor=navy,linkcolor=navy,urlcolor=navy]{hyperref}
 
-%\usepackage{url}     % Don't break long URLs
 \raggedright         % Don't right-justify
 \usepackage{parskip} % Extra vertical space between paragraphs
 
@@ -76,6 +75,8 @@ Load the package.
 library("corrgram")
 @
 
+\pagebreak
+
 Figure 2
 <<fig2>>=
 vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
@@ -85,6 +86,8 @@ corrgram(baseball[,vars2], order=TRUE,
          lower.panel=panel.shade, upper.panel=panel.pie,
          diag.panel=panel.minmax, text.panel=panel.txt)
 @
+
+\pagebreak
 
 Figure 3
 <<fig3>>=
@@ -97,6 +100,8 @@ text(e1,e2, rownames(baseball.cor), cex=1)
 arrows(0, 0, e1, e2, cex=0.5, col="red", length=0.1)
 @
 
+\pagebreak
+
 Figure 4a, 4b
 <<fig4>>=
 corrgram(baseball[,vars2], main="Baseball data (alphabetic order)")
@@ -106,15 +111,21 @@ corrgram(baseball[,vars2], order=TRUE,
          panel=panel.shade, text.panel=panel.txt)
 @
 
+\pagebreak
+
 Figure 5
 <<fig5>>=
 corrgram(baseball, order=TRUE, main="Baseball data (PC order)")
 @
 
+\pagebreak
+
 Figure 6. Arrangement is slightly different from Friendly.
 <<fig6>>=
 corrgram(auto, order=TRUE, main="Auto data (PC order)")
 @
+
+\pagebreak
 
 Figure 7.
 <<fig7>>=
@@ -140,6 +151,8 @@ cb <- cor(baseball[,vars7], use="pair")
 corrgram(-rinv(cb), main=expression(paste("Baseball data ", R^-1)))
 
 @
+
+\pagebreak
 
 Figure 8
 <<fig8>>=
@@ -168,6 +181,8 @@ auto.par <- partial(auto.cor, vars8b)
 corrgram(auto.par, lower.panel=panel.pie, upper.panel=panel.pie,
          main="Auto data, partialing out Price,MPG")
 @
+
+\pagebreak
 
 Figure 11
 <<>>=

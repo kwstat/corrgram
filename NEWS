@@ -1,9 +1,15 @@
 
-Changes in version 1.7 (Feb 2015)
+Version 1.9 (Unpublished)
+
+Version 1.8 (Jul 2015)
+
+* Namespace changes due to R devel changes.
+
+Version 1.7 (Feb 2015)
 
   * Support more seriate options.
 
-Changes in version 1.6 (Aug 2014)
+Version 1.6 (Aug 2014)
 
   * Move packages from Depends to Imports.
 
@@ -14,13 +20,13 @@ Changes in version 1.6 (Aug 2014)
 
   * Added vignette.
 
-Changes in version 1.5 (Aug 2013)
+Version 1.5 (Aug 2013)
 
   * Update references links.  (Request of Michael Friendly).
 
   * Small bug with test for correlation matrix (Reported by F. Rosa)
 
-Changes in version 1.4 (Nov 2012)
+Version 1.4 (Nov 2012)
 
   * Panel colors are now specified via a 'col.regions' argument.  The old
     method of using 'col.corrgram' is ignored. Could cause slight
@@ -28,13 +34,13 @@ Changes in version 1.4 (Nov 2012)
 
   * Re-worked examples section for more variety.
 
-Changes in version 1.3 (Aug 2012)
+Version 1.3 (Aug 2012)
 
   * Added 'panel.bar'.  (Request of dadrivr)
 
   * Added example for unclipped labels (in the test suite).
 
-Changes in version 1.2
+Version 1.2
 
   * Small bug.  Now accepts NA values in correlation matrices, and
     NAs caused by missing combinations of data and cor( use="pair").
@@ -46,11 +52,11 @@ Changes in version 1.2
   * Test suite now includes corrgram of inverse correlation, partial
     correlation matrices.
 
-Changes in version 1.1
+Version 1.1
 
   * Added namespace.
 
-Changes in version 1.0
+Version 1.0
 
   * New panel function 'panel.conf'
   * New data set 'vote'
@@ -62,10 +68,10 @@ Changes in version 1.0
   * Ordering can now be done on absolute value of correlations.
   * Fixed bug: Strongly negative correlations used no color.
 
-Changes in version 0.1 (Nov 2006)
+Version 0.1 (Nov 2006)
 
   * First release to CRAN.
 
-Changes in version 0.0  (Apr 2006)
+Version 0.0  (Apr 2006)
 
   * Package development begins 2006-04-16.

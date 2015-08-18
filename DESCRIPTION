@@ -1,12 +1,17 @@
 Package: corrgram
-Type: Package
 Title: Plot a Correlogram
-Version: 1.7
-Date: 2015-02-12
-Author: Kevin Wright
-Maintainer: Kevin Wright <kw.stat@gmail.com>
-Description: Calculates correlation of variables and displays the results graphically.  Included panel functions can display points, shading, ellipses, and correlation values with confidence intervals.
-Imports: graphics, seriation, stats
+Version: 1.8
+Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", role=c("aut","cre"))
+Date: 2015-07-02
+Type: Package
+Description: Calculates correlation of variables and displays the results graphically.
+    Included panel functions can display points, shading, ellipses, and correlation
+     values with confidence intervals. 
+Imports:
+  graphics,
+  grDevices,
+  seriation,
+  stats
 Suggests: knitr, Matrix
 License: GPL-2
 LazyData: yes

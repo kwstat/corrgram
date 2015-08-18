@@ -97,10 +97,13 @@ corrgram(x, type=NULL, order = FALSE, labels, panel=panel.shade,
 \references{
   Friendly, Michael.  2002.  Corrgrams: Exploratory Displays for Correlation
   Matrices.  \emph{The American Statistician}, 56, 316--324.
-  \url{http://datavis.ca/papers/corrgram.html}
+  \url{http://datavis.ca/papers/corrgram.pdf}
 
   A SAS macro by Michael Friendly is at
   \url{http://datavis.ca/sasmac/corrgram.html}.
+
+  D. J. Murdoch and E. D. Chow. 1996. A Graphical Display of Large
+  Correlation Matrices.  The American Statistician, 50, 178-180.
 }
 
 \author{Kevin Wright}

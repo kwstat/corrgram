@@ -1,4 +1,5 @@
 import(graphics)
+import(grDevices)
 import(seriation)
 import(stats)
 export(corrgram)

@@ -55,7 +55,7 @@ The data are for 322 Major Leaque Baseball regular and substitute hitters in 198
 
   Michael Friendly analyzed the data in: \bold{Corrgrams: Exploratory
   Displays for Correlation Matrices}, \emph{The American Statistician},
-  Nov 2002, Vol 56. \url{http://www.math.yorku.ca/SCS/Papers/corrgram.pdf}.
+  Nov 2002, Vol 56.
 }
 
 \references{
