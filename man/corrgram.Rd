@@ -1,6 +1,7 @@
 \name{corrgram}
 \alias{corrgram}
 \alias{panel.bar}
+\alias{panel.cor}
 \alias{panel.conf}
 \alias{panel.density}
 \alias{panel.ellipse}
@@ -21,11 +22,11 @@
 \usage{
 corrgram(x, type=NULL, order = FALSE, labels, panel=panel.shade,
   lower.panel=panel, upper.panel=panel, diag.panel=NULL,
-  text.panel=textPanel, label.pos=c(0.5, 0.5), label.srt=0, cex.labels=NULL,
+  text.panel=textPanel,
+  label.pos=c(0.5, 0.5), label.srt=0, cex.labels=NULL,
   font.labels=1, row1attop=TRUE, dir="", gap=0, abs=FALSE,
   col.regions=colorRampPalette(c("red","salmon","white","royalblue","navy")),
-  cor.method="pearson",
-  ...)
+  cor.method="pearson", ...)
 }
 
 \arguments{
@@ -66,7 +67,7 @@ corrgram(x, type=NULL, order = FALSE, labels, panel=panel.shade,
 
   The off-diagonal panels are specified with \code{panel.pts},
   \code{panel.pie}, \code{panel.shade}, \code{panel.bar},
-  \code{panel.ellipse}, \code{panel.conf}.
+  \code{panel.ellipse}, \code{panel.conf}. \code{panel.cor}.
 
   Diagonal panels are specified with
   \code{panel.txt}, \code{panel.minmax}, \code{panel.density}.
@@ -109,8 +110,9 @@ corrgram(x, type=NULL, order = FALSE, labels, panel=panel.shade,
 \author{Kevin Wright}
 
 \examples{
-# To reproduce the figures in Michael Friendly's paper, see the file
-# 'friendly.r' in this package's test directory.
+# To reproduce the figures in Michael Friendly's paper, see the
+# vignette, or see the file 'friendly.r' in this package's
+# test directory.
 
 # Demonstrate density panel, correlation confidence panel
 corrgram(iris, lower.panel=panel.pts, upper.panel=panel.conf,
@@ -130,11 +132,13 @@ corrgram(baseball[vars2], order=TRUE, main="Baseball data PC2/PC1 order",
 
 # Demonstrate panel.bar, panel.ellipse, panel.minmax, col.regions
 corrgram(auto, order=TRUE, main="Auto data (PC order)",
-lower.panel=corrgram::panel.ellipse, upper.panel=panel.bar, diag.panel=panel.minmax,
-col.regions=colorRampPalette(c("darkgoldenrod4", "burlywood1", "darkkhaki", "darkgreen")))
+         lower.panel=corrgram::panel.ellipse,
+         upper.panel=panel.bar, diag.panel=panel.minmax,
+         col.regions=colorRampPalette(c("darkgoldenrod4", "burlywood1",
+                                        "darkkhaki", "darkgreen")))
 
 # 'vote' is a correlation matrix, not a data frame
-corrgram(vote, order=TRUE)
+corrgram(vote, order=TRUE, upper.panel=panel.cor)
 
 }
 

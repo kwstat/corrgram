@@ -1,8 +1,8 @@
 # corrgram.r
-# Time-stamp: <28 Aug 2014 16:26:25 c:/x/rpack/corrgram/R/corrgram.r>
+# Time-stamp: <07 Oct 2015 15:35:05 c:/x/rpack/corrgram/R/corrgram.r>
 
 # Author: Kevin Wright
-# Copyright 2006-2012 Kevin Wright
+# Copyright 2006-2015 Kevin Wright
 # License: GPL2
 
 # The corrgram function was derived from the 'pairs' function.
@@ -370,32 +370,59 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
 }
 
+panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.cor, ...){
+  # Correlation values only, colored
+  
+  auto <- missing(cex.cor)
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1))
+
+  if(is.null(corr))
+    corr <- cor(x, y, use='pair', method=cor.method)
+
+  ncol <- 14
+  pal <- col.regions(ncol)
+  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length=ncol+1),
+                            include.lowest=TRUE))
+  
+  if(auto) cex.cor <- 0.7/strwidth(corr)
+  text(0.5, 0.5, corr, cex=cex.cor, col=pal[col.ind])
+
+}
+
 panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.cor, ...){
 
   auto <- missing(cex.cor)
   usr <- par("usr"); on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
 
+  # ncol <- 14
+  # pal <- col.regions(ncol)
+  
   # For correlation matrix, only show the correlation
   if(!is.null(corr)) {
     est <- corr
+    #col.ind <- as.numeric(cut(est, breaks=seq(from=-1, to=1, length=ncol+1),
+    #                          include.lowest=TRUE))
     est <- formatC(est, digits=digits, format='f')
     if(auto) cex.cor <- 0.7/strwidth(est)
-    text(0.5, 0.6, est, cex=cex.cor)
+    text(0.5, 0.6, est, cex=cex.cor) #, col=pal[col.ind])
 
   } else { # Calculate correlation and confidence interval
     results <- cor.test(x, y, alternative = "two.sided")
 
     est <- results$estimate
+    #col.ind <- as.numeric(cut(est, breaks=seq(from=-1, to=1, length=ncol+1),
+    #                          include.lowest=TRUE))
     est <- formatC(est, digits=digits, format='f')
     if(auto) cex.cor <- 0.7/strwidth(est)
-    text(0.5, 0.6, est, cex=cex.cor)
+    text(0.5, 0.6, est, cex=cex.cor) #, col=pal[col.ind])
 
     ci <- results$conf.int
     ci <- formatC(ci, digits=2, format='f')
     ci <- paste("(",ci[1],",",ci[2],")",sep="")
     if(auto) cex.cor <- 0.8/strwidth(ci)
-    text(0.5, 0.3, ci, cex=cex.cor)
+    text(0.5, 0.3, ci, cex=cex.cor) # , col=pal[col.ind])
   }
 }
 

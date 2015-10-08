@@ -6,6 +6,8 @@
 
 * Change NEWS to NEWS.md.
 
+* Add `panel.cor` for colored correlation values.
+
 ## Version 1.8 (Jul 2015)
 
 * Namespace changes due to R devel changes.
