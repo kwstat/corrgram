@@ -1,18 +1,130 @@
 # corrgram.r
-# Time-stamp: <07 Oct 2015 15:35:05 c:/x/rpack/corrgram/R/corrgram.r>
-
-# Author: Kevin Wright
-# Copyright 2006-2015 Kevin Wright
-# License: GPL2
+# Time-stamp: <10 Nov 2015 14:34:47 c:/x/rpack/corrgram/R/corrgram.r>
 
 # The corrgram function was derived from the 'pairs' function.
 # Code for plotting ellipses was derived from the ellipse package.
-# Additional ideas from the plot.corr function in the 'arm' package.
 
 # To do: Add a legend/ribbon
 
-# Idea: gcorr function for generalized pairs plot
 
+
+#' Draw a correlogram
+#' 
+#' The corrgram function produces a graphical display of a correlation matrix,
+#' called a correlogram.  The cells of the matrix can be shaded or colored to
+#' show the correlation value.
+#' 
+#' 
+#' Note: Use the 'col.regions' argument to specify colors.  Earlier versions
+#' used a function 'col.corrgram' to specify colors.
+#' 
+#' Non-numeric columns in the data will be ignored.
+#' 
+#' The off-diagonal panels are specified with \code{panel.pts},
+#' \code{panel.pie}, \code{panel.shade}, \code{panel.bar},
+#' \code{panel.ellipse}, \code{panel.conf}. \code{panel.cor}.
+#' 
+#' Diagonal panels are specified with \code{panel.txt}, \code{panel.minmax},
+#' \code{panel.density}.
+#' 
+#' Use a NULL panel to omit drawing the panel.
+#' 
+#' This function is basically a modification of the \code{pairs.default}
+#' function with the use of customized panel functions.
+#' 
+#' The panel.conf function uses \code{cor.test} and calculates pearson
+#' correlations.  Confidence intervals are not available in \code{cor.test} for
+#' other methods (kendall, spearman).
+#' 
+#' You can create your own panel functions by starting with one of the included
+#' panel functions and making suitable modifications.  Note that because of the
+#' way the panel functions are called inside the main function, your custom
+#' panel function must include the arguments shown in the \code{panel.pts}
+#' function, even if the custom panel function does not use those arguments!
+#' 
+#' TODO: legend, grid graphics version.
+#' 
+#' @aliases corrgram panel.bar panel.conf panel.cor panel.density panel.ellipse
+#' panel.minmax panel.pie panel.pts panel.shade panel.txt
+#' 
+#' @param x A \emph{tall} data frame with one observation per row, or a
+#' correlation matrix.
+#' @param type Use 'data' or 'cor'/'corr' to explicitly specify that 'x' is
+#' data or a correlation matrix.  Rarely needed.
+#' @param order Should variables be re-ordered?  Use TRUE/"PCA" for PCA-based
+#' re-ordering.  Options from the 'seriate' package include "OLO" for optimal
+#' leaf ordering, "GW", and "HC".
+#' @param labels Labels to use (instead of data frame variable names) for
+#' diagonal panels
+#' @param panel Function used to plot the contents of each panel
+#' @param lower.panel,upper.panel Separate panel functions used below/above the
+#' diagonal
+#' @param diag.panel,text.panel Panel function used on the diagonal
+#' @param label.pos Horizontal and vertical placement of label in diagonal
+#' panels
+#' @param label.srt String rotation for diagonal labels
+#' @param cex.labels,font.labels Graphics parameter for diagonal panels
+#' @param row1attop TRUE for diagonal like " \ ", FALSE for diagonal like " / ".
+#' @param dir Use \code{dir="left"} instead of 'row1attop'
+#' @param gap Distance between panels
+#' @param abs Use absolute value of correlations for clustering?  Default FALSE
+#' @param col.regions A \emph{function} returning a vector of colors
+#' @param cor.method Correlation method to use in panel functions.  Default is
+#' 'pearson'.  Alternatives: 'spearman', 'kendall'
+#' @param ... Additional arguments passed to plotting methods.
+#' 
+#' @return No value is returned.  A plot is created.
+#' 
+#' @author Kevin Wright
+#' 
+#' @references Friendly, Michael.  2002.  Corrgrams: Exploratory Displays for
+#' Correlation Matrices.  \emph{The American Statistician}, 56, 316--324.
+#' \url{http://datavis.ca/papers/corrgram.pdf}
+#' 
+#' A SAS macro by Michael Friendly is at
+#' \url{http://datavis.ca/sasmac/corrgram.html}.
+#' 
+#' D. J. Murdoch and E. D. Chow. 1996. A Graphical Display of Large Correlation
+#' Matrices.  The American Statistician, 50, 178-180.
+#' @keywords hplot
+#' 
+#' @examples
+#' 
+#' # To reproduce the figures in Michael Friendly's paper, see the
+#' # vignette, or see the file 'friendly.r' in this package's
+#' # test directory.
+#' 
+#' # Demonstrate density panel, correlation confidence panel
+#' corrgram(iris, lower.panel=panel.pts, upper.panel=panel.conf,
+#'          diag.panel=panel.density)
+#' 
+#' # Demonstrate panel.shade, panel.pie, principal component ordering
+#' vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
+#'            "Putouts","RBI","Runs","Walks","Years")
+#' corrgram(baseball[vars2], order=TRUE, main="Baseball data PC2/PC1 order",
+#'          lower.panel=panel.shade, upper.panel=panel.pie)
+#' 
+#' # CAUTION: The latticeExtra package also has a 'panel.ellipse' function
+#' # that clashes with the same-named function in corrgram. In order to use
+#' # the right one, the example below uses 'lower.panel=corrgram::panel.ellipse'.
+#' # If you do not have latticeExtra loaded, you can just use
+#' # 'lower.panel=panel.ellipse'.
+#' 
+#' # Demonstrate panel.bar, panel.ellipse, panel.minmax, col.regions
+#' corrgram(auto, order=TRUE, main="Auto data (PC order)",
+#'          lower.panel=corrgram::panel.ellipse,
+#'          upper.panel=panel.bar, diag.panel=panel.minmax,
+#'          col.regions=colorRampPalette(c("darkgoldenrod4", "burlywood1",
+#'                                         "darkkhaki", "darkgreen")))
+#' 
+#' # 'vote' is a correlation matrix, not a data frame
+#' corrgram(vote, order=TRUE, upper.panel=panel.cor)
+#' 
+#' @import graphics
+#' @import grDevices
+#' @import seriation
+#' @import stats
+#' @export corrgram
 corrgram <-
   function (x, type=NULL,
             order=FALSE, labels, panel = panel.shade,
@@ -25,7 +137,11 @@ corrgram <-
             col.regions = colorRampPalette(c("red","salmon","white","royalblue","navy")),
             cor.method="pearson",
             ...) {
-
+  # Need graphics
+  # Need grDevices
+  # Need seriation for seriate
+  # Need stats for cor, qf
+    
   if(is.null(order)) order <- FALSE
 
   # Former versions used label.pos=0.5 for vertical positioning.
@@ -86,15 +202,15 @@ corrgram <-
     x <- if(type=="data") x[,ord] else x[ord, ord]
   } else if (order=="OLO") {
     distx <- dist(cmat)
-    ss <- seriate(distx, method="OLO")
+    ss <- seriate(distx, method="OLO") # from seriation package
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
- }else if (order=="GW"){ # GW order
+  } else if (order=="GW"){ # GW order
     distx <- dist(cmat)
     ss <- seriate(distx, method="GW")
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
-} else if (order=="HC"){ # HC ... just for comparision really
+  } else if (order=="HC"){ # HC ... just for comparision really
     distx <- dist(cmat)
     ss <- seriate(distx, method="HC")
     ord <- get_order(ss)
@@ -234,6 +350,7 @@ corrgram <-
 # ----------------------------------------------------------------------------
 # Panel functions
 
+#' @export
 panel.pts <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
   # For correlation matrix, do nothing
@@ -243,6 +360,7 @@ panel.pts <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   box(col="lightgray")
 }
 
+#' @export
 panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
   # Coordinates of box
@@ -280,6 +398,7 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
 }
 
+#' @export
 panel.shade <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
   if(is.null(corr))
@@ -302,6 +421,7 @@ panel.shade <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   box(col='lightgray')
 }
 
+#' @export
 panel.ellipse <- function(x,y, corr=NULL, col.regions, cor.method, ...){
 
   # For correlation matrix, do nothing
@@ -342,6 +462,7 @@ panel.ellipse <- function(x,y, corr=NULL, col.regions, cor.method, ...){
           col = "red", ...)
 }
 
+#' @export
 panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   # Use 'bars' as in Friendly, figure 1
 
@@ -370,6 +491,7 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
 }
 
+#' @export
 panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.cor, ...){
   # Correlation values only, colored
   
@@ -390,6 +512,7 @@ panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.co
 
 }
 
+#' @export
 panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.cor, ...){
 
   auto <- missing(cex.cor)
@@ -426,10 +549,12 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.c
   }
 }
 
+#' @export
 panel.txt <- function(x=0.5, y=0.5, txt, cex, font, srt){
   text(x, y, txt, cex=cex, font=font, srt=srt)
 }
 
+#' @export
 panel.density <- function(x, corr=NULL, ...){
   # For correlation matrix, do nothing
   if(!is.null(corr)) return()
@@ -442,6 +567,7 @@ panel.density <- function(x, corr=NULL, ...){
   box(col="lightgray")
 }
 
+#' @export
 panel.minmax <- function(x, corr=NULL, ...){
   # For correlation matrix, do nothing
   if(!is.null(corr)) return()

@@ -4,17 +4,20 @@ Version: 1.8
 Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", role=c("aut","cre"))
 Date: 2015-07-02
 Type: Package
-Description: Calculates correlation of variables and displays the results graphically.
-    Included panel functions can display points, shading, ellipses, and correlation
-     values with confidence intervals. 
+Description: Calculates correlation of variables and displays the results
+    graphically. Included panel functions can display points, shading, ellipses, and
+    correlation values with confidence intervals.
 Imports:
-  graphics,
-  grDevices,
-  seriation,
-  stats
-Suggests: knitr, Matrix
+    graphics,
+    grDevices,
+    seriation,
+    stats
+Suggests:
+    knitr,
+    Matrix
 License: GPL-2
 LazyData: yes
 URL: https://github.com/kwstat/corrgram
 BugReports: https://github.com/kwstat/corrgram/issues/
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1

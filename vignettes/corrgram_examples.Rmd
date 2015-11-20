@@ -33,11 +33,25 @@ opts_chunk$set(fig.align="center", fig.width=6, fig.height=6)
 options(width=90)
 ```
 
+The data are 11 measures of performance and salary for 263 baseball players in
+the 1986 baseball season in the United States.  The data were used in 1988
+Data Expo at the Joint Statistical Meetings.
+
+The first 6 rows of the data and the upper-left corner of the
+correlation matrix are given below.
+
+```{r data}
+library("corrgram")
+head(baseball)
+round(cor(baseball[, 5:14], use="pair"),2)
+```
 
 ## Figure 2
 
+Figure 2 shows two ways to graphically display the correlation matrix using
+the `panel.shade()` and `panel.pie()` functions.
+
 ```{r fig2}
-library("corrgram")
 vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
            "Putouts","RBI","Runs","Walks","Years")
 corrgram(baseball[,vars2], order=TRUE,
@@ -46,8 +60,10 @@ corrgram(baseball[,vars2], order=TRUE,
          diag.panel=panel.minmax, text.panel=panel.txt)
 ```
 
-
 ## Figure 3
+
+Figure 3 shows an eigenvector plot of the correlation matrix.  This forms the
+basis of the orderings of the variables in the corrgram in the next section.
 
 ```{r fig3}
 baseball.cor <- cor(baseball[,vars2], use='pair')
@@ -56,11 +72,18 @@ e1 <- baseball.eig[,1]
 e2 <- baseball.eig[,2]
 plot(e1,e2,col='white', xlim=range(e1,e2), ylim=range(e1,e2))
 text(e1,e2, rownames(baseball.cor), cex=1)
+title("Eigenvector plot of baseball data")
 arrows(0, 0, e1, e2, cex=0.5, col="red", length=0.1)
 ```
 
 
 ## Figure 4a, 4b
+
+In figure 4a the variables are sorted in the order as given in the data.  In
+figure 4b, the variables are sorted according to a principal component
+ordering to look for possible clustering of the variables.  It is not
+surprising to see that more times at bat is strongly correlated with a higher number of
+hits and a higher number of runs.
 
 ```{r fig4}
 corrgram(baseball[,vars2], main="Baseball data (alphabetic order)")
@@ -72,12 +95,21 @@ corrgram(baseball[,vars2], order=TRUE,
 
 
 ## Figure 5
+
+Figure 5 shows a corrgram for all numeric variables in the dataframe.
+Non-numeric columns in the data are ignored.
+
 ```{r fig5}
 corrgram(baseball, order=TRUE, main="Baseball data (PC order)")
 ```
 
 
-## Figure 6. Arrangement is slightly different from Friendly.
+## Figure 6.
+
+Figure 6 shows a corrgram of automotive data on 74 different models of cars
+from 1979.  There are two obvious groups of variables
+
+Note, the arrangement is slightly different from Friendly.
 
 ```{r fig6}
 corrgram(auto, order=TRUE, main="Auto data (PC order)")
@@ -85,6 +117,13 @@ corrgram(auto, order=TRUE, main="Auto data (PC order)")
 
 
 ## Figure 7.
+
+The inverse of the correlation matrix expresses conditional dependence and
+independence of the variables.
+
+The variables are sorted in the same order as in figure 4.  One example
+interpretation is: controlling for all other variables, there is still a large
+correlation between Years and log Salary.
 
 ```{r fig7}
 rinv <- function(r){
@@ -113,6 +152,9 @@ corrgram(-rinv(cb), main=expression(paste("Baseball data ", R^-1)))
 
 ## Figure 8
 
+Figure 8 shows a partial independence corrgram for the automotive data, when
+Price and MPG are partialed out.
+
 ```{r fig8}
 require(Matrix) # For block diagonal function
 
@@ -136,20 +178,56 @@ vars8b <- c("MPG", "Price")
 vars8 <- c(vars8a, vars8b)
 auto.cor <- cor(auto[, vars8], use="pair")
 auto.par <- partial(auto.cor, vars8b)
-corrgram(auto.par, lower.panel=panel.pie, upper.panel=panel.pie,
+corrgram(auto.par,
+         lower.panel=panel.pie, upper.panel=panel.pie,
          main="Auto data, partialing out Price,MPG")
 ```
 
 
 ## Figure 11
 
-```{r fig11}
+Figure 11 provides another way to display the data, using both ellipses and
+loess lines.  Long, narrow ellipses represent high correlations while circular
+ellipses represent low correlations.
+
+```{r ellipse}
 corrgram(baseball[,vars2], order=TRUE,
          main="Baseball correlation ellipses",
          panel=panel.ellipse,
          text.panel=panel.txt, diag.panel=panel.minmax)
 ```
 
+# Further examples
+
+Demonstrate density panel, correlation confidence panel
+
+```{r scatter}
+corrgram(iris,
+         main="Iris data with example panel functions",
+         lower.panel=panel.pts, upper.panel=panel.conf,
+         diag.panel=panel.density)
+```
+
+Demonstrate panel.bar, panel.ellipse, panel.minmax, col.regions
+
+```{r panelbar}
+corrgram(auto, order=TRUE,
+         main="Auto data (PC order)",
+         lower.panel=corrgram::panel.ellipse,
+         upper.panel=panel.bar, diag.panel=panel.minmax,
+         col.regions=colorRampPalette(c("darkgoldenrod4", "burlywood1",
+                                        "darkkhaki", "darkgreen")))
+```
+
+## Correlation matrix
+
+The `vote` data is a matrix.
+
+```{r vote}
+# 'vote' is a correlation matrix, not a data frame
+corrgram(vote, order=TRUE,
+         upper.panel=panel.cor, main="vote")
+```
 
 ## Session information
 ```{r session}

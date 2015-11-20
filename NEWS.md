@@ -4,6 +4,8 @@
 
 * Change vignette from Rnw/pdf to Rmd/html.
 
+* Switch to Roxygen for documentation.
+
 * Change NEWS to NEWS.md.
 
 * Add `panel.cor` for colored correlation values.
