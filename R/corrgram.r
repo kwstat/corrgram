@@ -1,5 +1,5 @@
 # corrgram.r
-# Time-stamp: <10 Nov 2015 14:34:47 c:/x/rpack/corrgram/R/corrgram.r>
+# Time-stamp: <03 May 2016 11:51:01 c:/x/rpack/corrgram/R/corrgram.r>
 
 # The corrgram function was derived from the 'pairs' function.
 # Code for plotting ellipses was derived from the ellipse package.
@@ -494,19 +494,19 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 #' @export
 panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.cor, ...){
   # Correlation values only, colored
-  
+
   auto <- missing(cex.cor)
   usr <- par("usr"); on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
 
   if(is.null(corr))
     corr <- cor(x, y, use='pair', method=cor.method)
-
   ncol <- 14
   pal <- col.regions(ncol)
   col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length=ncol+1),
                             include.lowest=TRUE))
   
+  corr <- formatC(corr, digits=digits, format='f')
   if(auto) cex.cor <- 0.7/strwidth(corr)
   text(0.5, 0.5, corr, cex=cex.cor, col=pal[col.ind])
 

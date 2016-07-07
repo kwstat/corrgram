@@ -24,6 +24,6 @@ corrgram(vote, order=TRUE)
 }
 \references{
 Using Graphs Instead of Tables.
-\url{http://tables2graphs.com/doku.php?id=03_descriptive_statistics}
+http://tables2graphs.com/doku.php?id=03_descriptive_statistics
 }
 

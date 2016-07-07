@@ -87,7 +87,7 @@ NULL
 #' @source 
 #' The data was originally published for the 1988 ASA Statistical
 #' Graphics and Computing Data Exposition:
-#' \url{http://lib.stat.cmu.edu/data-expo/1988.html}.
+#' http://lib.stat.cmu.edu/data-expo/1988.html.
 #' 
 #' The version of the data used to create this data was found at
 #' \url{http://euclid.psych.yorku.ca/ftp/sas/sssg/data/baseball.sas}.
@@ -132,7 +132,7 @@ NULL
 #' 
 #' @references 
 #' Using Graphs Instead of Tables.
-#' \url{http://tables2graphs.com/doku.php?id=03_descriptive_statistics}
+#' http://tables2graphs.com/doku.php?id=03_descriptive_statistics
 #' 
 #' @examples
 #' 

@@ -2,7 +2,7 @@ Package: corrgram
 Title: Plot a Correlogram
 Version: 1.8
 Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", role=c("aut","cre"))
-Date: 2015-07-02
+Date: 2016-05-02
 Type: Package
 Description: Calculates correlation of variables and displays the results
     graphically. Included panel functions can display points, shading, ellipses, and

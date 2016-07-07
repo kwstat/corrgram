@@ -1,4 +1,22 @@
+# Emacs backup files
+*.~*~
+\#*\#
+# Emacs backups of hidden files, like ".gitignore.~3~"
+.*.~*~
+.\#*
+
+# RStudio/R GUI
 .Rbuildignore
-.Rproj.user
-corrgram.Rproj
+.RData
 .Rhistory
+.Rproj.user
+*.Rproj
+
+# Vignettes
+vignettes/*.bbl
+vignettes/*.log
+vignettes/*.md
+vignettes/*.pdf
+vignettes/*.synctex.gz
+vignettes/*.tex
+
