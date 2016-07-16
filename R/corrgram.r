@@ -1,5 +1,5 @@
 # corrgram.r
-# Time-stamp: <03 May 2016 11:51:01 c:/x/rpack/corrgram/R/corrgram.r>
+# Time-stamp: <15 Jul 2016 16:59:43 c:/x/rpack/corrgram/R/corrgram.R>
 
 # The corrgram function was derived from the 'pairs' function.
 # Code for plotting ellipses was derived from the ellipse package.
@@ -373,13 +373,21 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   centerx <- (minx+maxx)/2
   centery <- (miny+maxy)/2
 
+  # If corr not given, try to calculate it
+  if(is.null(corr)) {
+    if(sum(complete.cases(x,y)) < 2) {
+      warning("Need at least 2 complete cases for cor()")
+      return()
+    } else {
+      corr <- cor(x, y, use='pair', method=cor.method)
+    }
+  }
+
+  # Draw circle
   segments <- 60
   angles <- seq(0,2*pi,length=segments)
   circ <- cbind(centerx + cos(angles)*rx, centery + sin(angles)*ry)
   lines(circ[,1], circ[,2], col='gray30',...)
-
-  if(is.null(corr))
-    corr <- cor(x, y, use='pair', method=cor.method)
 
   # Overlay a colored polygon
   ncol <- 14
@@ -401,8 +409,15 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 #' @export
 panel.shade <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
-  if(is.null(corr))
-    corr <- cor(x, y, use='pair', method=cor.method)
+  # If corr not given, try to calculate it
+  if(is.null(corr)) {
+    if(sum(complete.cases(x,y)) < 2) {
+      warning("Need at least 2 complete cases for cor()")
+      return()
+    } else {
+      corr <- cor(x, y, use='pair', method=cor.method)
+    }
+  }
 
   ncol <- 14
   pal <- col.regions(ncol)
@@ -426,6 +441,12 @@ panel.ellipse <- function(x,y, corr=NULL, col.regions, cor.method, ...){
 
   # For correlation matrix, do nothing
   if(!is.null(corr)) return()
+
+  # If too few points, do nothing
+  if(sum(complete.cases(x,y)) < 2) {
+    warning("Need at least 2 complete cases to draw ellipse.")
+    return()
+  }
 
   # Draw an ellipse
   dfn <- 2
@@ -470,8 +491,15 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   minx <- usr[1]; maxx <- usr[2]
   miny <- usr[3];  maxy <- usr[4]
 
-  if (is.null(corr))
-    corr <- cor(x, y, use = "pair", method=cor.method)
+  if (is.null(corr)) {
+    if(sum(complete.cases(x,y)) < 2) {
+      warning("Need at least 2 complete cases for cor()")
+      return()
+    } else {
+      corr <- cor(x, y, use = "pair", method=cor.method)
+    }
+  }
+  
   ncol <- 14
   pal <- col.regions(ncol)
   col.ind <- as.numeric(cut(corr, breaks = seq(from = -1, to = 1,
@@ -495,12 +523,20 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.cor, ...){
   # Correlation values only, colored
 
+  # If corr not given, try to calculate it
+  if(is.null(corr)) {
+    if(sum(complete.cases(x,y)) < 2) {
+      warning("Need at least 2 complete cases for cor()")
+      return()
+    } else {
+      corr <- cor(x, y, use='pair', method=cor.method)
+    }
+  }
+
   auto <- missing(cex.cor)
   usr <- par("usr"); on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
-
-  if(is.null(corr))
-    corr <- cor(x, y, use='pair', method=cor.method)
+  
   ncol <- 14
   pal <- col.regions(ncol)
   col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length=ncol+1),
@@ -532,20 +568,26 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.c
     text(0.5, 0.6, est, cex=cex.cor) #, col=pal[col.ind])
 
   } else { # Calculate correlation and confidence interval
-    results <- cor.test(x, y, alternative = "two.sided")
-
-    est <- results$estimate
-    #col.ind <- as.numeric(cut(est, breaks=seq(from=-1, to=1, length=ncol+1),
-    #                          include.lowest=TRUE))
-    est <- formatC(est, digits=digits, format='f')
-    if(auto) cex.cor <- 0.7/strwidth(est)
-    text(0.5, 0.6, est, cex=cex.cor) #, col=pal[col.ind])
-
-    ci <- results$conf.int
-    ci <- formatC(ci, digits=2, format='f')
-    ci <- paste("(",ci[1],",",ci[2],")",sep="")
-    if(auto) cex.cor <- 0.8/strwidth(ci)
-    text(0.5, 0.3, ci, cex=cex.cor) # , col=pal[col.ind])
+    if(sum(complete.cases(x,y)) < 4) {
+      warning("Need at least 4 complete cases for cor.test()")
+    } else {
+      results <- cor.test(x, y, alternative = "two.sided")
+      
+      # First, the estimate
+      est <- results$estimate
+      #col.ind <- as.numeric(cut(est, breaks=seq(from=-1, to=1, length=ncol+1),
+      #                          include.lowest=TRUE))
+      est <- formatC(est, digits=digits, format='f')
+      if(auto) cex.cor <- 0.7/strwidth(est)
+      text(0.5, 0.6, est, cex=cex.cor) #, col=pal[col.ind])
+      
+      ci <- results$conf.int
+      ci <- formatC(ci, digits=2, format='f')
+      ci <- paste("(",ci[1],",",ci[2],")",sep="")
+      if(auto) cex.cor <- 0.8/strwidth(ci)
+      text(0.5, 0.3, ci, cex=cex.cor) # , col=pal[col.ind])
+    }
+    
   }
 }
 

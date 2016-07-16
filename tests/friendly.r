@@ -1,10 +1,9 @@
 # friendly.r
-# Time-stamp: c:/x/rpack/corrgram/tests/friendly.r
+# Time-stamp: <15 Jul 2016 11:50:41 c:/x/rpack/corrgram/tests/friendly.R> 
 
-# Re-produce the figures from Friendly's paper
+# Reproduce the figures from Friendly's paper
 
-if(FALSE){ 
-  
+require(corrgram)
 # Figure 2
 vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
            "Putouts","RBI","Runs","Walks","Years")
@@ -93,5 +92,5 @@ corrgram(baseball[,vars2], order=TRUE,
          panel=panel.ellipse, 
          text.panel=panel.txt, diag.panel=panel.minmax)
 
-}
+
 

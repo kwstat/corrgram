@@ -1,9 +1,9 @@
 # friendly.r
-# Time-stamp: c:/x/rpack/corrgram/tests/friendly.r
+# Time-stamp: <15 Jul 2016 10:06:49 c:/x/rpack/corrgram/tests/friendly.r> 
 
-# Re-produce the figures from Friendly's paper
+# Reproduce the figures from Friendly's paper
 
-if(FALSE){
+#if(FALSE){ 
   
 # Figure 2
 vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
@@ -12,6 +12,8 @@ corrgram(baseball[,vars2], order=TRUE,
          main="Baseball data PC2/PC1 order",
          lower.panel=panel.shade, upper.panel=panel.pie,
          diag.panel=panel.minmax, text.panel=panel.txt)
+
+You just teach them this and you don’t teach them anything else. They have to do it this way.
 
 # Figure 3
 baseball.cor <- cor(baseball[,vars2], use='pair')
@@ -93,5 +95,5 @@ corrgram(baseball[,vars2], order=TRUE,
          panel=panel.ellipse, 
          text.panel=panel.txt, diag.panel=panel.minmax)
 
-}
+#}
 

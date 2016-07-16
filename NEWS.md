@@ -1,6 +1,6 @@
 # News for `corrgram`
 
-## Version 1.9 (unpublished)
+## corrgram 1.9 (Jul 2016)
 
 * Change vignette from Rnw/pdf to Rmd/html.
 
@@ -10,15 +10,19 @@
 
 * Add `panel.cor` for colored correlation values.
 
-## Version 1.8 (Jul 2015)
+* Fix minor bugs with no complete cases
+
+* Added more cases to tests directory.
+
+## corrgram 1.8 (Jul 2015)
 
 * Namespace changes due to R devel changes.
 
-## Version 1.7 (Feb 2015)
+## corrgram 1.7 (Feb 2015)
 
 * Support more seriate options.
 
-## Version 1.6 (Aug 2014)
+## corrgram 1.6 (Aug 2014)
 
 * Move packages from Depends to Imports.
 
@@ -27,13 +31,13 @@
 
 * New argument 'cor.method'. (Request of Evan Williams).
 
-## Version 1.5 (Aug 2013)
+## corrgram 1.5 (Aug 2013)
 
 * Update references links.  (Request of Michael Friendly).
 
 * Small bug with test for correlation matrix (Reported by F. Rosa)
 
-## Version 1.4 (Nov 2012)
+## corrgram 1.4 (Nov 2012)
 
 * Panel colors are now specified via a 'col.regions' argument.  The old
   method of using 'col.corrgram' is ignored. Could cause slight
@@ -41,13 +45,13 @@
 
 * Re-worked examples section for more variety.
 
-## Version 1.3 (Aug 2012)
+## corrgram 1.3 (Aug 2012)
 
 * Added `panel.bar`.  (Request of dadrivr)
 
 * Added example for unclipped labels (in the test suite).
 
-## Version 1.2
+## corrgram 1.2
 
 * Small bug.  Now accepts NA values in correlation matrices, and
   NAs caused by missing combinations of data and cor( use="pair").
@@ -59,11 +63,11 @@
 * Test suite now includes corrgram of inVerse correlation, partial
   correlation matrices.
 
-## Version 1.1
+## corrgram 1.1
 
 * Added namespace.
 
-## Version 1.0
+## corrgram 1.0
 
 * New panel function 'panel.conf'
 
@@ -81,10 +85,10 @@
 
 * Fixed bug: Strongly negative correlations used no color.
 
-## Version 0.1 (Nov 2006)
+## corrgram 0.1 (Nov 2006)
 
 * First release to CRAN.
 
-## Version 0.0  (Apr 2006)
+## corrgram 0.0  (Apr 2006)
 
 * Package development begins 2006-04-16.

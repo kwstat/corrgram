@@ -1,5 +1,5 @@
 # misc.r
-# Time-stamp: <08 Aug 2014 16:26:23 c:/x/rpack/corrgram/tests/misc.r>
+# Time-stamp: <14 Jul 2016 21:09:36 c:/x/rpack/corrgram/tests/misc.r>
 
 if(FALSE){ # No need to test automatically
 
@@ -75,6 +75,11 @@ corrgram(mtcars[2:6], order=TRUE,
          upper.panel=panel.conf, lower.panel=panel.pie,
          diag.panel=panel.minmax, text.panel=panel.txt)
 
+# Split long variable names on two lines
+corrgram(mtcars[2:6], order=TRUE, upper.panel=NULL,
+         lower.panel=panel.pie,
+         text.panel=panel.txt,
+         labels=rep('A very long \n variable name',4))
 # ----------------------------------------------------------------------------
 
 # Bug with negative correlation
@@ -215,5 +220,14 @@ corrgram(auto)
 corrgram(auto, cor.method="pearson")
 corrgram(auto, cor.method="spearman") # Slight change in colors
 
+# ----------------------------------------------------------------------------
+
+  dati <- iris[1:50,]
+  dati[seq(from=2, to=50, by=2),1] <- NA
+  dati[seq(from=1, to=49, by=2),2] <- NA
+  #dati <- dati[1:50,]
+  #dati[51:100,2] <- NA
+  corrgram(dati, lower=panel.pts, upper=panel.pts)
+  corrgram(dati, lower=panel.pts, upper=panel.conf)
 } # end if
 

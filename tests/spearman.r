@@ -31,8 +31,9 @@ min(cmat, na.rm = TRUE) > -1 - .Machine$double.eps # FALSE
 min(cmat, na.rm = TRUE) >= -1 - .Machine$double.eps # TRUE
 max(cmat, na.rm = TRUE) < 1 + .Machine$double.eps # TRUE
 
+require(corrgram)
 corrgram(cmat, type="cor", order=FALSE,
          lower.panel=panel.shade, upper.panel=panel.pts,
          text.panel=panel.txt, diag.panel=panel.minmax, main="Data")
 
-# ----------------------------------------------------------------------------
+

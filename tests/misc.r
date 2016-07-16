@@ -1,5 +1,5 @@
 # misc.r
-# Time-stamp: <28 Aug 2014 21:39:36 c:/x/rpack/corrgram/tests/misc.r>
+# Time-stamp: <15 Jul 2016 17:44:08 c:/x/rpack/corrgram/tests/misc.R>
 
 if(FALSE){ # No need to test automatically
 
@@ -20,17 +20,20 @@ text(x = -0.5, y = seq(from = 0.1, to=.45, length = 4),
 
 # ----------------------------------------------------------------------------
 
-# Test all the panel functions
-corrgram(auto, lower.panel=panel.conf, upper.panel=panel.pts)
-corrgram(auto, text.panel=NULL, diag.panel=panel.density)
-corrgram(auto, text.panel=NULL, diag.panel=NULL)
-corrgram(auto, diag.panel=panel.density)
-corrgram(auto, lower.panel=panel.pie, upper.panel=panel.shade)
-corrgram(auto, panel=panel.ellipse) # note: latticeExtra also has panel.ellipse
-corrgram(auto, upper.panel=panel.bar)
-corrgram(auto, lower.panel=panel.shade, upper.panel=NULL)
-corrgram(auto, text.panel=panel.txt, diag.panel=panel.minmax)
-
+  # Test all the panel functions
+  
+  # Off-diagonal panels
+  corrgram(auto, panel=panel.bar)
+  corrgram(auto, panel=panel.conf)
+  corrgram(auto, panel=panel.cor)
+  corrgram(auto, panel=panel.ellipse) # note: latticeExtra also has panel.ellipse
+  corrgram(auto, panel=panel.pie)
+  corrgram(auto, panel=panel.pts)
+  corrgram(auto, panel=panel.shade)
+  # All text/diag panels
+  corrgram(auto, text.panel=NULL, diag.panel=panel.density)
+  corrgram(auto, text.panel=panel.txt, diag.panel=panel.minmax)
+  
 # ----------------------------------------------------------------------------
 
 # Test the diagonal direction.  Reverse diagonal, use points in lower part
@@ -110,11 +113,10 @@ corrgram(auto, type='data')
 
 # ----------------------------------------------------------------------------
 
-# Test that non-numeric columns in data.frame are ignored.
+  # Test that non-numeric columns in data.frame are ignored.
 
-mt2 <- mtcars
-mt2$model <- rownames(mt2)
-corrgram(mt2)
+  corrgram(iris)
+
 # ----------------------------------------------------------------------------
 
 # Missing value in a correlation matrix.
@@ -220,5 +222,26 @@ corrgram(auto)
 corrgram(auto, cor.method="pearson")
 corrgram(auto, cor.method="spearman") # Slight change in colors
 
+# ----------------------------------------------------------------------------
+
+  # Example in which one pair of variables had no complete observations
+  dati <- iris[1:50,]
+  dati[seq(from=2, to=50, by=2),1] <- NA
+  dati[seq(from=1, to=49, by=2),2] <- NA
+
+  # Off-diagonal panels
+  corrgram(dati, panel=panel.bar)
+  corrgram(dati, panel=panel.conf)
+  corrgram(dati, panel=panel.cor)
+  corrgram(dati, panel=panel.ellipse)
+  corrgram(dati, panel=panel.pie)
+  corrgram(dati, panel=panel.pts)
+  corrgram(dati, panel=panel.shade)
+  # All text/diag panels
+  corrgram(dati, text.panel=NULL, diag.panel=panel.density)
+  corrgram(dati, text.panel=NULL, diag.panel=panel.minmax)
+  
+# ----------------------------------------------------------------------------
+  
 } # end if
 

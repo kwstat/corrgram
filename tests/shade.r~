@@ -1,5 +1,5 @@
 # shade.r
-# Time-stamp: <28 Mar 2012 15:26:23 c:/x/rpack/corrgram/tests/shade.r>
+# Time-stamp: <07 Nov 2012 09:44:57 c:/x/rpack/corrgram/tests/shade.r>
 
 mat <- matrix(c(
 0,-0.0063557,-0.52034,0.17974,-0.090269,0,0,3,1,1,
@@ -478,5 +478,4 @@ mat <- matrix(c(
 1,0.51215,0.47035,-0.20416,-0.23171,0,0,46,4,13,
 1,0.64486,0.06324,0.091829,0.093011,0,0,48,4,13), ncol=10, byrow=TRUE)
 
-corrgram(mat)
 corrgram(mat, order=TRUE,lower.panel=function(x,y,...) panel.conf(x,y))
