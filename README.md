@@ -17,6 +17,6 @@ Key features:
 install.packages("corrgram")
 
 # Install the cutting edge development version from GitHub:
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("kwstat/corrgram")
 ```
