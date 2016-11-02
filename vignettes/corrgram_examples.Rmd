@@ -62,8 +62,7 @@ corrgram(baseball[,vars2], order=TRUE,
 
 ## Figure 3
 
-Figure 3 shows an eigenvector plot of the correlation matrix.  This forms the
-basis of the orderings of the variables in the corrgram in the next section.
+Figure 3 shows an eigenvector plot of the correlation matrix.  This forms the basis of the orderings of the variables in the corrgram in Figure 4b in the next section, beginning with "AtBat" and then moving counter-clockwise up to "Years".  Note: Eigenvectors are unique only up to a change of sign.
 
 ```{r fig3}
 baseball.cor <- cor(baseball[,vars2], use='pair')
@@ -79,11 +78,9 @@ arrows(0, 0, e1, e2, cex=0.5, col="red", length=0.1)
 
 ## Figure 4a, 4b
 
-In figure 4a the variables are sorted in the order as given in the data.  In
-figure 4b, the variables are sorted according to a principal component
-ordering to look for possible clustering of the variables.  It is not
-surprising to see that more times at bat is strongly correlated with a higher number of
-hits and a higher number of runs.
+In figure 4a the variables are sorted in the alphabetical order as given in the data.
+
+In figure 4b, the variables are sorted according to the principal component ordering in Figure 3 to look for possible clustering of the variables.  It is not surprising to see that more times at bat is strongly correlated with a higher number of hits and a higher number of runs.
 
 ```{r fig4}
 corrgram(baseball[,vars2], main="Baseball data (alphabetic order)")

@@ -36,4 +36,6 @@ corrgram(cmat, type="cor", order=FALSE,
          lower.panel=panel.shade, upper.panel=panel.pts,
          text.panel=panel.txt, diag.panel=panel.minmax, main="Data")
 
-
+# Check the returned value is correct
+cc <- corrgram(dat, cor.method='spearman')
+all.equal(cmat, cc) # TRUE

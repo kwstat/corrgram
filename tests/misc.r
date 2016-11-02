@@ -7,17 +7,17 @@ if(FALSE){ # No need to test automatically
 
 # Crude way to add labels along the axes
 
+require(corrgram)
 corrgram(x = iris, labels = NULL, lower.panel = panel.pts,
          upper.panel = panel.conf, diag.panel = panel.density)
 # Draw the axes and note the position of the scales
 axis(1)
 axis(2)
-# Add labels in outer margins
-text(x = seq(from = 0, to = 2.6, length = 4), y = 0.01,
-     labels = names(iris[, -5]), pos = 3, cex = 0.5)
-text(x = -0.5, y = seq(from = 0.1, to=.45, length = 4),
-     labels = rev(names(iris[, -5])), srt=90, pos = 3, cex = 0.5)
-
+# Manual experiment to position labels
+mtext(names(iris[, -5]), at=seq(from= 0, to=2.6, length=4), 
+      side=1, line=3, col="red")
+mtext(names(iris[, -5]), at=seq(from= 0.1, to=0.4, length=4), 
+      side=2, line=2, col="red", adj=0)
 # ----------------------------------------------------------------------------
 
   # Test all the panel functions

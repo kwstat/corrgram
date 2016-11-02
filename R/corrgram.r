@@ -1,12 +1,9 @@
 # corrgram.r
-# Time-stamp: <15 Jul 2016 16:59:43 c:/x/rpack/corrgram/R/corrgram.R>
-
-# The corrgram function was derived from the 'pairs' function.
-# Code for plotting ellipses was derived from the ellipse package.
+# Time-stamp: <25 Oct 2016 13:45:12 c:/x/rpack/corrgram/R/corrgram.R>
 
 # To do: Add a legend/ribbon
 
-
+# ----------------------------------------------------------------------------
 
 #' Draw a correlogram
 #' 
@@ -15,8 +12,7 @@
 #' show the correlation value.
 #' 
 #' 
-#' Note: Use the 'col.regions' argument to specify colors.  Earlier versions
-#' used a function 'col.corrgram' to specify colors.
+#' Note: Use the 'col.regions' argument to specify colors.
 #' 
 #' Non-numeric columns in the data will be ignored.
 #' 
@@ -73,7 +69,7 @@
 #' 'pearson'.  Alternatives: 'spearman', 'kendall'
 #' @param ... Additional arguments passed to plotting methods.
 #' 
-#' @return No value is returned.  A plot is created.
+#' @return The correlation matrix is returned. A plot is created.
 #' 
 #' @author Kevin Wright
 #' 
@@ -125,8 +121,7 @@
 #' @import seriation
 #' @import stats
 #' @export corrgram
-corrgram <-
-  function (x, type=NULL,
+corrgram <- function (x, type=NULL,
             order=FALSE, labels, panel = panel.shade,
             lower.panel = panel, upper.panel = panel,
             diag.panel = NULL, text.panel = textPanel,
@@ -189,6 +184,10 @@ corrgram <-
     cmat <- cor(x, use="pairwise.complete.obs", method=cor.method)
   else
     cmat <- x
+
+  # Save the correlation matrix for returning to user
+  cmat.return <- cmat
+  
   cmat <- if(abs) abs(cmat) else cmat
 
   # Re-order the data to group highly correlated variables
@@ -343,7 +342,7 @@ corrgram <-
     mtext(main, 3, 3, TRUE, 0.5, cex = cex.main, font = font.main)
   }
 
-  invisible(NULL)
+  invisible(cmat.return)
 }
 
 # ----------------------------------------------------------------------------

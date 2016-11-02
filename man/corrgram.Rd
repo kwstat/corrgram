@@ -73,8 +73,7 @@ called a correlogram.  The cells of the matrix can be shaded or colored to
 show the correlation value.
 }
 \details{
-Note: Use the 'col.regions' argument to specify colors.  Earlier versions
-used a function 'col.corrgram' to specify colors.
+Note: Use the 'col.regions' argument to specify colors.
 
 Non-numeric columns in the data will be ignored.
 

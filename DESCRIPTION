@@ -1,6 +1,6 @@
 Package: corrgram
 Title: Plot a Correlogram
-Version: 1.9
+Version: 1.10
 Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", role=c("aut","cre"))
 Date: 2016-07-15
 Type: Package
@@ -15,7 +15,8 @@ Imports:
 Suggests:
     gridBase,
     knitr,
-    Matrix
+    Matrix,
+    rmarkdown
 License: GPL-2
 LazyData: yes
 URL: https://github.com/kwstat/corrgram
