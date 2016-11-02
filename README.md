@@ -1,6 +1,7 @@
 # corrgram
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/corrgram)](https://cran.r-project.org/package=corrgram)
+[![Research software impact](http://depsy.org/api/package/cran/corrgram/badge.svg)](http://depsy.org/package/r/corrgram)
 
 The `corrgram` package provides a simple way to create correlograms from raw data or a correlation matrix.
 
