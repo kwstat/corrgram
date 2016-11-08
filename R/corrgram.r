@@ -55,7 +55,8 @@
 #' re-ordering.  Options from the 'seriate' package include "OLO" for optimal
 #' leaf ordering, "GW", and "HC".
 #' @param labels Labels to use (instead of data frame variable names) for
-#' diagonal panels
+#' diagonal panels. If 'order' option is used, this vector of labels will be
+#' also be reordered by the function appropriately.
 #' @param panel Function used to plot the contents of each panel
 #' @param lower.panel,upper.panel Separate panel functions used below/above the
 #' diagonal
@@ -279,6 +280,8 @@ corrgram <-
   if (missing(labels)) {
     labels <- colnames(x)
     if (is.null(labels)) labels <- paste("var", 1:nc)
+  } else if (order!=FALSE) {
+      labels = labels[ord]
   }
   else if(is.null(labels)) has.labs <- FALSE
   if(is.null(text.panel)) has.labs <- FALSE
