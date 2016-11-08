@@ -1,5 +1,5 @@
 # corrgram.r
-# Time-stamp: <25 Oct 2016 13:45:12 c:/x/rpack/corrgram/R/corrgram.R>
+# Time-stamp: <08 Nov 2016 13:41:55 c:/x/rpack/corrgram/R/corrgram.r>
 
 # To do: Add a legend/ribbon.  See 'corrplot' package for a different
 # way to calculate the layout.
@@ -55,7 +55,8 @@
 #' leaf ordering, "GW", and "HC".
 #' 
 #' @param labels Labels to use (instead of data frame variable names) for
-#' diagonal panels
+#' diagonal panels. If 'order' option is used, this vector of labels will be
+#' also be reordered by the function appropriately.
 #' 
 #' @param panel Function used to plot the contents of each panel
 #' 
@@ -295,6 +296,8 @@ corrgram <- function (x, type=NULL,
   if (missing(labels)) {
     labels <- colnames(x)
     if (is.null(labels)) labels <- paste("var", 1:nc)
+  } else if (order!=FALSE) {
+      labels = labels[ord]
   }
   else if(is.null(labels)) has.labs <- FALSE
   if(is.null(text.panel)) has.labs <- FALSE
