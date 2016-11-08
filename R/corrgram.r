@@ -1,7 +1,8 @@
 # corrgram.r
 # Time-stamp: <25 Oct 2016 13:45:12 c:/x/rpack/corrgram/R/corrgram.R>
 
-# To do: Add a legend/ribbon
+# To do: Add a legend/ribbon.  See 'corrplot' package for a different
+# way to calculate the layout.
 
 # ----------------------------------------------------------------------------
 
@@ -45,28 +46,44 @@
 #' 
 #' @param x A \emph{tall} data frame with one observation per row, or a
 #' correlation matrix.
+#' 
 #' @param type Use 'data' or 'cor'/'corr' to explicitly specify that 'x' is
 #' data or a correlation matrix.  Rarely needed.
+#' 
 #' @param order Should variables be re-ordered?  Use TRUE/"PCA" for PCA-based
 #' re-ordering.  Options from the 'seriate' package include "OLO" for optimal
 #' leaf ordering, "GW", and "HC".
+#' 
 #' @param labels Labels to use (instead of data frame variable names) for
 #' diagonal panels
+#' 
 #' @param panel Function used to plot the contents of each panel
+#' 
 #' @param lower.panel,upper.panel Separate panel functions used below/above the
 #' diagonal
+#' 
 #' @param diag.panel,text.panel Panel function used on the diagonal
+#' 
 #' @param label.pos Horizontal and vertical placement of label in diagonal
 #' panels
+#' 
 #' @param label.srt String rotation for diagonal labels
+#' 
 #' @param cex.labels,font.labels Graphics parameter for diagonal panels
+#' 
 #' @param row1attop TRUE for diagonal like " \ ", FALSE for diagonal like " / ".
+#' 
 #' @param dir Use \code{dir="left"} instead of 'row1attop'
+#' 
 #' @param gap Distance between panels
+#' 
 #' @param abs Use absolute value of correlations for clustering?  Default FALSE
+#' 
 #' @param col.regions A \emph{function} returning a vector of colors
+#' 
 #' @param cor.method Correlation method to use in panel functions.  Default is
 #' 'pearson'.  Alternatives: 'spearman', 'kendall'
+#' 
 #' @param ... Additional arguments passed to plotting methods.
 #' 
 #' @return The correlation matrix is returned. A plot is created.
@@ -284,7 +301,7 @@ corrgram <- function (x, type=NULL,
 
   oma <- if("oma" %in% nmdots) dots$oma else NULL
   main <- if("main" %in% nmdots) dots$main else NULL
-
+  
   if (is.null(oma)) {
     oma <- c(4, 4, 4, 4)
     if (!is.null(main)) oma[3] <- 6 # Space for the title
