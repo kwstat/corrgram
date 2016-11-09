@@ -1,9 +1,10 @@
 # friendly.r
-# Time-stamp: <15 Jul 2016 11:50:41 c:/x/rpack/corrgram/tests/friendly.R> 
+# Time-stamp: <08 Nov 2016 16:29:45 c:/x/rpack/corrgram/tests/friendly.R> 
+
+require(corrgram)
 
 # Reproduce the figures from Friendly's paper
 
-require(corrgram)
 # Figure 2
 vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
            "Putouts","RBI","Runs","Walks","Years")

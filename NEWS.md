@@ -1,7 +1,11 @@
 
-# corrgram 1.10 - unpublished
+# corrgram 1.10 - Nov 2016
 
 `corrgram()` now returns the correlation matrix.
+
+Fix labels ordering when `order=TRUE` for M.Bruneaux.
+
+Begin using `testthat` package.
 
 # corrgram 1.9 - Jul 2016
 

@@ -1,5 +1,24 @@
 # misc.r
-# Time-stamp: <15 Jul 2016 17:44:08 c:/x/rpack/corrgram/tests/misc.R>
+# Time-stamp: <08 Nov 2016 16:30:28 c:/x/rpack/corrgram/tests/misc.R>
+
+require(corrgram)
+
+# Test 'order' argument
+corrgram(mtcars)
+corrgram(mtcars, order=NULL)
+corrgram(mtcars, order=FALSE)
+corrgram(mtcars, order=TRUE)
+corrgram(mtcars, order="PC")
+corrgram(mtcars, order="OLO")
+corrgram(mtcars, order="PC", abs=TRUE)
+corrgram(mtcars, order="OLO", abs=TRUE)
+
+# Make sure 'labels' works correctly with 'order'
+myLabels = names(mtcars)
+myLabels[myLabels == "hp"] = "horse\npower"
+corrgram(mtcars, lower.panel = panel.conf, labels = myLabels)
+cmat1 <- corrgram(mtcars, lower.panel = panel.conf, labels = myLabels, order = TRUE)
+
 
 if(FALSE){ # No need to test automatically
 
@@ -63,19 +82,6 @@ col.earth <- colorRampPalette(c("darkgoldenrod4", "burlywood1", "darkkhaki", "da
 corrgram(mtcars, order=TRUE, lower.panel=panel.shade, upper.panel=panel.pie,
          text.panel=panel.txt, main="A Corrgram of a Different Color",
          col.regions=col.earth)
-
-# ----------------------------------------------------------------------------
-
-# Test 'order' argument
-
-corrgram(mtcars)
-corrgram(mtcars, order=NULL)
-corrgram(mtcars, order=FALSE)
-corrgram(mtcars, order=TRUE)
-corrgram(mtcars, order="PC")
-corrgram(mtcars, order="OLO")
-corrgram(mtcars, order="PC", abs=TRUE)
-corrgram(mtcars, order="OLO", abs=TRUE)
 
 # ----------------------------------------------------------------------------
 
@@ -227,9 +233,9 @@ popViewport()
 
 # Test pearson vs spearman.
 
-corrgram(auto)
-corrgram(auto, cor.method="pearson")
-corrgram(auto, cor.method="spearman") # Slight change in colors
+  corrgram(auto)
+  corrgram(auto, cor.method="pearson")
+  corrgram(auto, cor.method="spearman") # Slight change in colors
 
 # ----------------------------------------------------------------------------
 
@@ -251,6 +257,7 @@ corrgram(auto, cor.method="spearman") # Slight change in colors
   corrgram(dati, text.panel=NULL, diag.panel=panel.minmax)
   
 # ----------------------------------------------------------------------------
+
   
 } # end if
 
