@@ -31,4 +31,4 @@ require(corrgram)
 corrgram(mtcars, order=TRUE, lower.panel=panel.shade, upper.panel=panel.pie,
          text.panel=panel.txt, main="mtcars")
 ```
-![corrgram](figure/corrgram_auto.png?raw=true)
+![corrgram](figure/corrgram_mtcars.png)
