@@ -24,7 +24,7 @@ devtools::install_github("kwstat/corrgram")
 ## Example
 
 Vignette:
-[Lucid printing](https://rawgit.com/kwstat/corrgram/master/vignettes/lucid_printing.html)
+[Corrgram examples](https://rawgit.com/kwstat/corrgram/master/vignettes/corrgram_examples.html)
 
 ```R
 require(corrgram)
