@@ -1,5 +1,5 @@
 # misc.r
-# Time-stamp: <08 Nov 2016 16:30:28 c:/x/rpack/corrgram/tests/misc.R>
+# Time-stamp: <18 Nov 2016 11:53:36 c:/x/rpack/corrgram/tests/misc.R>
 
 require(corrgram)
 

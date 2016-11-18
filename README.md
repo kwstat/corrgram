@@ -21,3 +21,14 @@ install.packages("corrgram")
 install.packages("devtools")
 devtools::install_github("kwstat/corrgram")
 ```
+## Example
+
+Vignette:
+[Lucid printing](https://rawgit.com/kwstat/corrgram/master/vignettes/lucid_printing.html)
+
+```R
+require(corrgram)
+corrgram(mtcars, order=TRUE, lower.panel=panel.shade, upper.panel=panel.pie,
+         text.panel=panel.txt, main="mtcars")
+```
+![corrgram](figure/corrgram_auto.png)
