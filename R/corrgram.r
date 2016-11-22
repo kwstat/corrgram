@@ -12,7 +12,6 @@
 #' called a correlogram.  The cells of the matrix can be shaded or colored to
 #' show the correlation value.
 #' 
-#' 
 #' Note: Use the 'col.regions' argument to specify colors.
 #' 
 #' Non-numeric columns in the data will be ignored.
