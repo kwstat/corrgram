@@ -1,8 +1,8 @@
 Package: corrgram
 Title: Plot a Correlogram
-Version: 1.10
+Version: 1.11
 Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", role=c("aut","cre"))
-Date: 2016-11-08
+Date: 2017-04-03
 Type: Package
 Description: Calculates correlation of variables and displays the results
     graphically. Included panel functions can display points, shading, ellipses, and
@@ -23,4 +23,4 @@ LazyData: yes
 URL: https://github.com/kwstat/corrgram
 BugReports: https://github.com/kwstat/corrgram/issues/
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

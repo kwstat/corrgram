@@ -26,4 +26,3 @@ corrgram(vote, order=TRUE)
 Using Graphs Instead of Tables.
 http://tables2graphs.com/doku.php?id=03_descriptive_statistics
 }
-

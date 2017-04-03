@@ -63,4 +63,3 @@ corrgram(baseball[,vars2],
 Michael Friendly (2002). Corrgrams: Exploratory Displays for Correlation 
 Matrices, \emph{The American Statistician}, Vol 56.
 }
-

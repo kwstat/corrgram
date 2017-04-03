@@ -1,8 +1,21 @@
 # corrgram.r
-# Time-stamp: <08 Nov 2016 13:41:55 c:/x/rpack/corrgram/R/corrgram.r>
+# Time-stamp: <03 Apr 2017 12:10:11 c:/x/rpack/corrgram/R/corrgram.R>
+
+  
+# http://stackoverflow.com/questions/40385321/how-to-have-axis-labels-in-r-corrgram
+# http://stackoverflow.com/questions/40436727/how-to-auto-adjust-r-figure-axis-labels-to-matrix-size
+#http://stackoverflow.com/questions/18294448/corrgram-package-horizontal-and-vertical-labels
+
+# http://stackoverflow.com/questions/28996341/customizing-what-variables-are-shown-on-the-sides-and-on-the-top-of-the-outputs
+
+# color key
+# http://stackoverflow.com/questions/9852343/how-to-add-a-color-key-to-a-pairs-plot
 
 # To do: Add a legend/ribbon.  See 'corrplot' package for a different
 # way to calculate the layout.
+
+# hexbin
+# https://procomun.wordpress.com/2011/03/18/splomr/
 
 # ----------------------------------------------------------------------------
 
@@ -55,50 +68,55 @@
 #' 
 #' @param labels Labels to use (instead of data frame variable names) for
 #' diagonal panels. If 'order' option is used, this vector of labels will be
-#' also be reordered by the function appropriately.
+#' also be appropriately reordered by the function.
 #' 
-#' @param panel Function used to plot the contents of each panel
+#' @param panel Function used to plot the contents of each panel.
 #' 
 #' @param lower.panel,upper.panel Separate panel functions used below/above the
-#' diagonal
+#' diagonal.
 #' 
-#' @param diag.panel,text.panel Panel function used on the diagonal
+#' @param diag.panel,text.panel Panel function used on the diagonal.
 #' 
 #' @param label.pos Horizontal and vertical placement of label in diagonal
-#' panels
+#' panels.
 #' 
-#' @param label.srt String rotation for diagonal labels
+#' @param label.srt String rotation for diagonal labels.
 #' 
-#' @param cex.labels,font.labels Graphics parameter for diagonal panels
+#' @param cex.labels,font.labels Graphics parameter for diagonal panels.
 #' 
 #' @param row1attop TRUE for diagonal like " \ ", FALSE for diagonal like " / ".
 #' 
-#' @param dir Use \code{dir="left"} instead of 'row1attop'
+#' @param dir Use \code{dir="left"} instead of 'row1attop'.
 #' 
-#' @param gap Distance between panels
+#' @param gap Distance between panels.
 #' 
-#' @param abs Use absolute value of correlations for clustering?  Default FALSE
+#' @param abs Use absolute value of correlations for clustering?  Default FALSE.
 #' 
-#' @param col.regions A \emph{function} returning a vector of colors
+#' @param col.regions A \emph{function} returning a vector of colors.
 #' 
 #' @param cor.method Correlation method to use in panel functions.  Default is
-#' 'pearson'.  Alternatives: 'spearman', 'kendall'
+#' 'pearson'.  Alternatives: 'spearman', 'kendall'.
+#'
+#' @param outer.labels A list of the form 'list(bottom,left,top,right)',
+#' each component of which is a list of the form 'list(labels,cex,srt)'.
+#' This is used to add labels along the outside edges of the corrgram.
+#' Defaults: 'cex=1', 'srt=90' (bottom/top), 'srt=0' (left/right).
 #' 
 #' @param ... Additional arguments passed to plotting methods.
 #' 
-#' @return The correlation matrix is returned. A plot is created.
+#' @return The correlation matrix used for plotting is returned. The 'order' and 'abs'
+#' arguments affect the returned value.
 #' 
 #' @author Kevin Wright
 #' 
-#' @references Friendly, Michael.  2002.  Corrgrams: Exploratory Displays for
+#' @references
+#' Friendly, Michael.  2002.  Corrgrams: Exploratory Displays for
 #' Correlation Matrices.  \emph{The American Statistician}, 56, 316--324.
 #' \url{http://datavis.ca/papers/corrgram.pdf}
 #' 
-#' A SAS macro by Michael Friendly is at
-#' \url{http://datavis.ca/sasmac/corrgram.html}.
-#' 
 #' D. J. Murdoch and E. D. Chow. 1996. A Graphical Display of Large Correlation
 #' Matrices.  The American Statistician, 50, 178-180.
+#' 
 #' @keywords hplot
 #' 
 #' @examples
@@ -132,6 +150,15 @@
 #' 
 #' # 'vote' is a correlation matrix, not a data frame
 #' corrgram(vote, order=TRUE, upper.panel=panel.cor)
+#'
+#'
+#' # outer labels, all options, larger margins, xlab, ylab
+#' labs=colnames(state.x77)
+#' corrgram(state.x77, oma=c(7, 7, 2, 2), main="state.x77",
+#'          outer.labels=list(bottom=list(labels=labs,cex=1.5,srt=60),
+#'                            left=list(labels=labs,cex=1.5,srt=30)))
+#' mtext("Bottom", side=1, cex=2, line = -1.5, outer=TRUE, xpd=NA)
+#' mtext("Left", side=2, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 #' 
 #' @import graphics
 #' @import grDevices
@@ -148,6 +175,7 @@ corrgram <- function (x, type=NULL,
             abs=FALSE,
             col.regions = colorRampPalette(c("red","salmon","white","royalblue","navy")),
             cor.method="pearson",
+            outer.labels=NULL,
             ...) {
   # Need graphics
   # Need grDevices
@@ -184,11 +212,11 @@ corrgram <- function (x, type=NULL,
       type <- "data"
   } else if(type=="data"){
     if(maybeCorr)
-      warning('This looks like a correlation matrix.')
+      warning("This looks like a correlation matrix.")
   } else if(type=="cor" | type=="corr") {
     type <- "corr"
     if(!maybeCorr)
-      stop('This is NOT a correlation matrix.')
+      stop("This is NOT a correlation matrix.")
   } else {
     stop("unknown data type in 'corrgram'")
   }
@@ -202,11 +230,14 @@ corrgram <- function (x, type=NULL,
   else
     cmat <- x
 
-  # Save the correlation matrix for returning to user
+  # Save the correlation matrix for returning to user, re-ordered below
   cmat.return <- cmat
-  
+
+  # should we use absolute correlations for determining ordering?
   cmat <- if(abs) abs(cmat) else cmat
 
+  # Default order
+  if(order==FALSE) ord <- 1:nrow(cmat)
   # Re-order the data to group highly correlated variables
   if(order==TRUE | order=="PC" | order=="PCA"){
     # Order by angle size between PCAs (first two) of correlation matrix
@@ -216,25 +247,28 @@ corrgram <- function (x, type=NULL,
     alpha <- ifelse(e1>0, atan(e2/e1), atan(e2/e1)+pi)
     ord <- order(alpha)
     x <- if(type=="data") x[,ord] else x[ord, ord]
+    cmat.return <- cmat.return[ord,ord]
   } else if (order=="OLO") {
     distx <- dist(cmat)
     ss <- seriate(distx, method="OLO") # from seriation package
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
+    cmat.return <- cmat.return[ord,ord]
   } else if (order=="GW"){ # GW order
     distx <- dist(cmat)
     ss <- seriate(distx, method="GW")
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
+    cmat.return <- cmat.return[ord,ord]
   } else if (order=="HC"){ # HC ... just for comparision really
     distx <- dist(cmat)
     ss <- seriate(distx, method="HC")
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
+    cmat.return <- cmat.return[ord,ord]
   } else if(order!=FALSE){
     stop("Unknown order argument in 'corrgram'.")
   }
-
 
   textPanel <- function(x = 0.5, y = 0.5, txt, cex, font, srt) {
     text(x, y, txt, cex=cex, font=font, srt=srt)
@@ -288,8 +322,6 @@ corrgram <- function (x, type=NULL,
     tmp <- has.lower; has.lower <- has.upper; has.upper <- tmp
   }
 
-  # Plot layout
-
   nc <- ncol(x)
   has.labs <- TRUE
   if (missing(labels)) {
@@ -297,17 +329,19 @@ corrgram <- function (x, type=NULL,
     if (is.null(labels)) labels <- paste("var", 1:nc)
   } else if (order!=FALSE) {
       labels = labels[ord]
-  }
-  else if(is.null(labels)) has.labs <- FALSE
+  } else if(is.null(labels)) has.labs <- FALSE
   if(is.null(text.panel)) has.labs <- FALSE
 
   oma <- if("oma" %in% nmdots) dots$oma else NULL
   main <- if("main" %in% nmdots) dots$main else NULL
   
+  # Plot layout
+
   if (is.null(oma)) {
     oma <- c(4, 4, 4, 4)
     if (!is.null(main)) oma[3] <- 6 # Space for the title
   }
+  # corrgram uses mfrow, plotting down the columns
   opar <- par(mfrow = c(nc, nc), mar = rep.int(gap/2, 4), oma = oma)
   on.exit(par(opar))
 
@@ -361,7 +395,77 @@ corrgram <- function (x, type=NULL,
     mtext(main, 3, 3, TRUE, 0.5, cex = cex.main, font = font.main)
   }
 
+  # ----------------------------------------------------------------------------
+  
+  corrgram.outer.labels(1, nc, ord, outer.labels$bottom)
+  corrgram.outer.labels(2, nc, ord, outer.labels$left)
+  corrgram.outer.labels(3, nc, ord, outer.labels$top)
+  corrgram.outer.labels(4, nc, ord, outer.labels$right)
+  
+  ## # Add overall labels
+  ## mtext(xlab, side = 1, line = -1.5, outer=TRUE, xpd=NA)
+  ## mtext(ylab, side = 2, line = -1.5, outer=TRUE, xpd=NA)
+
   invisible(cmat.return)
+}
+
+corrgram.outer.labels <- function(side,nc,ord,ll){
+  # ll=list(labels,cex,las,srt)
+  # inspired by Leo Leopold, with modifications to rotate text from
+  # http://menugget.blogspot.com/2014/08/rotated-axis-labels-in-r-plots.html
+  
+  if(is.null(ll)) return()
+  
+  if(length(ll$labels) != nc)
+    stop("The length of labels of side ", side, " does not match the number of columns of the corrgram.")
+  
+  # default cex, srt
+  ll$labels = ll$labels[ord]
+  if(is.null(ll$cex)) ll$cex=1
+  if((side==1 | side==3) & is.null(ll$srt)) ll$srt=90 # vert
+  if((side==2 | side==4) & is.null(ll$srt)) ll$srt=0 # horiz
+  
+  #browser()
+  for(i in 1:nc){
+    # row/column grid position down/right 
+    if(side==1) { # bottom
+      par(mfg=c(nc, i))
+      # without 'clip', only the first label is added
+      clip(0, -2, 0, 1)
+      text(x=0.5, y= 0 - 0.05*(1-0), labels=ll$labels[i],
+           cex=ll$cex, srt=ll$srt, adj=1, xpd=NA)
+    } else if (side==2){ # left
+      par(mfg=c(i, 1))
+      clip(0, -2, 0, 1)
+      text(x=0 - 0.05*(1-0), y=0.5, labels=ll$labels[i],
+           cex=ll$cex, srt=ll$srt, adj=1, xpd=NA)
+    } else if (side==3) { # top
+      par(mfg=c(1, i))
+      clip(0, -2, 0, 1)
+      text(x=0.5, y= 1 + 0.05*(1-0), labels=ll$labels[i],
+           cex=ll$cex, srt=ll$srt, adj=0, xpd=NA)
+    } else if (side==4) { # right
+      par(mfg=c(i, nc))
+      clip(0, -2, 0, 1)
+      text(x=1 + .05*(1-0), y=0.5, labels=ll$labels[i],
+           cex=ll$cex, srt=ll$srt, adj=0, xpd=NA)
+    } else {
+      stop("'side' must be 1, 2, 3, or 4")
+    }
+    
+    #            usr <- par("usr") # should always be 0 1 0 1 right?
+    #            clip(x1,x2,y1,y2)
+    #            clip(usr[1], -2, usr[3], usr[4])
+    #clip(0, 1, 0, 1)
+    #axis(side=side, at=0.5, labels=ll$labels[i],
+    #     outer=TRUE,
+    #     mgp=c(3,0,0.5), # title, axis label, axis line
+    #     cex.axis=ll$cex,
+    #     las=ll$las,  # las: 0 parallel, 1 horiz, 2 perp, 3 vert
+    #     xpd=NA, lwd=NA)
+  }
+  
+  return()
 }
 
 # ----------------------------------------------------------------------------
@@ -534,7 +638,7 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
     rect(minx, miny, maxx, maxy, col = pal[col.ind],
          border = "lightgray")
   }
-
+  
 }
 
 #' @export
@@ -638,4 +742,3 @@ panel.minmax <- function(x, corr=NULL, ...){
   text(minx, minx, minx, cex=1, adj=c(0,0))
   text(maxx, maxx, maxx, cex=1, adj=c(1,1))
 }
-

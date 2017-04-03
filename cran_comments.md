@@ -1,5 +1,24 @@
 
-# Version 1.10
+# corrgram 1.11
+
+## Test environments
+
+* local: R 3.3.2 on Windows 7
+* win-builder: R-release 3.3.3
+* win-builder: R-devel
+* R-hub: R-devel
+
+## Rcmd check results
+
+There is one NOTE about a Possibly mis-spelled word.  (The word is correct).
+
+## News
+
+New argument `outer.labels` for adding labels along outside edges of corrgram.
+
+Test coverage 95% using `covr` package.
+
+# corrgram 1.10
 
 Small bug fix.
 

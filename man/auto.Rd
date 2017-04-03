@@ -41,4 +41,3 @@ Originally published in Chambers, Cleveland, Kleiner, and Tukey,
 The data is from various sources, primarily \emph{Consumer Reports}, April,
 1979, and the United States government EPA statistics on fuel consumption.
 }
-
