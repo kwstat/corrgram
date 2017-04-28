@@ -1,4 +1,4 @@
-# corrgram
+# corrgram  <img src="figure/corrgram_logo_150.png" align="right" />
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/corrgram)](https://cran.r-project.org/package=corrgram)
 [![CRAN_Downloads](https://cranlogs.r-pkg.org/badges/corrgram)](https://cranlogs.r-pkg.org/badges/corrgram)

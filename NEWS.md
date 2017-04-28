@@ -1,7 +1,7 @@
 
 # corrgram 1.11 - Apr 2017
 
-New argument `outer.labels` for adding labels along outside edges of corrgram.
+New argument `outer.labels` for adding labels along outside edges of corrgram. (Request of Vanessa Bruat and others.)
 
 Test coverage 95% using `covr` package.
 
@@ -14,10 +14,6 @@ Fixed custom label ordering when `order=TRUE` for M.Bruneaux.
 Began using `testthat` package.
 
 # corrgram 1.9 - Jul 2016
-
-Changed vignette from Rnw to Rmd.
-
-Switched to Roxygen for documentation.
 
 New panel function `panel.cor` for colored correlation values.
 
@@ -59,7 +55,7 @@ New panel function `panel.bar`.  (Request of dadrivr)
 
 Added example for unclipped labels (in the test suite).
 
-# corrgram 1.2
+# corrgram 1.2 - Mar 2012
 
 Small bug.  Now accepts NA values in correlation matrices, and
 NAs caused by missing combinations of data and cor(use="pair").
@@ -71,11 +67,11 @@ New panel function `panel.density`.
 Test suite now includes corrgram of inverse correlation, partial
 correlation matrices.
 
-# corrgram 1.1
+# corrgram 1.1 - Oct 2011
 
 Added namespace.
 
-# corrgram 1.0
+# corrgram 1.0 - Jul 2011
 
 New panel function `panel.conf`.
 
@@ -90,9 +86,7 @@ New ordering method `OLO` using `seriation` package.
 
 Ordering can now be done on absolute value of correlations.
 
-Fixed bug: Strongly negative correlations used no color.
-
-# corrgram 0.1 - Nov 2006
+# corrgram 0.1 - Dec 2006
 
 First release to CRAN.
 

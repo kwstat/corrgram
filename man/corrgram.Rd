@@ -143,6 +143,7 @@ corrgram(vote, order=TRUE, upper.panel=panel.cor)
 
 
 # outer labels, all options, larger margins, xlab, ylab
+require(corrgram)
 labs=colnames(state.x77)
 corrgram(state.x77, oma=c(7, 7, 2, 2), main="state.x77",
          outer.labels=list(bottom=list(labels=labs,cex=1.5,srt=60),

@@ -1,12 +1,5 @@
 # corrgram.r
-# Time-stamp: <03 Apr 2017 10:57:39 c:/x/rpack/corrgram/R/corrgram.r>
-
-  
-# http://stackoverflow.com/questions/40385321/how-to-have-axis-labels-in-r-corrgram
-# http://stackoverflow.com/questions/40436727/how-to-auto-adjust-r-figure-axis-labels-to-matrix-size
-#http://stackoverflow.com/questions/18294448/corrgram-package-horizontal-and-vertical-labels
-
-# http://stackoverflow.com/questions/28996341/customizing-what-variables-are-shown-on-the-sides-and-on-the-top-of-the-outputs
+# Time-stamp: <04 Apr 2017 16:32:08 c:/x/rpack/corrgram/R/corrgram.R>
 
 # color key
 # http://stackoverflow.com/questions/9852343/how-to-add-a-color-key-to-a-pairs-plot
@@ -150,6 +143,15 @@
 #' 
 #' # 'vote' is a correlation matrix, not a data frame
 #' corrgram(vote, order=TRUE, upper.panel=panel.cor)
+#'
+#'
+#' # outer labels, all options, larger margins, xlab, ylab
+#' labs=colnames(state.x77)
+#' corrgram(state.x77, oma=c(7, 7, 2, 2),
+#'          outer.labels=list(bottom=list(labels=labs,cex=1.5,srt=60),
+#'                            left=list(labels=labs,cex=1.5,srt=30)))
+#' mtext("Bottom", side=1, cex=2, line = -1.5, outer=TRUE, xpd=NA)
+#' mtext("Left", side=2, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 #' 
 #' @import graphics
 #' @import grDevices
@@ -207,7 +209,7 @@ corrgram <- function (x, type=NULL,
   } else if(type=="cor" | type=="corr") {
     type <- "corr"
     if(!maybeCorr)
-      stop("This is NOT a correlation matrix.")
+      warning("This is NOT a correlation matrix.")
   } else {
     stop("unknown data type in 'corrgram'")
   }

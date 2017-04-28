@@ -1,4 +1,4 @@
-# misc.r
+# test_misc.R
 # Time-stamp: <03 Apr 2017 11:51:31 c:/x/rpack/corrgram/tests/testthat/test_raw.R>
 
 require(corrgram)
