@@ -1,5 +1,5 @@
 # corrgram.r
-# Time-stamp: <27 Apr 2017 15:43:12 c:/x/rpack/corrgram/R/corrgram.R>
+# Time-stamp: <05 May 2017 16:04:24 c:/x/rpack/corrgram/R/corrgram.R>
 
 # color key
 # http://stackoverflow.com/questions/9852343/how-to-add-a-color-key-to-a-pairs-plot
@@ -191,12 +191,26 @@ corrgram <- function (x, type=NULL,
 
   # Do we have a data.frame or correlation matrix?
   # Note: Important to use "<=" instead of "<" (for example).
-  if(is.matrix(x) && isSymmetric(x) &&
-     min(x, na.rm=TRUE) >= -1 - .Machine$double.eps &&
-     max(x, na.rm=TRUE) <= 1 + .Machine$double.eps)
+  ## if(is.matrix(x) && isSymmetric(x) &&
+  ##    min(x, na.rm=TRUE) >= -1 - .Machine$double.eps &&
+  ##    max(x, na.rm=TRUE) <= 1 + .Machine$double.eps)
+  ##   maybeCorr <- TRUE
+  ## else
+  ##   maybeCorr <- FALSE
+  
+  # if a matrix x has only colnames, isSymmetric(x) reports FALSE
+  # use unname(x) so it will report TRUE
+  if(is.matrix(x) && isSymmetric(unname(x))) {
     maybeCorr <- TRUE
-  else
-    maybeCorr <- FALSE
+    if( min(x, na.rm=TRUE) < -1-.Machine$double.eps ) {
+      warning("Matrix symmetric, but some values < -1. Treated as data.frame.")
+      maybeCorr <- FALSE
+    }
+    if( max(x, na.rm=TRUE) >  1+.Machine$double.eps ) {
+      warning("Matrix symmetric, but some values > +1. Treated as data.frame.")
+      maybeCorr <- FALSE
+    }
+  } else maybeCorr <- FALSE
 
   if(is.null(type)){
     if(maybeCorr)
@@ -418,7 +432,6 @@ corrgram.outer.labels <- function(side,nc,ord,ll){
   if((side==1 | side==3) & is.null(ll$srt)) ll$srt=90 # vert
   if((side==2 | side==4) & is.null(ll$srt)) ll$srt=0 # horiz
   
-  #browser()
   for(i in 1:nc){
     # row/column grid position down/right 
     if(side==1) { # bottom
@@ -446,16 +459,6 @@ corrgram.outer.labels <- function(side,nc,ord,ll){
       stop("'side' must be 1, 2, 3, or 4")
     }
     
-    #            usr <- par("usr") # should always be 0 1 0 1 right?
-    #            clip(x1,x2,y1,y2)
-    #            clip(usr[1], -2, usr[3], usr[4])
-    #clip(0, 1, 0, 1)
-    #axis(side=side, at=0.5, labels=ll$labels[i],
-    #     outer=TRUE,
-    #     mgp=c(3,0,0.5), # title, axis label, axis line
-    #     cex.axis=ll$cex,
-    #     las=ll$las,  # las: 0 parallel, 1 horiz, 2 perp, 3 vert
-    #     xpd=NA, lwd=NA)
   }
   
   return()

@@ -143,9 +143,8 @@ corrgram(vote, order=TRUE, upper.panel=panel.cor)
 
 
 # outer labels, all options, larger margins, xlab, ylab
-require(corrgram)
 labs=colnames(state.x77)
-corrgram(state.x77, oma=c(7, 7, 2, 2), main="state.x77",
+corrgram(state.x77, oma=c(7, 7, 2, 2),
          outer.labels=list(bottom=list(labels=labs,cex=1.5,srt=60),
                            left=list(labels=labs,cex=1.5,srt=30)))
 mtext("Bottom", side=1, cex=2, line = -1.5, outer=TRUE, xpd=NA)

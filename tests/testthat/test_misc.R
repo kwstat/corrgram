@@ -1,13 +1,17 @@
 # test_misc.R
-# Time-stamp: <03 Apr 2017 11:51:31 c:/x/rpack/corrgram/tests/testthat/test_raw.R>
+# Time-stamp: <05 May 2017 16:28:41 c:/x/rpack/corrgram/tests/testthat/test_misc.R>
+
+context("test_misc.R")
 
 require(corrgram)
 
 # type
 corrgram(vote)
 corrgram(vote, type='corr')
-corrgram(vote, type='data') # warn user
 corrgram(vote, lower.panel=panel.conf)
+test_that("correlation matrix with type='data'", {
+  expect_warning(corrgram(vote, type='data'))
+})
 
 # cor.method
 corrgram(auto)

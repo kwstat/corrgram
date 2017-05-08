@@ -1,5 +1,7 @@
-# outer.r
-# Time-stamp: <03 Apr 2017 12:10:22 c:/x/rpack/corrgram/tests/testthat/test_outer.R>
+# test_outerlabels.R
+# Time-stamp: <05 May 2017 16:29:11 c:/x/rpack/corrgram/tests/testthat/test_outerlabels.R>
+
+context("test_outerlabels.R")
 
 require(corrgram)
 
@@ -48,10 +50,9 @@ corrgram(state.x77, oma=c(7, 7, 2, 2), main="state.x77",
 mtext("Bottom", side=1, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 mtext("Left", side=2, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 
-if(FALSE){
-  # outer labels are wrong length, these should fail
-  corrgram(state.x77, outer.labels=list(bottom=list(labels=labs[-1])))
-  corrgram(state.x77, outer.labels=list(left=list(labels=labs[-1])))
-  corrgram(state.x77, outer.labels=list(top=list(labels=labs[-1])))
-  corrgram(state.x77, outer.labels=list(right=list(labels=labs[-1])))
-}
+test_that("outer labels are wrong length", {
+  expect_error(corrgram(state.x77, outer.labels=list(bottom=list(labels=labs[-1]))))
+  expect_error(corrgram(state.x77, outer.labels=list(left=list(labels=labs[-1]))))
+  expect_error(corrgram(state.x77, outer.labels=list(top=list(labels=labs[-1]))))
+  expect_error(corrgram(state.x77, outer.labels=list(right=list(labels=labs[-1]))))
+})

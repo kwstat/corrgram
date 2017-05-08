@@ -1,4 +1,12 @@
 
+# corrgram 1.12 - May 2017
+
+New vignette about an invalid correlation matrix.
+
+`corrgram()` gives a better warning if a symmetric matrix has values outside [-1,1].\
+
+Added package logo on github.
+
 # corrgram 1.11 - Apr 2017
 
 New argument `outer.labels` for adding labels along outside edges of corrgram. (Request of Vanessa Bruat and others.)

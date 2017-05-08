@@ -1,3 +1,25 @@
+# corrgram 1.12
+
+## Test environments
+
+* local: R 3.3.3 on Windows 7
+* win-builder: R-release 3.4.0
+* win-builder: R-devel
+* R-hub: R-devel
+
+## Rcmd check results
+
+There is one NOTE about a Possibly mis-spelled word.  (The word is correct).
+
+## Downstream dependencies
+
+None
+
+## News
+
+New vignette about an invalid correlation matrix.
+
+`corrgram()` gives a better warning if a symmetric matrix has values outside [-1,1].
 
 # corrgram 1.11
 
