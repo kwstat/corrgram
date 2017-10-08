@@ -182,7 +182,7 @@ corrgram <- function (x, type=NULL,
 
   # Direction
   if(dir=="") {
-    if(row1attop) dir <- "left" else dir <- "right"
+    dir <- if(row1attop) "left" else "right"
   }
   if (dir=="\\") dir <-  "left"
   if (dir=="/") dir <-  "right"
@@ -213,14 +213,11 @@ corrgram <- function (x, type=NULL,
   } else maybeCorr <- FALSE
 
   if(is.null(type)){
-    if(maybeCorr)
-      type <- "corr"
-    else
-      type <- "data"
+    type <- if(maybeCorr) "corr" else "data"
   } else if(type=="data"){
     if(maybeCorr)
       warning("This looks like a correlation matrix.")
-  } else if(type=="cor" | type=="corr") {
+  } else if(type=="cor" || type=="corr") {
     type <- "corr"
     if(!maybeCorr)
       warning("This is NOT a correlation matrix.")
@@ -229,13 +226,13 @@ corrgram <- function (x, type=NULL,
   }
 
   # Remove non-numeric columns from data frames
-  if(type=="data" & !is.matrix(x)) x <- x[ , sapply(x, is.numeric)]
+  if(type=="data" && !is.matrix(x)) x <- x[ , vapply(x, is.numeric, logical(1))]
 
   # If a data matrix, then calculate the correlation matrix
-  if(type=="data")
-    cmat <- cor(x, use="pairwise.complete.obs", method=cor.method)
+  cmat <- if(type=="data")
+    cor(x, use="pairwise.complete.obs", method=cor.method)
   else
-    cmat <- x
+    x
 
   # Save the correlation matrix for returning to user, re-ordered below
   cmat.return <- cmat
@@ -244,9 +241,9 @@ corrgram <- function (x, type=NULL,
   cmat <- if(abs) abs(cmat) else cmat
 
   # Default order
-  if(order==FALSE) ord <- 1:nrow(cmat)
+  if(order==FALSE) ord <- seq_len(nrow(cmat))
   # Re-order the data to group highly correlated variables
-  if(order==TRUE | order=="PC" | order=="PCA"){
+  if(order==TRUE || order=="PC" || order=="PCA"){
     # Order by angle size between PCAs (first two) of correlation matrix
     x.eigen <- eigen(cmat)$vectors[,1:2]
     e1 <- x.eigen[,1]
@@ -333,7 +330,7 @@ corrgram <- function (x, type=NULL,
   has.labs <- TRUE
   if (missing(labels)) {
     labels <- colnames(x)
-    if (is.null(labels)) labels <- paste("var", 1:nc)
+    if (is.null(labels)) labels <- paste("var", seq_len(nc))
   } else if (order!=FALSE) {
       labels = labels[ord]
   } else if(is.null(labels)) has.labs <- FALSE
@@ -353,8 +350,8 @@ corrgram <- function (x, type=NULL,
   on.exit(par(opar))
 
   # Main loop to draw each panel
-  for (i in if(dir=="left") 1:nc else nc:1)
-    for (j in 1:nc) {
+  for (i in if(dir=="left") seq_len(nc) else seq.int(from = nc, to = 1))
+    for (j in seq_len(nc)) {
       # Set up plotting area
       localPlot(x[, j], x[, i], xlab = "", ylab = "", axes = FALSE, type = "n", ...)
       if(i == j || (i < j && has.lower) || (i > j && has.upper) ) {
@@ -429,10 +426,10 @@ corrgram.outer.labels <- function(side,nc,ord,ll){
   # default cex, srt
   ll$labels = ll$labels[ord]
   if(is.null(ll$cex)) ll$cex=1
-  if((side==1 | side==3) & is.null(ll$srt)) ll$srt=90 # vert
-  if((side==2 | side==4) & is.null(ll$srt)) ll$srt=0 # horiz
+  if(is.element(side, c(1, 3)) && is.null(ll$srt)) ll$srt=90 # vert
+  if(is.element(side, c(2, 4)) && is.null(ll$srt)) ll$srt=0 # horiz
   
-  for(i in 1:nc){
+  for(i in seq_len(nc)){
     # row/column grid position down/right 
     if(side==1) { # bottom
       par(mfg=c(nc, i))
@@ -503,20 +500,20 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
   # draw circle
   segments <- 180
-  angles <- seq(0, 2*pi, length=segments)
+  angles <- seq.int(0, 2*pi, length.out=segments)
   circ <- cbind(centerx + cos(angles)*rx, centery + sin(angles)*ry)
   lines(circ[,1], circ[,2], col='gray40',...)
 
   ncol <- 14
   pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length=ncol+1),
+  col.ind <- as.numeric(cut(corr, breaks=seq.int(from=-1, to=1, length.out=ncol+1),
                             include.lowest=TRUE))
   col.pie <- pal[col.ind]
 
   # overlay a colored polygon
   segments <- round(180*abs(corr),0)
   if(segments>0){ # Watch out for the case with 0 segments
-    angles <- seq(pi/2, pi/2+(2*pi* -corr), length=segments)
+    angles <- seq.int(pi/2, pi/2+(2*pi* -corr), length.out=segments)
     circ <- cbind(centerx + cos(angles)*rx, centery + sin(angles)*ry)
     circ <- rbind(circ, c(centerx, centery), circ[1,])
     polygon(circ[,1], circ[,2], col=col.pie,border="gray40")
@@ -539,7 +536,7 @@ panel.shade <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
   ncol <- 14
   pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length=ncol+1),
+  col.ind <- as.numeric(cut(corr, breaks=seq.int(from=-1, to=1, length.out=ncol+1),
                             include.lowest=TRUE))
   usr <- par("usr")
   # Solid fill
@@ -574,7 +571,7 @@ panel.ellipse <- function(x,y, corr=NULL, col.regions, cor.method, ...){
   center <- c(mean(x[keep]),mean(y[keep]))
   radius <- sqrt(dfn*qf(.68,dfn,dfd))
   segments <- 180
-  angles <- seq(0,2*pi,length=segments)
+  angles <- seq.int(0,2*pi,length.out=segments)
   unit.circle <- cbind(cos(angles),sin(angles))
   ellipse.pts <- t(center+radius*t(unit.circle%*%chol(shape)))
   ellx <- ellipse.pts[,1]
@@ -620,8 +617,8 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   
   ncol <- 14
   pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks = seq(from = -1, to = 1,
-                                    length = ncol + 1), include.lowest = TRUE))
+  col.ind <- as.numeric(cut(corr, breaks = seq.int(from = -1, to = 1,
+                                    length.out = ncol + 1), include.lowest = TRUE))
   col.bar <- pal[col.ind]
   if(corr < 0) {
     # Draw up from bottom
@@ -657,7 +654,7 @@ panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.co
   
   ncol <- 14
   pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length=ncol+1),
+  col.ind <- as.numeric(cut(corr, breaks=seq.int(from=-1, to=1, length.out=ncol+1),
                             include.lowest=TRUE))
   
   corr <- formatC(corr, digits=digits, format='f')
@@ -701,7 +698,7 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.c
       
       ci <- results$conf.int
       ci <- formatC(ci, digits=2, format='f')
-      ci <- paste("(",ci[1],",",ci[2],")",sep="")
+      ci <- paste0("(",ci[1],",",ci[2],")")
       if(auto) cex.cor <- 0.8/strwidth(ci)
       text(0.5, 0.3, ci, cex=cex.cor) # , col=pal[col.ind])
     }
