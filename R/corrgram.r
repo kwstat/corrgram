@@ -166,7 +166,8 @@ corrgram <- function (x, type=NULL,
             cex.labels = NULL, font.labels = 1,
             row1attop = TRUE, dir="", gap = 0,
             abs=FALSE,
-            col.regions = colorRampPalette(c("red","salmon","white","royalblue","navy")),
+            col.regions = colorRampPalette(c("red","salmon","white",
+                                             "royalblue","navy")),
             cor.method="pearson",
             outer.labels=NULL,
             ...) {
@@ -335,7 +336,7 @@ corrgram <- function (x, type=NULL,
     labels <- colnames(x)
     if (is.null(labels)) labels <- paste("var", 1:nc)
   } else if (order!=FALSE) {
-      labels = labels[ord]
+      labels <- labels[ord]
   } else if(is.null(labels)) has.labs <- FALSE
   if(is.null(text.panel)) has.labs <- FALSE
 
@@ -356,7 +357,8 @@ corrgram <- function (x, type=NULL,
   for (i in if(dir=="left") 1:nc else nc:1)
     for (j in 1:nc) {
       # Set up plotting area
-      localPlot(x[, j], x[, i], xlab = "", ylab = "", axes = FALSE, type = "n", ...)
+      localPlot(x[, j], x[, i], xlab = "", ylab = "", axes = FALSE, 
+                type = "n", ...)
       if(i == j || (i < j && has.lower) || (i > j && has.upper) ) {
 
         if(i == j) {
@@ -380,12 +382,14 @@ corrgram <- function (x, type=NULL,
           }
         } else if(i < j) { # Lower panel
           if(type=="data")
-            localLowerPanel(as.vector(x[, j]), as.vector(x[, i]), NULL, col.regions, cor.method, ...)
+            localLowerPanel(as.vector(x[, j]), as.vector(x[, i]), NULL, 
+                            col.regions, cor.method, ...)
           else
             localLowerPanel(NULL, NULL, x[j,i], col.regions, cor.method, ...)
         } else { # Upper panel
           if(type=="data")
-            localUpperPanel(as.vector(x[, j]), as.vector(x[, i]), NULL, col.regions, cor.method, ...)
+            localUpperPanel(as.vector(x[, j]), as.vector(x[, i]), NULL, 
+                            col.regions, cor.method, ...)
           else
             localUpperPanel(NULL, NULL, x[j,i], col.regions, cor.method, ...)
         }
@@ -397,7 +401,8 @@ corrgram <- function (x, type=NULL,
     }
 
   if (!is.null(main)) {
-    font.main <- if("font.main" %in% nmdots) dots$font.main else par("font.main")
+    font.main <- 
+      if("font.main" %in% nmdots) dots$font.main else par("font.main")
     cex.main <- if("cex.main" %in% nmdots) dots$cex.main else par("cex.main")
     mtext(main, 3, 3, TRUE, 0.5, cex = cex.main, font = font.main)
   }
@@ -427,7 +432,7 @@ corrgram.outer.labels <- function(side,nc,ord,ll){
     stop("The length of labels of side ", side, " does not match the number of columns of the corrgram.")
   
   # default cex, srt
-  ll$labels = ll$labels[ord]
+  ll$labels <- ll$labels[ord]
   if(is.null(ll$cex)) ll$cex=1
   if((side==1 | side==3) & is.null(ll$srt)) ll$srt=90 # vert
   if((side==2 | side==4) & is.null(ll$srt)) ll$srt=0 # horiz
@@ -638,7 +643,8 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 }
 
 #' @export
-panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.cor, ...){
+panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, 
+                      cex.cor, ...){
   # Correlation values only, colored
 
   # If corr not given, try to calculate it
@@ -667,7 +673,8 @@ panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.co
 }
 
 #' @export
-panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, cex.cor, ...){
+panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, 
+                       cex.cor, ...){
 
   auto <- missing(cex.cor)
   usr <- par("usr"); on.exit(par(usr))
