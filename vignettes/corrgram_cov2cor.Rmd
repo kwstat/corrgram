@@ -1,5 +1,5 @@
 ---
-title: "cov2cor() may not give a valid correlation matrix"
+title: "Finding the nearest proper correlation matrix"
 author: "Kevin Wright"
 date: "`r Sys.Date()`"
 bibliography: corrgram.bib
@@ -8,7 +8,7 @@ output:
     theme: cerulean
     highlight: tango
 vignette: >
-  % \VignetteIndexEntry{cov2cor() may not give a valid correlation matrix}
+  % \VignetteIndexEntry{Finding the nearest proper correlation matrix}
   % \VignetteEncoding{UTF-8}
   % \VignetteEngine{knitr::rmarkdown}
 ---
@@ -20,9 +20,8 @@ code {border: 0px solid #e0e0e0; padding: 0 5px;}
 pre > code { border: 0; }
 </style>
 
-An example is given in which a matrix that was created by `cov2cor` is not actually a valid correlation matrix.
+Consider the following matrix, as might arise from calculating covariance based on pairwise-complete data.
 
-Consider the following, ostensibly covariance matrix.
 ```{r}
 vv <- matrix(c(100.511, 159.266, 3.888, 59.964, 37.231, 32.944, 68.845,
                159.266, 277.723, 6.161, 95.017, 58.995, 52.203, 109.09, 3.888,
@@ -34,8 +33,12 @@ vv <- matrix(c(100.511, 159.266, 3.888, 59.964, 37.231, 32.944, 68.845,
 print(vv)
 ```
 
+This is not a proper covariance matrix (this one has a negative eigenvalue).
+
 If we attempt to use the `cov2cor()` function to convert the covariance matrix to a correlation matrix, we find the largest correlation values are slightly larger than 1.0.
+
 If this is passed to the `corrgram` function, it will issue a warning that the input data is not a correlation matrix and then calculate pairwise correlations of the columns, resulting in a non-sensical graph.
+
 ```{r}
 cc <- cov2cor(vv)
 max(cc) # 1.000041

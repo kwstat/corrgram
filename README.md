@@ -22,10 +22,13 @@ install.packages("corrgram")
 install.packages("devtools")
 devtools::install_github("kwstat/corrgram")
 ```
-## Usage
+## Vignettes
 
-Vignette:
 [Examples for the corrgram package](https://rawgit.com/kwstat/corrgram/master/vignettes/corrgram_examples.html)
+
+[Finding the nearest proper correlation matrix](https://rawgit.com/kwstat/corrgram/master/vignettes/corrgram_cov2cor.html)
+
+## Usage
 
 ```R
 require(corrgram)
