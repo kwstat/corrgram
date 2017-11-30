@@ -280,13 +280,13 @@ corrgram <- function (x, type=NULL,
     text(x, y, txt, cex=cex, font=font, srt=srt)
   }
 
-  localAxis <- function(side, x, y, xpd, bg, col=NULL, main, oma, ...) {
-    ## Explicitly ignore any color argument passed in as
-    ## it was most likely meant for the data points and
-    ## not for the axis.
-    if(side %%2 == 1) Axis(x, side=side, xpd=NA, ...)
-    else Axis(y, side=side, xpd=NA, ...)
-  }
+  # localAxis <- function(side, x, y, xpd, bg, col=NULL, main, oma, ...) {
+  #   ## Explicitly ignore any color argument passed in as
+  #   ## it was most likely meant for the data points and
+  #   ## not for the axis.
+  #   if(side %%2 == 1) Axis(x, side=side, xpd=NA, ...)
+  #   else Axis(y, side=side, xpd=NA, ...)
+  # }
 
   # Don't pass some arguments on to the panel functions via the '...'
   localPlot <- function(..., main, oma, font.main, cex.main)
@@ -458,8 +458,6 @@ corrgram.outer.labels <- function(side,nc,ord,ll){
       clip(0, -2, 0, 1)
       text(x=1 + .05*(1-0), y=0.5, labels=ll$labels[i],
            cex=ll$cex, srt=ll$srt, adj=0, xpd=NA)
-    } else {
-      stop("'side' must be 1, 2, 3, or 4")
     }
     
   }

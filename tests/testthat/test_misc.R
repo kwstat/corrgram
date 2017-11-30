@@ -11,6 +11,7 @@ corrgram(vote, type='corr')
 corrgram(vote, lower.panel=panel.conf)
 test_that("correlation matrix with type='data'", {
   expect_warning(corrgram(vote, type='data'))
+  expect_error(corrgram(vote, type='junk'))
 })
 
 # cor.method
@@ -31,18 +32,30 @@ corrgram(auto, label.srt=-45)
 # label.cex, label.pos
 corrgram(auto, label.srt=45, label.pos=c(.75,.75), cex.labels=2.5, upper=NULL)
 
+test_that("panel correlations", {
+  dat = data.frame(x=c(1,2,NA), y=c(NA,2,3))
+  expect_warning(panel.bar(dat$x, dat$y))
+  expect_warning(panel.conf(dat$x, dat$y))
+  expect_warning(panel.cor(dat$x, dat$y))
+  expect_warning(panel.ellipse(dat$x, dat$y))
+  expect_warning(panel.pie(dat$x, dat$y))
+  expect_warning(panel.shade(dat$x, dat$y))
+})
 
 # order argument
-corrgram(mtcars)
-corrgram(mtcars, order=NULL)
-corrgram(mtcars, order=FALSE)
-corrgram(mtcars, order=TRUE)
-corrgram(mtcars, order="GW")
-corrgram(mtcars, order="HC")
-corrgram(mtcars, order="PC")
-corrgram(mtcars, order="OLO")
-corrgram(mtcars, order="PC", abs=TRUE)
-corrgram(mtcars, order="OLO", abs=TRUE)
+test_that("order argument", {
+  corrgram(mtcars)
+  corrgram(mtcars, order=NULL)
+  corrgram(mtcars, order=FALSE)
+  corrgram(mtcars, order=TRUE)
+  corrgram(mtcars, order="GW")
+  corrgram(mtcars, order="HC")
+  corrgram(mtcars, order="PC")
+  corrgram(mtcars, order="OLO")
+  corrgram(mtcars, order="PC", abs=TRUE)
+  corrgram(mtcars, order="OLO", abs=TRUE)
+  expect_error(corrgram(mtcars, order="junk", abs=TRUE))
+})
 
 # make sure 'labels' works correctly with 'order'
 myLabels = names(mtcars)
