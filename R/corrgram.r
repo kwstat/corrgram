@@ -171,11 +171,7 @@ corrgram <- function (x, type=NULL,
             cor.method="pearson",
             outer.labels=NULL,
             ...) {
-  # Need graphics
-  # Need grDevices
-  # Need seriation for seriate
-  # Need stats for cor, qf
-    
+
   if(is.null(order)) order <- FALSE
 
   # Former versions used label.pos=0.5 for vertical positioning.
@@ -279,14 +275,6 @@ corrgram <- function (x, type=NULL,
   textPanel <- function(x = 0.5, y = 0.5, txt, cex, font, srt) {
     text(x, y, txt, cex=cex, font=font, srt=srt)
   }
-
-  # localAxis <- function(side, x, y, xpd, bg, col=NULL, main, oma, ...) {
-  #   ## Explicitly ignore any color argument passed in as
-  #   ## it was most likely meant for the data points and
-  #   ## not for the axis.
-  #   if(side %%2 == 1) Axis(x, side=side, xpd=NA, ...)
-  #   else Axis(y, side=side, xpd=NA, ...)
-  # }
 
   # Don't pass some arguments on to the panel functions via the '...'
   localPlot <- function(..., main, oma, font.main, cex.main)
