@@ -675,8 +675,11 @@ panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
   col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=ncol+1),
                             include.lowest=TRUE))
   
+  # determine string width using absolute values so that
+  # negative numbers are not wider than positive numbers
+  abscorr <- formatC(abs(corr), digits=digits, format='f')
   corr <- formatC(corr, digits=digits, format='f')
-  if(auto) cex.cor <- 0.7/strwidth(corr)
+  if(auto) cex.cor <- 0.7/strwidth(abscorr)
   text(0.5, 0.5, corr, cex=cex.cor, col=pal[col.ind])
 
 }
@@ -695,8 +698,10 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
   # For correlation matrix, only show the correlation
   if(!is.null(corr)) {
     est <- corr
+    # ignore signs for calculating string width
+    absest <- formatC(abs(est), digits=digits, format='f')
     est <- formatC(est, digits=digits, format='f')
-    if(auto) cex.cor <- 0.7/strwidth(est)
+    if(auto) cex.cor <- 0.7/strwidth(absest)
     text(0.5, 0.6, est, cex=cex.cor) #, col=pal[col.ind])
 
   } else { # Calculate correlation and confidence interval
@@ -707,8 +712,9 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
       
       # First, the estimate
       est <- results$estimate
+      absest <- formatC(abs(est), digits=digits, format='f')
       est <- formatC(est, digits=digits, format='f')
-      if(auto) cex.cor <- 0.7/strwidth(est)
+      if(auto) cex.cor <- 0.7/strwidth(absest)
       text(0.5, 0.6, est, cex=cex.cor) #, col=pal[col.ind])
       
       ci <- results$conf.int

@@ -5,6 +5,8 @@ Test coverage at 100% using `covr` package.
 
 New `panel.fill()` function, omits diagonal lines.
 
+`panel.conf` and `panel.cor` now auto-scale based on absolute value of correlations.
+
 # corrgram 1.12 - May 2017
 
 New vignette about an invalid correlation matrix.

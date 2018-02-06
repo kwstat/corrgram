@@ -73,7 +73,10 @@ corrgram(auto, order=TRUE, dir="/")
 # off-diagonal panels
 corrgram(auto, panel=panel.bar)
 corrgram(auto, panel=panel.conf)
+# cex.cor gives warnings "not a graphical parameter"
+#corrgram(auto, panel=panel.conf, cex.cor=1)
 corrgram(auto, panel=panel.cor)
+#corrgram(auto, panel=panel.cor, cex.cor=1.5)
 corrgram(auto, panel=panel.ellipse) # note: latticeExtra also has panel.ellipse
 corrgram(auto, panel=panel.fill)
 corrgram(auto, panel=panel.pie)
