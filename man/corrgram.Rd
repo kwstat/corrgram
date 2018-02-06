@@ -7,6 +7,7 @@
 \alias{panel.cor}
 \alias{panel.density}
 \alias{panel.ellipse}
+\alias{panel.fill}
 \alias{panel.minmax}
 \alias{panel.pie}
 \alias{panel.pts}
@@ -86,7 +87,7 @@ Note: Use the 'col.regions' argument to specify colors.
 Non-numeric columns in the data will be ignored.
 
 The off-diagonal panels are specified with \code{panel.pts},
-\code{panel.pie}, \code{panel.shade}, \code{panel.bar},
+\code{panel.pie}, \code{panel.shade}, \code{panel.fill}, `\code{panel.bar},
 \code{panel.ellipse}, \code{panel.conf}. \code{panel.cor}.
 
 Diagonal panels are specified with \code{panel.txt}, \code{panel.minmax},

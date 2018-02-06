@@ -9,7 +9,6 @@ output:
   highlight: tango
 vignette: >
   %\VignetteIndexEntry{Examples for the corrgram package}
-  %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
 <style type="text/css">

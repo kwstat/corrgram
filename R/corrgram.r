@@ -23,7 +23,7 @@
 #' Non-numeric columns in the data will be ignored.
 #' 
 #' The off-diagonal panels are specified with \code{panel.pts},
-#' \code{panel.pie}, \code{panel.shade}, \code{panel.bar},
+#' \code{panel.pie}, \code{panel.shade}, \code{panel.fill}, `\code{panel.bar},
 #' \code{panel.ellipse}, \code{panel.conf}. \code{panel.cor}.
 #' 
 #' Diagonal panels are specified with \code{panel.txt}, \code{panel.minmax},
@@ -47,7 +47,7 @@
 #' TODO: legend, grid graphics version.
 #' 
 #' @aliases corrgram panel.bar panel.conf panel.cor panel.density panel.ellipse
-#' panel.minmax panel.pie panel.pts panel.shade panel.txt
+#' panel.fill panel.minmax panel.pie panel.pts panel.shade panel.txt
 #' 
 #' @param x A \emph{tall} data frame with one observation per row, or a
 #' correlation matrix.
@@ -534,7 +534,6 @@ panel.shade <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   # Solid fill
   rect(usr[1], usr[3], usr[2], usr[4], col=pal[col.ind], border=NA)
   # Add diagonal lines
-
   if(!is.na(corr)) {
     rect(usr[1], usr[3], usr[2], usr[4], density=5,
          angle=ifelse(corr>0, 45, 135), col="white")
@@ -625,6 +624,32 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   }
   
 }
+
+#' @export
+panel.fill <- function(x, y, corr=NULL, col.regions, cor.method, ...){
+  
+  # If corr not given, try to calculate it
+  if(is.null(corr)) {
+    if(sum(complete.cases(x,y)) < 2) {
+      warning("Need at least 2 complete cases for cor()")
+      return()
+    } else {
+      corr <- cor(x, y, use='pair', method=cor.method)
+    }
+  }
+  
+  ncol <- 14
+  pal <- col.regions(ncol)
+  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=ncol+1),
+                            include.lowest=TRUE))
+  usr <- par("usr")
+  # Solid fill
+  rect(usr[1], usr[3], usr[2], usr[4], col=pal[col.ind], border=NA)
+
+  # Boounding box needs to plot on top of the shading, so do it last.
+  box(col='lightgray')
+}
+
 
 #' @export
 panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, 
