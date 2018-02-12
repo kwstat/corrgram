@@ -14,10 +14,13 @@ test_that("correlation matrix with type='data'", {
   expect_error(corrgram(vote, type='junk'))
 })
 
-# cor.method
-corrgram(auto)
-corrgram(auto, cor.method="pearson")
-corrgram(auto, cor.method="spearman") # Slight change in colors
+
+test_that("cor.method", {
+  corrgram(auto) # pearson is default
+  corrgram(auto, cor.method="pearson", upper.panel=panel.conf, lower.panel=panel.pie)
+  expect_error(corrgram(auto, cor.method="spearman", upper.panel=panel.conf, lower.panel=panel.pie))
+})
+
 
 # ignore non-numeric columns
 corrgram(iris)

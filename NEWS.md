@@ -1,11 +1,13 @@
 
-# corrgram 1.13 - Jan 2018
+# corrgram 1.13 - Unpublished
 
 Test coverage at 100% using `covr` package.
 
 New `panel.fill()` function, omits diagonal lines.
 
 `panel.conf` and `panel.cor` now auto-scale based on absolute value of correlations.
+
+`panel.conf` now only allows `cor.method="pearson"` (which is the default.) Fix issue #13.
 
 # corrgram 1.12 - May 2017
 

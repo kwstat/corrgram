@@ -174,6 +174,11 @@ corrgram <- function (x, type=NULL,
 
   if(is.null(order)) order <- FALSE
 
+  if( cor.method != "pearson" &
+      (deparse(substitute(upper.panel)) == "panel.conf" | 
+       deparse(substitute(upper.panel)) == "panel.conf"))
+    stop("'panel.conf' only allows 'pearson' method. Try 'panel.cor' instead.")
+  
   # Former versions used label.pos=0.5 for vertical positioning.
   if(length(label.pos) < 2) stop("label.pos needs a vector of length 2")
 
@@ -708,15 +713,14 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
     if(sum(complete.cases(x,y)) < 4) {
       warning("Need at least 4 complete cases for cor.test()")
     } else {
-      results <- cor.test(x, y, alternative = "two.sided")
-      
-      # First, the estimate
+      results <- cor.test(x, y, alternative = "two.sided", method=cor.method)
+      # point estimate
       est <- results$estimate
       absest <- formatC(abs(est), digits=digits, format='f')
       est <- formatC(est, digits=digits, format='f')
       if(auto) cex.cor <- 0.7/strwidth(absest)
       text(0.5, 0.6, est, cex=cex.cor) #, col=pal[col.ind])
-      
+      # confidence interval, only for pearson
       ci <- results$conf.int
       ci <- formatC(ci, digits=2, format='f')
       ci <- paste0("(",ci[1],",",ci[2],")")
