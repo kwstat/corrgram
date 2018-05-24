@@ -3,10 +3,7 @@ title: "Finding the nearest proper correlation matrix"
 author: "Kevin Wright"
 date: "`r Sys.Date()`"
 bibliography: corrgram.bib
-output:
-  html_document:
-    theme: cerulean
-    highlight: tango
+output: rmarkdown::html_vignette
 vignette: >
   % \VignetteIndexEntry{Finding the nearest proper correlation matrix}
   % \VignetteEngine{knitr::rmarkdown}

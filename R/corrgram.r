@@ -340,7 +340,7 @@ corrgram <- function (x, type=NULL,
     oma <- c(4, 4, 4, 4)
     if (!is.null(main)) oma[3] <- 6 # Space for the title
   }
-  # corrgram uses mfrow, plotting down the columns
+
   opar <- par(mfrow = c(nc, nc), mar = rep.int(gap/2, 4), oma = oma)
   on.exit(par(opar))
 
@@ -348,8 +348,9 @@ corrgram <- function (x, type=NULL,
   for (i in if(dir=="left") 1:nc else nc:1)
     for (j in 1:nc) {
       # Set up plotting area
-      localPlot(x[, j], x[, i], xlab = "", ylab = "", axes = FALSE, 
-                type = "n", ...)
+      localPlot(x[, j], x[, i], xlab = "", ylab = "", 
+                axes = FALSE, type = "n", ...)
+      
       if(i == j || (i < j && has.lower) || (i > j && has.upper) ) {
 
         if(i == j) {
@@ -371,13 +372,15 @@ corrgram <- function (x, type=NULL,
             text.panel(label.pos[1], label.pos[2], labels[i],
                        cex = cex.labels, font = font.labels, srt=label.srt)
           }
-        } else if(i < j) { # Lower panel
+        } else if(i < j) { 
+          # Lower panel
           if(type=="data")
             localLowerPanel(as.vector(x[, j]), as.vector(x[, i]), NULL, 
                             col.regions, cor.method, ...)
           else
             localLowerPanel(NULL, NULL, x[j,i], col.regions, cor.method, ...)
-        } else { # Upper panel
+        } else { 
+          # Upper panel
           if(type=="data")
             localUpperPanel(as.vector(x[, j]), as.vector(x[, i]), NULL, 
                             col.regions, cor.method, ...)
@@ -413,11 +416,17 @@ corrgram <- function (x, type=NULL,
 }
 
 corrgram.outer.labels <- function(side,nc,ord,ll){
+  # side = 1,2,3,4
+  # nc
+  # ord = re-ordering of columns/rows
   # ll=list(labels,cex,las,srt)
   # inspired by Leo Leopold, with modifications to rotate text from
   # http://menugget.blogspot.com/2014/08/rotated-axis-labels-in-r-plots.html
   
   if(is.null(ll)) return()
+  
+  # In case text.panel=NULL, we need to set par(usr)
+  par(usr = c(0, 1, 0, 1))
   
   if(length(ll$labels) != nc)
     stop("The length of labels of side ", side, " does not match the number of columns of the corrgram.")
@@ -759,4 +768,60 @@ panel.minmax <- function(x, corr=NULL, ...){
   maxx <- round(max(x, na.rm=TRUE),2)
   text(minx, minx, minx, cex=1, adj=c(0,0))
   text(maxx, maxx, maxx, cex=1, adj=c(1,1))
+}
+
+# -----
+
+if(FALSE) {
+  
+# Exploring ideas for adding a legend
+  
+# layout doesn't work because par(mfrow=) is incompatible
+
+# -------------
+# https://stackoverflow.com/questions/13081310/combining-multiple-complex-plots-as-panels-in-a-single-figure/14567298#14567298
+
+# this works but is intolerably slow for 10x10
+
+library(gridGraphics)
+library(grid)
+
+grab_grob <- function(){
+  grid.echo()
+  grid.grab()
+}
+
+arr <- replicate(4, 
+                 matrix(runif(n=9),nrow=3,ncol=3), simplify = FALSE)
+
+library(gplots)
+gl <- lapply(1:4, function(i){
+  corrgram(arr[[i]])
+  grab_grob()
+})
+
+grid.newpage()
+library(gridExtra)
+grid.arrange(grobs=gl, ncol=2, clip=TRUE)
+
+# -------------
+
+# This also works, but is very slow because of grid.echo
+  library(gridExtra)
+  library(corrgram)
+  corrgram(iris)
+  grid.echo() 
+  p1 = grid.grab(warn=0)
+  corrgram(state.x77)
+  grid.echo() # re-draw using grid graphics...slow
+  p2 = grid.grab()
+  grid.newpage(warn=0)
+  grid.arrange(p1, p2, ncol=2)
+
+# ------
+# this quasi works
+corrgram(iris, oma=c(4,4,4,8))
+par(xpd = FALSE) # all plotting is clipped to "figure" region
+legend("bottomright", fill = unique(iris$Species), legend = c( levels(iris$Species)))
+
 }

@@ -16,6 +16,10 @@ corrgram(state.x77, outer.labels=list(left=list(labels=labs)))
 corrgram(state.x77, outer.labels=list(top=list(labels=labs)))
 corrgram(state.x77, outer.labels=list(right=list(labels=labs)))
 
+# outer labels with no diagonal labels
+corrgram(state.x77, text.panel=NULL, 
+         outer.labels=list(bottom=list(labels=labs)))
+
 # outer.labels, all 4 sides at once
 corrgram(state.x77,
          outer.labels=list(bottom=list(labels=labs),

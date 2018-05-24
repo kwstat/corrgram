@@ -3,13 +3,11 @@ title: "Examples for the corrgram package"
 author: "Kevin Wright"
 date: "`r Sys.Date()`"
 bibliography: corrgram.bib
-output:
-  html_document:
-  theme: cerulean
-  highlight: tango
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Examples for the corrgram package}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 <style type="text/css">
 body, td { font-size: 14pt; color: #000; padding:1em; }
@@ -21,8 +19,7 @@ pre > code { border: 0; }
 
 ## Abstract
 
-The `corrgram` package is an implementation of correlograms.  This
-vignette reproduces most of the figures in @friendly2002corrgrams.
+The `corrgram` package is an implementation of correlograms.  This vignette reproduces most of the figures in @friendly2002corrgrams.
 
 
 ## Setup
@@ -224,6 +221,30 @@ The `vote` data is a matrix.
 # 'vote' is a correlation matrix, not a data frame
 corrgram(vote, order=TRUE,
          upper.panel=panel.cor, main="vote")
+```
+
+## Ratings data
+
+An example showing one way to plot ratings data.
+
+```{r}
+
+load(url("https://github.com/alexanderrobitzsch/sirt/blob/master/data/data.ratings3.rda?raw=true"))
+
+# jitter first, so the upper/lower panels are symmetric
+data.ratings3 <- transform(data.ratings3,
+                           c2=jitter(crit2), c3=jitter(crit3),
+                           c4=jitter(crit4), c6=jitter(crit6))
+                           
+library(corrgram)
+panel.raters <- function (x, y, corr = NULL, col.regions, cor.method, ...) {
+  if (!is.null(corr)) 
+    return()
+  plot.xy(xy.coords(x, y), type = "p", ...)
+  abline(lm(y ~ x))
+  box(col = "lightgray")
+}
+corrgram(data.ratings3[,7:10], diag=panel.density, lower.panel=panel.raters, upper.panel=panel.conf)
 ```
 
 ## Session information
