@@ -247,8 +247,7 @@ panel.raters <- function (x, y, corr = NULL, col.regions, cor.method, ...) {
 corrgram(data.ratings3[,7:10], diag=panel.density, lower.panel=panel.raters, upper.panel=panel.conf)
 ```
 
-## Session information
-```{r session}
+```{r}
 sessionInfo()
 ```
 

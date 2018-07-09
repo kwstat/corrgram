@@ -6,50 +6,54 @@
 \title{Baseball Hitter's Data}
 \format{A data frame with 322 observations on the following 22 variables.
 \describe{ 
-\item{\code{Name}}{The hitter/player's name}
-\item{\code{League}}{Player's league (American/National) at the beginning
+\item{Name}{The hitter/player's name}
+\item{League}{Player's league (American/National) at the beginning
 of 1987} 
-\item{\code{Team}}{Player's team at the beginning of 1987}
-\item{\code{Position}}{Player's position in 1986: 1B=First base, 
+\item{Team}{Player's team at the beginning of 1987}
+\item{Position}{Player's position in 1986: 1B=First base, 
 2B=Second base, 3B=Third base, C=Catcher, OF=Outfild, DH=Designated hitter,
 SS=Short stop, UT=Utility} 
-\item{\code{Atbat}}{Number of times at bat in 1986}
-\item{\code{Hits}}{Number of hits in 1986} 
-\item{\code{Homer}}{Number of home runs in 1986} 
-\item{\code{Runs}}{Number of runs in 1986}
-\item{\code{RBI}}{Runs batted in during 1986} 
-\item{\code{Walks}}{Number of walks in 1986} 
-\item{\code{Years}}{Number of years in the major leagues}
-\item{\code{Atbatc}}{Number of times at bat in his career}
-\item{\code{Hitsc}}{Number of hits in career} 
-\item{\code{Homerc}}{Number of home runs in career} 
-\item{\code{Runsc}}{Number of runs in career}
-\item{\code{RBIc}}{Number of Runs Batted In in career}
-\item{\code{Walksc}}{Number of walks in career}
-\item{\code{Putouts}}{Number of putouts in 1986}
-\item{\code{Assists}}{Number of assists in 1986}
-\item{\code{Errors}}{Number of errors in 1986} 
-\item{\code{Salary}}{Annual salary (in thousands) on opening day 1987} 
-\item{\code{logSal}}{Log of salary} }}
+\item{Atbat}{Number of times at bat in 1986}
+\item{Hits}{Number of hits in 1986} 
+\item{Homer}{Number of home runs in 1986} 
+\item{Runs}{Number of runs in 1986}
+\item{RBI}{Runs batted in during 1986} 
+\item{Walks}{Number of walks in 1986} 
+\item{Years}{Number of years in the major leagues}
+\item{Atbatc}{Number of times at bat in his career}
+\item{Hitsc}{Number of hits in career} 
+\item{Homerc}{Number of home runs in career} 
+\item{Runsc}{Number of runs in career}
+\item{RBIc}{Number of Runs Batted In in career}
+\item{Walksc}{Number of walks in career}
+\item{Putouts}{Number of putouts in 1986}
+\item{Assists}{Number of assists in 1986}
+\item{Errors}{Number of errors in 1986} 
+\item{Salary}{Annual salary (in thousands) on opening day 1987} 
+\item{logSal}{Log of salary} }}
 \source{
 The data was originally published for the 1988 ASA Statistical
 Graphics and Computing Data Exposition:
 http://lib.stat.cmu.edu/data-expo/1988.html.
 
 The version of the data used to create this data was found at
-\url{http://euclid.psych.yorku.ca/ftp/sas/sssg/data/baseball.sas}.
-The salary data were taken from Sports Illustrated, April 20, 1987.  The
-salary of any player not included in that article is listed as an NA.  The
-1986 and career statistics were taken from The 1987 Baseball Encyclopedia
-Update published by Collier Books, Macmillan Publishing Company, New York.
+http://euclid.psych.yorku.ca/ftp/sas/sssg/data/baseball.sas
+}
+\usage{
+baseball
 }
 \description{
-The data are for 322 Major Leaque Baseball regular and substitute hitters in
+Data are for 322 Major Leaque Baseball regular and substitute hitters in
 1986.
 }
 \details{
 The levels of the player's positions have been collapsed to fewer levels for
 a simpler analysis.  See the original data for the full list of positions.
+ 
+The salary data were taken from Sports Illustrated, April 20, 1987.  The
+salary of any player not included in that article is listed as an NA.  The
+1986 and career statistics were taken from The 1987 Baseball Encyclopedia
+Update published by Collier Books, Macmillan Publishing Company, New York.
 }
 \examples{
 
@@ -63,3 +67,4 @@ corrgram(baseball[,vars2],
 Michael Friendly (2002). Corrgrams: Exploratory Displays for Correlation 
 Matrices, \emph{The American Statistician}, Vol 56.
 }
+\keyword{datasets}

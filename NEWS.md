@@ -1,7 +1,7 @@
 
-# corrgram 1.13 - Unpublished
+# corrgram 1.13 - Jul 2018
 
-Test coverage at 100% using `covr` package.
+Test coverage at 95% using `covr` package.
 
 New `panel.fill()` function, omits diagonal lines.
 

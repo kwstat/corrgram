@@ -4,14 +4,12 @@
 # Emacs backups of hidden files, like ".gitignore.~3~"
 .*.~*~
 .\#*
-
 # RStudio/R GUI
 .Rbuildignore
 .RData
 .Rhistory
 .Rproj.user
 *.Rproj
-
 # Vignettes
 vignettes/*.bbl
 vignettes/*.log
@@ -19,5 +17,5 @@ vignettes/*.md
 vignettes/*.pdf
 vignettes/*.synctex.gz
 vignettes/*.tex
-
 tests/testthat/Rplots.pdf
+revdep

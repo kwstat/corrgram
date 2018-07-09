@@ -1,4 +1,4 @@
-# corrgram.r
+# corrgram.R
 # Time-stamp: <05 May 2017 16:04:24 c:/x/rpack/corrgram/R/corrgram.R>
 
 # color key
