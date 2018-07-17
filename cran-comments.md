@@ -2,8 +2,8 @@
 
 ## Test environments 
 
-* local: R 3.5.3 on Windows 7
-* win-builder: R-release 3.4.0
+* local: R 3.5.1 on Windows 7
+* win-builder: R-release 3.5.1
 * win-builder: R-devel
 
 ## Results from Rcmd check

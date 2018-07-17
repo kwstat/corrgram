@@ -7,9 +7,6 @@
 # To do: Add a legend/ribbon.  See 'corrplot' package for a different
 # way to calculate the layout.
 
-# hexbin
-# https://procomun.wordpress.com/2011/03/18/splomr/
-
 # ----------------------------------------------------------------------------
 
 #' Draw a correlogram
@@ -155,7 +152,7 @@
 #' 
 #' @import graphics
 #' @import grDevices
-#' @import seriation
+#' @importFrom seriation seriate
 #' @import stats
 #' @export corrgram
 corrgram <- function (x, type=NULL,
@@ -257,19 +254,19 @@ corrgram <- function (x, type=NULL,
     cmat.return <- cmat.return[ord,ord]
   } else if (order=="OLO") {
     distx <- dist(cmat)
-    ss <- seriate(distx, method="OLO") # from seriation package
+    ss <- seriation::seriate(distx, method="OLO") # from seriation package
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
     cmat.return <- cmat.return[ord,ord]
   } else if (order=="GW"){ # GW order
     distx <- dist(cmat)
-    ss <- seriate(distx, method="GW")
+    ss <- seriation::seriate(distx, method="GW")
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
     cmat.return <- cmat.return[ord,ord]
   } else if (order=="HC"){ # HC ... just for comparision really
     distx <- dist(cmat)
-    ss <- seriate(distx, method="HC")
+    ss <- seriation::seriate(distx, method="HC")
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
     cmat.return <- cmat.return[ord,ord]
