@@ -53,7 +53,8 @@
 #' data or a correlation matrix.  Rarely needed.
 #' 
 #' @param order Should variables be re-ordered?  Use TRUE/"PCA" for PCA-based
-#' re-ordering.  Options from the 'seriate' package include "OLO" for optimal
+#' re-ordering.  
+#' If the 'seriation' package is loaded, this can also be set to "OLO" for optimal
 #' leaf ordering, "GW", and "HC".
 #' 
 #' @param labels Labels to use (instead of data frame variable names) for
@@ -87,10 +88,11 @@
 #' @param cor.method Correlation method to use in panel functions.  Default is
 #' 'pearson'.  Alternatives: 'spearman', 'kendall'.
 #'
-#' @param outer.labels A list of the form 'list(bottom,left,top,right)',
-#' each component of which is a list of the form 'list(labels,cex,srt)'.
-#' This is used to add labels along the outside edges of the corrgram.
-#' Defaults: 'cex=1', 'srt=90' (bottom/top), 'srt=0' (left/right).
+#' @param outer.labels A list of the form 'list(bottom,left,top,right)'.
+#' If 'bottom=TRUE' (for example), variable labels are added along the bottom outside edge.
+#' For more control, use 'bottom=list(labels,cex,srt)', where 'labels' is a vector
+#' of variable labels, 'cex' and 'srt' affect the size and rotation of the labels.
+#' Defaults: 'labels' uses column names, cex=1', 'srt=90' (bottom/top), 'srt=0' (left/right).
 #' 
 #' @param ... Additional arguments passed to plotting methods.
 #' 
@@ -152,8 +154,8 @@
 #' 
 #' @import graphics
 #' @import grDevices
-#' @importFrom seriation seriate
 #' @import stats
+#' @importFrom utils installed.packages
 #' @export corrgram
 corrgram <- function (x, type=NULL,
             order=FALSE, labels, panel = panel.shade,
@@ -240,6 +242,12 @@ corrgram <- function (x, type=NULL,
   # should we use absolute correlations for determining ordering?
   cmat <- if(abs) abs(cmat) else cmat
 
+  # The 'seriation' package is very heavy (many dependencies), so we
+  # do not import it, but only check to see if it is installed.
+  if( (order %in% c("OLO","GW","HC")) && 
+      ("seriation" %in% rownames(installed.packages()))==FALSE )
+    stop("Please use install.packages('seriation') for this 'order' option.")
+      
   # Default order
   if(order==FALSE) ord <- 1:nrow(cmat)
   # Re-order the data to group highly correlated variables
@@ -252,24 +260,24 @@ corrgram <- function (x, type=NULL,
     ord <- order(alpha)
     x <- if(type=="data") x[,ord] else x[ord, ord]
     cmat.return <- cmat.return[ord,ord]
-  } else if (order=="OLO") {
+  } else if (order %in% c("OLO","GW","HC")) {
     distx <- dist(cmat)
-    ss <- seriation::seriate(distx, method="OLO") # from seriation package
-    ord <- get_order(ss)
+    ss <- seriation::seriate(distx, method=order) # from seriation package
+    ord <- seriation::get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
     cmat.return <- cmat.return[ord,ord]
-  } else if (order=="GW"){ # GW order
-    distx <- dist(cmat)
-    ss <- seriation::seriate(distx, method="GW")
-    ord <- get_order(ss)
-    x <- if(type=="data") x[,ord] else x[ord,ord]
-    cmat.return <- cmat.return[ord,ord]
-  } else if (order=="HC"){ # HC ... just for comparision really
-    distx <- dist(cmat)
-    ss <- seriation::seriate(distx, method="HC")
-    ord <- get_order(ss)
-    x <- if(type=="data") x[,ord] else x[ord,ord]
-    cmat.return <- cmat.return[ord,ord]
+#  } else if (order=="GW"){ # GW order
+#    distx <- dist(cmat)
+#    ss <- seriation::seriate(distx, method="GW")
+#    ord <- get_order(ss)
+#    x <- if(type=="data") x[,ord] else x[ord,ord]
+#    cmat.return <- cmat.return[ord,ord]
+#  } else if (order=="HC"){ # HC ... just for comparision really
+#    distx <- dist(cmat)
+#    ss <- seriation::seriate(distx, method="HC")
+#    ord <- get_order(ss)
+#    x <- if(type=="data") x[,ord] else x[ord,ord]
+#    cmat.return <- cmat.return[ord,ord]
   } else if(order!=FALSE){
     stop("Unknown order argument in 'corrgram'.")
   }
@@ -400,10 +408,10 @@ corrgram <- function (x, type=NULL,
 
   # ----------------------------------------------------------------------------
   
-  corrgram.outer.labels(1, nc, ord, outer.labels$bottom)
-  corrgram.outer.labels(2, nc, ord, outer.labels$left)
-  corrgram.outer.labels(3, nc, ord, outer.labels$top)
-  corrgram.outer.labels(4, nc, ord, outer.labels$right)
+  corrgram.outer.labels(1, nc, ord, labels, outer.labels$bottom)
+  corrgram.outer.labels(2, nc, ord, labels, outer.labels$left)
+  corrgram.outer.labels(3, nc, ord, labels, outer.labels$top)
+  corrgram.outer.labels(4, nc, ord, labels, outer.labels$right)
   
   ## # Add overall labels
   ## mtext(xlab, side = 1, line = -1.5, outer=TRUE, xpd=NA)
@@ -412,7 +420,7 @@ corrgram <- function (x, type=NULL,
   invisible(cmat.return)
 }
 
-corrgram.outer.labels <- function(side,nc,ord,ll){
+corrgram.outer.labels <- function(side,nc,ord,labels, ll){
   # side = 1,2,3,4
   # nc
   # ord = re-ordering of columns/rows
@@ -421,10 +429,14 @@ corrgram.outer.labels <- function(side,nc,ord,ll){
   # http://menugget.blogspot.com/2014/08/rotated-axis-labels-in-r-plots.html
   
   if(is.null(ll)) return()
+  if(isTRUE(ll)) ll <- list() # allow TRUE
   
   # In case text.panel=NULL, we need to set par(usr)
   par(usr = c(0, 1, 0, 1))
-  
+
+  # If no labels are specified, use the default column names
+  if(is.null(ll$labels)) ll$labels = labels
+    
   if(length(ll$labels) != nc)
     stop("The length of labels of side ", side, " does not match the number of columns of the corrgram.")
   

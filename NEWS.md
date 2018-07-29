@@ -1,5 +1,9 @@
 # corrgram 1.14 - unpublished
 
+The `seriation` package is moved from Imports to Suggests.  This makes `corrgram` lighter loading for most people.
+
+The `outer.labels` argument has improved default values.
+
 # corrgram 1.13 - Jul 2018
 
 Test coverage at 95% using `covr` package.

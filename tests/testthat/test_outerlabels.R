@@ -5,6 +5,12 @@ context("test_outerlabels.R")
 
 require(corrgram)
 
+# short syntax for outer labels
+corrgram(state.x77, outer.labels=list(bottom=TRUE, right=TRUE))
+
+# use default labels in outer margin
+corrgram(state.x77, outer.labels=list(bottom=TRUE, right=list(srt=25)))
+
 labs=c("Population", "Income", "Illiteracy", "Life Exp", "Murder", "HS Grad", "Frost", "Area")
 
 # outer.labels not given

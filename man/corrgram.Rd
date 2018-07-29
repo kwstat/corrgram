@@ -31,7 +31,8 @@ correlation matrix.}
 data or a correlation matrix.  Rarely needed.}
 
 \item{order}{Should variables be re-ordered?  Use TRUE/"PCA" for PCA-based
-re-ordering.  Options from the 'seriate' package include "OLO" for optimal
+re-ordering.  
+If the 'seriation' package is loaded, this can also be set to "OLO" for optimal
 leaf ordering, "GW", and "HC".}
 
 \item{labels}{Labels to use (instead of data frame variable names) for
@@ -65,10 +66,11 @@ panels.}
 \item{cor.method}{Correlation method to use in panel functions.  Default is
 'pearson'.  Alternatives: 'spearman', 'kendall'.}
 
-\item{outer.labels}{A list of the form 'list(bottom,left,top,right)',
-each component of which is a list of the form 'list(labels,cex,srt)'.
-This is used to add labels along the outside edges of the corrgram.
-Defaults: 'cex=1', 'srt=90' (bottom/top), 'srt=0' (left/right).}
+\item{outer.labels}{A list of the form 'list(bottom,left,top,right)'.
+If 'bottom=TRUE' (for example), variable labels are added along the bottom outside edge.
+For more control, use 'bottom=list(labels,cex,srt)', where 'labels' is a vector
+of variable labels, 'cex' and 'srt' affect the size and rotation of the labels.
+Defaults: 'labels' uses column names, cex=1', 'srt=90' (bottom/top), 'srt=0' (left/right).}
 
 \item{...}{Additional arguments passed to plotting methods.}
 }

@@ -1,6 +1,6 @@
 Package: corrgram
 Title: Plot a Correlogram
-Version: 1.13
+Version: 1.14
 Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", comment=c(ORCID = "0000-0002-0617-8673"), role=c("aut","cre"))
 Date: 2018-07-06
 Type: Package
@@ -10,7 +10,6 @@ Description: Calculates correlation of variables and displays the results
 Imports:
     graphics,
     grDevices,
-    seriation,
     stats
 Suggests:
     gridBase,
@@ -18,6 +17,7 @@ Suggests:
     Matrix,
     psych,
     rmarkdown,
+    seriation,
     sfsmisc,
     testthat
 License: GPL-3
