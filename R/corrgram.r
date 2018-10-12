@@ -1,5 +1,5 @@
 # corrgram.R
-# Time-stamp: <05 May 2017 16:04:24 c:/x/rpack/corrgram/R/corrgram.R>
+# Time-stamp: <12 Oct 2018 15:56:27 c:/x/rpack/corrgram/R/corrgram.R>
 
 # color key
 # http://stackoverflow.com/questions/9852343/how-to-add-a-color-key-to-a-pairs-plot
@@ -89,10 +89,15 @@
 #' 'pearson'.  Alternatives: 'spearman', 'kendall'.
 #'
 #' @param outer.labels A list of the form 'list(bottom,left,top,right)'.
-#' If 'bottom=TRUE' (for example), variable labels are added along the bottom outside edge.
-#' For more control, use 'bottom=list(labels,cex,srt)', where 'labels' is a vector
-#' of variable labels, 'cex' and 'srt' affect the size and rotation of the labels.
-#' Defaults: 'labels' uses column names, cex=1', 'srt=90' (bottom/top), 'srt=0' (left/right).
+#' If 'bottom=TRUE' (for example), variable labels are added along the
+#' bottom outside edge.
+#' 
+#' For more control, use 'bottom=list(labels,cex,srt,adj)', where 'labels' is a vector
+#' of variable labels, 'cex' affects the size, 'srt' affects the rotation, and 'adj'
+#' affects the adjustment of the labels.
+#' Defaults: 'labels' uses column names; cex=1';
+#' 'srt=90' (bottom/top), 'srt=0' (left/right);
+#' 'adj=1' (bottom/left), 'adj=0' (top/right).
 #' 
 #' @param ... Additional arguments passed to plotting methods.
 #' 
@@ -148,7 +153,7 @@
 #' labs=colnames(state.x77)
 #' corrgram(state.x77, oma=c(7, 7, 2, 2),
 #'          outer.labels=list(bottom=list(labels=labs,cex=1.5,srt=60),
-#'                            left=list(labels=labs,cex=1.5,srt=30)))
+#'                            left=list(labels=labs,cex=1.5,srt=30,adj=c(1,0))))
 #' mtext("Bottom", side=1, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 #' mtext("Left", side=2, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 #' 
@@ -424,7 +429,7 @@ corrgram.outer.labels <- function(side,nc,ord,labels, ll){
   # side = 1,2,3,4
   # nc
   # ord = re-ordering of columns/rows
-  # ll=list(labels,cex,las,srt)
+  # ll=list(labels,cex,las,srt, adj)
   # inspired by Leo Leopold, with modifications to rotate text from
   # http://menugget.blogspot.com/2014/08/rotated-axis-labels-in-r-plots.html
   
@@ -439,12 +444,19 @@ corrgram.outer.labels <- function(side,nc,ord,labels, ll){
     
   if(length(ll$labels) != nc)
     stop("The length of labels of side ", side, " does not match the number of columns of the corrgram.")
-  
-  # default cex, srt
+
+  # re-order if needed
   ll$labels <- ll$labels[ord]
+  
+  # default cex
   if(is.null(ll$cex)) ll$cex=1
+  # default srt
   if((side==1 | side==3) & is.null(ll$srt)) ll$srt=90 # vert
   if((side==2 | side==4) & is.null(ll$srt)) ll$srt=0 # horiz
+  # default adj
+  if((side==1 | side==2) & is.null(ll$adj)) ll$adj=1
+  if((side==3 | side==4) & is.null(ll$adj)) ll$adj=0
+  
 
   for(i in 1:nc){
     # row/column grid position down/right 
@@ -453,22 +465,22 @@ corrgram.outer.labels <- function(side,nc,ord,labels, ll){
       # without 'clip', only the first label is added
       clip(0, -2, 0, 1)
       text(x=0.5, y= 0 - 0.05*(1-0), labels=ll$labels[i],
-           cex=ll$cex, srt=ll$srt, adj=1, xpd=NA)
+           cex=ll$cex, srt=ll$srt, adj=ll$adj, xpd=NA)
     } else if (side==2){ # left
       par(mfg=c(i, 1))
       clip(0, -2, 0, 1)
       text(x=0 - 0.05*(1-0), y=0.5, labels=ll$labels[i],
-           cex=ll$cex, srt=ll$srt, adj=1, xpd=NA)
+           cex=ll$cex, srt=ll$srt, adj=ll$adj, xpd=NA)
     } else if (side==3) { # top
       par(mfg=c(1, i))
       clip(0, -2, 0, 1)
       text(x=0.5, y= 1 + 0.05*(1-0), labels=ll$labels[i],
-           cex=ll$cex, srt=ll$srt, adj=0, xpd=NA)
+           cex=ll$cex, srt=ll$srt, adj=ll$adj, xpd=NA)
     } else if (side==4) { # right
       par(mfg=c(i, nc))
       clip(0, -2, 0, 1)
       text(x=1 + .05*(1-0), y=0.5, labels=ll$labels[i],
-           cex=ll$cex, srt=ll$srt, adj=0, xpd=NA)
+           cex=ll$cex, srt=ll$srt, adj=ll$adj, xpd=NA)
     }
     
   }

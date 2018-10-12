@@ -1,5 +1,5 @@
 # test_outerlabels.R
-# Time-stamp: <05 May 2017 16:29:11 c:/x/rpack/corrgram/tests/testthat/test_outerlabels.R>
+# Time-stamp: <12 Oct 2018 16:21:15 c:/x/rpack/corrgram/tests/testthat/test_outerlabels.R>
 
 context("test_outerlabels.R")
 
@@ -40,12 +40,12 @@ corrgram(state.x77, order=TRUE,
                            top=list(labels=labs),
                            right=list(labels=labs)))
 
-# outer labels, srt
+# outer labels, srt, adj
 corrgram(state.x77,
-         outer.labels=list(bottom=list(labels=labs,srt=60),
-                           left=list(labels=labs,srt=30),
-                           top=list(labels=labs,srt=90),
-                           right=list(labels=labs,srt=0)))
+         outer.labels=list(bottom=list(labels=labs,srt=60, adj=c(adj=1,.5)),
+                           left=list(labels=labs,srt=30, adj=c(1,1)),
+                           top=list(labels=labs,srt=90, adj=c(0,0)),
+                           right=list(labels=labs,srt=0, adj=c(0,0))))
 
 # outer labels, cex
 corrgram(state.x77, outer.labels=list(bottom=list(labels=labs,cex=0.5)))
