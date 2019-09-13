@@ -1,7 +1,5 @@
 # test_bounds.R
-# Time-stamp: <05 May 2017 16:27:04 c:/x/rpack/corrgram/tests/testthat/test_bounds.R>
-
-context("test_bounds.R")
+# Time-stamp: <23 Apr 2019 14:49:16 c:/x/rpack/corrgram/tests/testthat/test_bounds.R>
 
 dat <- data.frame(
   a=c(4.427371, 4.652635, 5.117894, 4.648367),

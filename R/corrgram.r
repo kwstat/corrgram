@@ -1,5 +1,5 @@
 # corrgram.R
-# Time-stamp: <12 Oct 2018 15:56:27 c:/x/rpack/corrgram/R/corrgram.R>
+# Time-stamp: <02 Dec 2018 10:33:17 c:/x/rpack/corrgram/R/corrgram.R>
 
 # color key
 # http://stackoverflow.com/questions/9852343/how-to-add-a-color-key-to-a-pairs-plot
@@ -52,7 +52,7 @@
 #' @param type Use 'data' or 'cor'/'corr' to explicitly specify that 'x' is
 #' data or a correlation matrix.  Rarely needed.
 #' 
-#' @param order Should variables be re-ordered?  Use TRUE/"PCA" for PCA-based
+#' @param order Should variables be re-ordered?  Use TRUE or "PCA" for PCA-based
 #' re-ordering.  
 #' If the 'seriation' package is loaded, this can also be set to "OLO" for optimal
 #' leaf ordering, "GW", and "HC".
@@ -257,11 +257,12 @@ corrgram <- function (x, type=NULL,
   if(order==FALSE) ord <- 1:nrow(cmat)
   # Re-order the data to group highly correlated variables
   if(order==TRUE || order=="PC" || order=="PCA"){
-    # Order by angle size between PCAs (first two) of correlation matrix
+    # Calculate the size of the angle between the horizontal axis and the
+    # PC vectors
     x.eigen <- eigen(cmat)$vectors[,1:2]
     e1 <- x.eigen[,1]
     e2 <- x.eigen[,2]
-    alpha <- ifelse(e1>0, atan(e2/e1), atan(e2/e1)+pi)
+    alpha <- ifelse(e1>0, atan(e2/e1), atan(e2/e1)+pi) # Friendly eqn 1
     ord <- order(alpha)
     x <- if(type=="data") x[,ord] else x[ord, ord]
     cmat.return <- cmat.return[ord,ord]

@@ -19,8 +19,8 @@ corrgram(x, type = NULL, order = FALSE, labels, panel = panel.shade,
   lower.panel = panel, upper.panel = panel, diag.panel = NULL,
   text.panel = textPanel, label.pos = c(0.5, 0.5), label.srt = 0,
   cex.labels = NULL, font.labels = 1, row1attop = TRUE, dir = "",
-  gap = 0, abs = FALSE, col.regions = colorRampPalette(c("red", "salmon",
-  "white", "royalblue", "navy")), cor.method = "pearson",
+  gap = 0, abs = FALSE, col.regions = colorRampPalette(c("red",
+  "salmon", "white", "royalblue", "navy")), cor.method = "pearson",
   outer.labels = NULL, ...)
 }
 \arguments{
@@ -30,7 +30,7 @@ correlation matrix.}
 \item{type}{Use 'data' or 'cor'/'corr' to explicitly specify that 'x' is
 data or a correlation matrix.  Rarely needed.}
 
-\item{order}{Should variables be re-ordered?  Use TRUE/"PCA" for PCA-based
+\item{order}{Should variables be re-ordered?  Use TRUE or "PCA" for PCA-based
 re-ordering.  
 If the 'seriation' package is loaded, this can also be set to "OLO" for optimal
 leaf ordering, "GW", and "HC".}
@@ -67,10 +67,15 @@ panels.}
 'pearson'.  Alternatives: 'spearman', 'kendall'.}
 
 \item{outer.labels}{A list of the form 'list(bottom,left,top,right)'.
-If 'bottom=TRUE' (for example), variable labels are added along the bottom outside edge.
-For more control, use 'bottom=list(labels,cex,srt)', where 'labels' is a vector
-of variable labels, 'cex' and 'srt' affect the size and rotation of the labels.
-Defaults: 'labels' uses column names, cex=1', 'srt=90' (bottom/top), 'srt=0' (left/right).}
+If 'bottom=TRUE' (for example), variable labels are added along the
+bottom outside edge.
+
+For more control, use 'bottom=list(labels,cex,srt,adj)', where 'labels' is a vector
+of variable labels, 'cex' affects the size, 'srt' affects the rotation, and 'adj'
+affects the adjustment of the labels.
+Defaults: 'labels' uses column names; cex=1';
+'srt=90' (bottom/top), 'srt=0' (left/right);
+'adj=1' (bottom/left), 'adj=0' (top/right).}
 
 \item{...}{Additional arguments passed to plotting methods.}
 }
@@ -149,7 +154,7 @@ corrgram(vote, order=TRUE, upper.panel=panel.cor)
 labs=colnames(state.x77)
 corrgram(state.x77, oma=c(7, 7, 2, 2),
          outer.labels=list(bottom=list(labels=labs,cex=1.5,srt=60),
-                           left=list(labels=labs,cex=1.5,srt=30)))
+                           left=list(labels=labs,cex=1.5,srt=30,adj=c(1,0))))
 mtext("Bottom", side=1, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 mtext("Left", side=2, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 

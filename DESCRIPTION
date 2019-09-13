@@ -23,7 +23,7 @@ Suggests:
 License: GPL-3
 LazyData: yes
 Encoding: UTF-8
-URL: https://github.com/kwstat/corrgram
+URL: http://kwstat.github.io/corrgram/
 BugReports: https://github.com/kwstat/corrgram/issues/
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

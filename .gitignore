@@ -19,3 +19,4 @@ vignettes/*.synctex.gz
 vignettes/*.tex
 tests/testthat/Rplots.pdf
 revdep
+pkgdown

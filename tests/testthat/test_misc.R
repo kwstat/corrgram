@@ -1,7 +1,5 @@
 # test_misc.R
-# Time-stamp: <05 May 2017 16:28:41 c:/x/rpack/corrgram/tests/testthat/test_misc.R>
-
-context("test_misc.R")
+# Time-stamp: <23 Apr 2019 14:49:52 c:/x/rpack/corrgram/tests/testthat/test_misc.R>
 
 require(corrgram)
 

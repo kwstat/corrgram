@@ -1,7 +1,5 @@
 # test_misc.R
 
-context("test_order.R")
-
 # cmat0 <- corrgram(mtcars)
 
 cmat10 <- corrgram(mtcars, lower.panel = panel.conf, order = TRUE)

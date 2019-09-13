@@ -1,7 +1,5 @@
 # test_outerlabels.R
-# Time-stamp: <12 Oct 2018 16:21:15 c:/x/rpack/corrgram/tests/testthat/test_outerlabels.R>
-
-context("test_outerlabels.R")
+# Time-stamp: <23 Apr 2019 14:49:43 c:/x/rpack/corrgram/tests/testthat/test_outerlabels.R>
 
 require(corrgram)
 

@@ -1,0 +1,7 @@
+pandoc: 2.7.2
+pkgdown: 1.4.0
+pkgdown_sha: ~
+articles:
+  corrgram_cov2cor: corrgram_cov2cor.html
+  corrgram_examples: corrgram_examples.html
+
