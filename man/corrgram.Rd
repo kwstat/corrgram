@@ -15,13 +15,29 @@
 \alias{panel.txt}
 \title{Draw a correlogram}
 \usage{
-corrgram(x, type = NULL, order = FALSE, labels, panel = panel.shade,
-  lower.panel = panel, upper.panel = panel, diag.panel = NULL,
-  text.panel = textPanel, label.pos = c(0.5, 0.5), label.srt = 0,
-  cex.labels = NULL, font.labels = 1, row1attop = TRUE, dir = "",
-  gap = 0, abs = FALSE, col.regions = colorRampPalette(c("red",
-  "salmon", "white", "royalblue", "navy")), cor.method = "pearson",
-  outer.labels = NULL, ...)
+corrgram(
+  x,
+  type = NULL,
+  order = FALSE,
+  labels,
+  panel = panel.shade,
+  lower.panel = panel,
+  upper.panel = panel,
+  diag.panel = NULL,
+  text.panel = textPanel,
+  label.pos = c(0.5, 0.5),
+  label.srt = 0,
+  cex.labels = NULL,
+  font.labels = 1,
+  row1attop = TRUE,
+  dir = "",
+  gap = 0,
+  abs = FALSE,
+  col.regions = colorRampPalette(c("red", "salmon", "white", "royalblue", "navy")),
+  cor.method = "pearson",
+  outer.labels = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{A \emph{tall} data frame with one observation per row, or a

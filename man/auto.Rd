@@ -4,7 +4,8 @@
 \name{auto}
 \alias{auto}
 \title{Statistics of 1979 automobile models}
-\format{A data frame with 74 observations on the following 14 variables.
+\format{
+A data frame with 74 observations on the following 14 variables.
 \describe{ 
 \item{Model}{Make and model of car.}
 \item{Origin}{a factor with levels A,E,J}
@@ -20,7 +21,8 @@
 \item{Turn}{Turning diameter in feet.}
 \item{Displa}{Engine displacement in cubic inches.}
 \item{Gratio}{Gear ratio for high gear.} 
-}}
+}
+}
 \source{
 This data frame was created from
 http://euclid.psych.yorku.ca/ftp/sas/sssg/data/auto.sas

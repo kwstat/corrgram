@@ -4,7 +4,9 @@
 \name{vote}
 \alias{vote}
 \title{Voting correlations}
-\format{A 12x12 matrix.}
+\format{
+A 12x12 matrix.
+}
 \source{
 Torben Iversen and David Soskice (2006). Electoral institutions and
 the politics of coalitions: Why some democracies redistribute more than

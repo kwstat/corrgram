@@ -2,7 +2,7 @@ Package: corrgram
 Title: Plot a Correlogram
 Version: 1.14
 Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", comment=c(ORCID = "0000-0002-0617-8673"), role=c("aut","cre"))
-Date: 2018-07-06
+Date: 2021-04-29
 Type: Package
 Description: Calculates correlation of variables and displays the results
     graphically. Included panel functions can display points, shading, ellipses, and
@@ -23,7 +23,7 @@ Suggests:
 License: GPL-3
 LazyData: yes
 Encoding: UTF-8
-URL: http://kwstat.github.io/corrgram/
+URL: https://kwstat.github.io/corrgram/
 BugReports: https://github.com/kwstat/corrgram/issues/
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0

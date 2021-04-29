@@ -1,3 +1,24 @@
+# corrgram 1.14
+
+## Test environments
+
+* local R 4.0.4 Windows 10
+* Rhub Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+* Rhub Ubuntu Linux 20.04.1 LTS, R-release, GCC
+
+## Results from Rcmd check
+
+R CMD check results
+0 errors | 0 warnings | 0 notes
+
+## revdepcheck results
+
+We checked 9 reverse dependencies (8 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+
+
 # corrgram 1.13
 
 ## Test environments 

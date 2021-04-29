@@ -1,5 +1,5 @@
 # corrgram.R
-# Time-stamp: <02 Dec 2018 10:33:17 c:/x/rpack/corrgram/R/corrgram.R>
+# Time-stamp: <29 Apr 2021 10:06:25 c:/one/rpack/corrgram/r/corrgram.R>
 
 # color key
 # http://stackoverflow.com/questions/9852343/how-to-add-a-color-key-to-a-pairs-plot
@@ -267,23 +267,13 @@ corrgram <- function (x, type=NULL,
     x <- if(type=="data") x[,ord] else x[ord, ord]
     cmat.return <- cmat.return[ord,ord]
   } else if (order %in% c("OLO","GW","HC")) {
+    # "OLO" is used in this book
+    # R Visualizations: Derive Meaning from Data By David Gerbing · 2020 p. 125
     distx <- dist(cmat)
     ss <- seriation::seriate(distx, method=order) # from seriation package
     ord <- seriation::get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
     cmat.return <- cmat.return[ord,ord]
-#  } else if (order=="GW"){ # GW order
-#    distx <- dist(cmat)
-#    ss <- seriation::seriate(distx, method="GW")
-#    ord <- get_order(ss)
-#    x <- if(type=="data") x[,ord] else x[ord,ord]
-#    cmat.return <- cmat.return[ord,ord]
-#  } else if (order=="HC"){ # HC ... just for comparision really
-#    distx <- dist(cmat)
-#    ss <- seriation::seriate(distx, method="HC")
-#    ord <- get_order(ss)
-#    x <- if(type=="data") x[,ord] else x[ord,ord]
-#    cmat.return <- cmat.return[ord,ord]
   } else if(order!=FALSE){
     stop("Unknown order argument in 'corrgram'.")
   }

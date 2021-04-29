@@ -9,7 +9,7 @@ Repository: https://github.com/kwstat/corrgram
 
 The `corrgram` package provides a simple way to create correlograms from raw data or a correlation matrix.
 
-Key features:
+## Key features
 
 * Stable, well-tested, widely used.
 

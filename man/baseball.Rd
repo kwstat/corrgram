@@ -4,7 +4,8 @@
 \name{baseball}
 \alias{baseball}
 \title{Baseball Hitter's Data}
-\format{A data frame with 322 observations on the following 22 variables.
+\format{
+A data frame with 322 observations on the following 22 variables.
 \describe{ 
 \item{Name}{The hitter/player's name}
 \item{League}{Player's league (American/National) at the beginning
@@ -30,7 +31,8 @@ SS=Short stop, UT=Utility}
 \item{Assists}{Number of assists in 1986}
 \item{Errors}{Number of errors in 1986} 
 \item{Salary}{Annual salary (in thousands) on opening day 1987} 
-\item{logSal}{Log of salary} }}
+\item{logSal}{Log of salary} }
+}
 \source{
 The data was originally published for the 1988 ASA Statistical
 Graphics and Computing Data Exposition:
