@@ -26,4 +26,4 @@ Encoding: UTF-8
 URL: https://kwstat.github.io/corrgram/
 BugReports: https://github.com/kwstat/corrgram/issues/
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3

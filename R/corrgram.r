@@ -10,141 +10,166 @@
 # ----------------------------------------------------------------------------
 
 #' Draw a correlogram
-#' 
+#'
 #' The corrgram function produces a graphical display of a correlation matrix,
 #' called a correlogram.  The cells of the matrix can be shaded or colored to
-#' show the correlation value.
-#' 
+#' show the correlation value. Automatic variable reordering can be used to
+#' improve the visualization.
+#'
 #' Note: Use the 'col.regions' argument to specify colors.
-#' 
+#'
 #' Non-numeric columns in the data will be ignored.
-#' 
+#'
 #' The off-diagonal panels are specified with \code{panel.pts},
 #' \code{panel.pie}, \code{panel.shade}, \code{panel.fill}, `\code{panel.bar},
 #' \code{panel.ellipse}, \code{panel.conf}. \code{panel.cor}.
-#' 
+#'
 #' Diagonal panels are specified with \code{panel.txt}, \code{panel.minmax},
 #' \code{panel.density}.
-#' 
+#'
 #' Use a NULL panel to omit drawing the panel.
-#' 
+#'
 #' This function is basically a modification of the \code{pairs.default}
 #' function with the use of customized panel functions.
-#' 
+#'
 #' The panel.conf function uses \code{cor.test} and calculates pearson
 #' correlations.  Confidence intervals are not available in \code{cor.test} for
 #' other methods (kendall, spearman).
-#' 
+#'
 #' You can create your own panel functions by starting with one of the included
 #' panel functions and making suitable modifications.  Note that because of the
 #' way the panel functions are called inside the main function, your custom
 #' panel function must include the arguments shown in the \code{panel.pts}
 #' function, even if the custom panel function does not use those arguments!
-#' 
+#'
 #' TODO: legend, grid graphics version.
-#' 
+#'
 #' @aliases corrgram panel.bar panel.conf panel.cor panel.density panel.ellipse
 #' panel.fill panel.minmax panel.pie panel.pts panel.shade panel.txt
-#' 
+#'
 #' @param x A \emph{tall} data frame with one observation per row, or a
 #' correlation matrix.
-#' 
+#'
 #' @param type Use 'data' or 'cor'/'corr' to explicitly specify that 'x' is
 #' data or a correlation matrix.  Rarely needed.
-#' 
-#' @param order Should variables be re-ordered?  Use TRUE or "PCA" for PCA-based
-#' re-ordering.  
-#' If the 'seriation' package is loaded, this can also be set to "OLO" for optimal
-#' leaf ordering, "GW", and "HC".
-#' 
+#'
+#' @param order Should variables be re-ordered?
+#' This will improve the visualization by placing similar variables next
+#' to each other. Use TRUE or "PCA" for angular PCA-based
+#' re-ordering (see Friendly, 2002).
+#' If the 'seriation' package is installed, then any
+#' distance-based method for \link[seriation]{seriate} can be used.
+#' Examples are "OLO" for optimal leaf ordering,
+#' "GW", "HC", and "MDS" (see Hahsler and Buchta, 2008).
+#'
 #' @param labels Labels to use (instead of data frame variable names) for
 #' diagonal panels. If 'order' option is used, this vector of labels will be
 #' also be appropriately reordered by the function.
-#' 
+#'
 #' @param panel Function used to plot the contents of each panel.
-#' 
+#'
 #' @param lower.panel,upper.panel Separate panel functions used below/above the
 #' diagonal.
-#' 
+#'
 #' @param diag.panel,text.panel Panel function used on the diagonal.
-#' 
+#'
 #' @param label.pos Horizontal and vertical placement of label in diagonal
 #' panels.
-#' 
+#'
 #' @param label.srt String rotation for diagonal labels.
-#' 
+#'
 #' @param cex.labels,font.labels Graphics parameter for diagonal panels.
-#' 
+#'
 #' @param row1attop TRUE for diagonal like " \ ", FALSE for diagonal like " / ".
-#' 
+#'
 #' @param dir Use \code{dir="left"} instead of 'row1attop'.
-#' 
+#'
 #' @param gap Distance between panels.
-#' 
+#'
 #' @param abs Use absolute value of correlations for clustering?  Default FALSE.
-#' 
+#'
 #' @param col.regions A \emph{function} returning a vector of colors.
-#' 
+#'
 #' @param cor.method Correlation method to use in panel functions.  Default is
 #' 'pearson'.  Alternatives: 'spearman', 'kendall'.
 #'
 #' @param outer.labels A list of the form 'list(bottom,left,top,right)'.
 #' If 'bottom=TRUE' (for example), variable labels are added along the
 #' bottom outside edge.
-#' 
+#'
 #' For more control, use 'bottom=list(labels,cex,srt,adj)', where 'labels' is a vector
 #' of variable labels, 'cex' affects the size, 'srt' affects the rotation, and 'adj'
 #' affects the adjustment of the labels.
 #' Defaults: 'labels' uses column names; cex=1';
 #' 'srt=90' (bottom/top), 'srt=0' (left/right);
 #' 'adj=1' (bottom/left), 'adj=0' (top/right).
-#' 
+#'
 #' @param ... Additional arguments passed to plotting methods.
-#' 
+#'
 #' @return The correlation matrix used for plotting is returned. The 'order' and 'abs'
 #' arguments affect the returned value.
-#' 
+#'
 #' @author Kevin Wright
-#' 
+#'
 #' @references
 #' Friendly, Michael.  2002.  Corrgrams: Exploratory Displays for
 #' Correlation Matrices.  \emph{The American Statistician}, 56, 316--324.
 #' \url{http://datavis.ca/papers/corrgram.pdf}
-#' 
+#'
 #' D. J. Murdoch and E. D. Chow. 1996. A Graphical Display of Large Correlation
-#' Matrices.  The American Statistician, 50, 178-180.
-#' 
+#' Matrices.  \emph{The American Statistician}, 50, 178-180.
+#'
+#' Hahsler M, Hornik K, Buchta C. 2008. Getting things in order: An
+#' introduction to the R package seriation.
+#' \emph{Journal of Statistical Software}, 25(3), 1--34.
+#' ISSN 1548-7660, \doi{10.18637/jss.v025.i03}
+#'
 #' @keywords hplot
-#' 
+#'
 #' @examples
-#' 
+#'
 #' # To reproduce the figures in Michael Friendly's paper, see the
 #' # vignette, or see the file 'friendly.r' in this package's
 #' # test directory.
-#' 
+#'
 #' # Demonstrate density panel, correlation confidence panel
 #' corrgram(iris, lower.panel=panel.pts, upper.panel=panel.conf,
 #'          diag.panel=panel.density)
-#' 
+#'
 #' # Demonstrate panel.shade, panel.pie, principal component ordering
 #' vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
 #'            "Putouts","RBI","Runs","Walks","Years")
 #' corrgram(baseball[vars2], order=TRUE, main="Baseball data PC2/PC1 order",
 #'          lower.panel=panel.shade, upper.panel=panel.pie)
-#' 
+#'
+#' # Use reordering options from package seriation (only available if
+#' #    package seriation is installed)
+#' if ("seriation" %in% rownames(installed.packages())) {
+#' corrgram(baseball[vars2], order= "OLO",
+#'           main="Baseball data with optimal leaf order",
+#'           lower.panel=panel.shade, upper.panel=panel.pie)
+#'
+#' corrgram(baseball[vars2], order= "R2E",
+#'           main="Baseball data with rank 2 ellipse seriation",
+#'           lower.panel=panel.shade, upper.panel=panel.pie)
+#'
+#' # the following seriation methods are available
+#' seriation::list_seriation_methods("dist")
+#' }
+#'
 #' # CAUTION: The latticeExtra package also has a 'panel.ellipse' function
 #' # that clashes with the same-named function in corrgram. In order to use
 #' # the right one, the example below uses 'lower.panel=corrgram::panel.ellipse'.
 #' # If you do not have latticeExtra loaded, you can just use
 #' # 'lower.panel=panel.ellipse'.
-#' 
+#'
 #' # Demonstrate panel.bar, panel.ellipse, panel.minmax, col.regions
 #' corrgram(auto, order=TRUE, main="Auto data (PC order)",
 #'          lower.panel=corrgram::panel.ellipse,
 #'          upper.panel=panel.bar, diag.panel=panel.minmax,
 #'          col.regions=colorRampPalette(c("darkgoldenrod4", "burlywood1",
 #'                                         "darkkhaki", "darkgreen")))
-#' 
+#'
 #' # 'vote' is a correlation matrix, not a data frame
 #' corrgram(vote, order=TRUE, upper.panel=panel.cor)
 #'
@@ -156,7 +181,7 @@
 #'                            left=list(labels=labs,cex=1.5,srt=30,adj=c(1,0))))
 #' mtext("Bottom", side=1, cex=2, line = -1.5, outer=TRUE, xpd=NA)
 #' mtext("Left", side=2, cex=2, line = -1.5, outer=TRUE, xpd=NA)
-#' 
+#'
 #' @import graphics
 #' @import grDevices
 #' @import stats
@@ -179,10 +204,10 @@ corrgram <- function (x, type=NULL,
   if(is.null(order)) order <- FALSE
 
   if( cor.method != "pearson" &
-      (deparse(substitute(upper.panel)) == "panel.conf" | 
+      (deparse(substitute(upper.panel)) == "panel.conf" |
        deparse(substitute(upper.panel)) == "panel.conf"))
     stop("'panel.conf' only allows 'pearson' method. Try 'panel.cor' instead.")
-  
+
   # Former versions used label.pos=0.5 for vertical positioning.
   if(length(label.pos) < 2) stop("label.pos needs a vector of length 2")
 
@@ -203,7 +228,7 @@ corrgram <- function (x, type=NULL,
   ##   maybeCorr <- TRUE
   ## else
   ##   maybeCorr <- FALSE
-  
+
   # if a matrix x has only colnames, isSymmetric(x) reports FALSE
   # use unname(x) so it will report TRUE
   if(is.matrix(x) && isSymmetric(unname(x))) {
@@ -240,23 +265,20 @@ corrgram <- function (x, type=NULL,
   } else {
     cmat <- x
   }
-    
+
   # Save the correlation matrix for returning to user, re-ordered below
   cmat.return <- cmat
 
   # should we use absolute correlations for determining ordering?
   cmat <- if(abs) abs(cmat) else cmat
 
-  # The 'seriation' package is very heavy (many dependencies), so we
-  # do not import it, but only check to see if it is installed.
-  if( (order %in% c("OLO","GW","HC")) && 
-      ("seriation" %in% rownames(installed.packages()))==FALSE )
-    stop("Please use install.packages('seriation') for this 'order' option.")
-      
+
+
   # Default order
-  if(order==FALSE) ord <- 1:nrow(cmat)
+  if(order==FALSE) {
+    ord <- 1:nrow(cmat)
   # Re-order the data to group highly correlated variables
-  if(order==TRUE || order=="PC" || order=="PCA"){
+  } else if(order==TRUE || order=="PC" || order=="PCA"){
     # Calculate the size of the angle between the horizontal axis and the
     # PC vectors
     x.eigen <- eigen(cmat)$vectors[,1:2]
@@ -266,16 +288,19 @@ corrgram <- function (x, type=NULL,
     ord <- order(alpha)
     x <- if(type=="data") x[,ord] else x[ord, ord]
     cmat.return <- cmat.return[ord,ord]
-  } else if (order %in% c("OLO","GW","HC")) {
+  } else {
+    # Any other order method is delegated to seriation
+    # The 'seriation' package is very heavy (many dependencies), so we
+    # do not import it, but only check to see if it is installed.
+    if (!("seriation" %in% rownames(installed.packages())))
+      stop("Please use install.packages('seriation') for this 'order' option.")
     # "OLO" is used in this book
     # R Visualizations: Derive Meaning from Data By David Gerbing · 2020 p. 125
-    distx <- dist(cmat)
+    distx <- as.dist(sqrt(1 - cmat))
     ss <- seriation::seriate(distx, method=order) # from seriation package
     ord <- seriation::get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
     cmat.return <- cmat.return[ord,ord]
-  } else if(order!=FALSE){
-    stop("Unknown order argument in 'corrgram'.")
   }
 
   textPanel <- function(x = 0.5, y = 0.5, txt, cex, font, srt) {
@@ -334,7 +359,7 @@ corrgram <- function (x, type=NULL,
 
   oma <- if("oma" %in% nmdots) dots$oma else NULL
   main <- if("main" %in% nmdots) dots$main else NULL
-  
+
   # Plot layout
 
   if (is.null(oma)) {
@@ -349,9 +374,9 @@ corrgram <- function (x, type=NULL,
   for (i in if(dir=="left") 1:nc else nc:1)
     for (j in 1:nc) {
       # Set up plotting area
-      localPlot(x[, j], x[, i], xlab = "", ylab = "", 
+      localPlot(x[, j], x[, i], xlab = "", ylab = "",
                 axes = FALSE, type = "n", ...)
-      
+
       if(i == j || (i < j && has.lower) || (i > j && has.upper) ) {
 
         if(i == j) {
@@ -373,17 +398,17 @@ corrgram <- function (x, type=NULL,
             text.panel(label.pos[1], label.pos[2], labels[i],
                        cex = cex.labels, font = font.labels, srt=label.srt)
           }
-        } else if(i < j) { 
+        } else if(i < j) {
           # Lower panel
           if(type=="data")
-            localLowerPanel(as.vector(x[, j]), as.vector(x[, i]), NULL, 
+            localLowerPanel(as.vector(x[, j]), as.vector(x[, i]), NULL,
                             col.regions, cor.method, ...)
           else
             localLowerPanel(NULL, NULL, x[j,i], col.regions, cor.method, ...)
-        } else { 
+        } else {
           # Upper panel
           if(type=="data")
-            localUpperPanel(as.vector(x[, j]), as.vector(x[, i]), NULL, 
+            localUpperPanel(as.vector(x[, j]), as.vector(x[, i]), NULL,
                             col.regions, cor.method, ...)
           else
             localUpperPanel(NULL, NULL, x[j,i], col.regions, cor.method, ...)
@@ -396,19 +421,19 @@ corrgram <- function (x, type=NULL,
     }
 
   if (!is.null(main)) {
-    font.main <- 
+    font.main <-
       if("font.main" %in% nmdots) dots$font.main else par("font.main")
     cex.main <- if("cex.main" %in% nmdots) dots$cex.main else par("cex.main")
     mtext(main, 3, 3, TRUE, 0.5, cex = cex.main, font = font.main)
   }
 
   # ----------------------------------------------------------------------------
-  
+
   corrgram.outer.labels(1, nc, ord, labels, outer.labels$bottom)
   corrgram.outer.labels(2, nc, ord, labels, outer.labels$left)
   corrgram.outer.labels(3, nc, ord, labels, outer.labels$top)
   corrgram.outer.labels(4, nc, ord, labels, outer.labels$right)
-  
+
   ## # Add overall labels
   ## mtext(xlab, side = 1, line = -1.5, outer=TRUE, xpd=NA)
   ## mtext(ylab, side = 2, line = -1.5, outer=TRUE, xpd=NA)
@@ -423,22 +448,22 @@ corrgram.outer.labels <- function(side,nc,ord,labels, ll){
   # ll=list(labels,cex,las,srt, adj)
   # inspired by Leo Leopold, with modifications to rotate text from
   # http://menugget.blogspot.com/2014/08/rotated-axis-labels-in-r-plots.html
-  
+
   if(is.null(ll)) return()
   if(isTRUE(ll)) ll <- list() # allow TRUE
-  
+
   # In case text.panel=NULL, we need to set par(usr)
   par(usr = c(0, 1, 0, 1))
 
   # If no labels are specified, use the default column names
   if(is.null(ll$labels)) ll$labels = labels
-    
+
   if(length(ll$labels) != nc)
     stop("The length of labels of side ", side, " does not match the number of columns of the corrgram.")
 
   # re-order if needed
   ll$labels <- ll$labels[ord]
-  
+
   # default cex
   if(is.null(ll$cex)) ll$cex=1
   # default srt
@@ -447,10 +472,10 @@ corrgram.outer.labels <- function(side,nc,ord,labels, ll){
   # default adj
   if((side==1 | side==2) & is.null(ll$adj)) ll$adj=1
   if((side==3 | side==4) & is.null(ll$adj)) ll$adj=0
-  
+
 
   for(i in 1:nc){
-    # row/column grid position down/right 
+    # row/column grid position down/right
     if(side==1) { # bottom
       par(mfg=c(nc, i))
       # without 'clip', only the first label is added
@@ -473,9 +498,9 @@ corrgram.outer.labels <- function(side,nc,ord,labels, ll){
       text(x=1 + .05*(1-0), y=0.5, labels=ll$labels[i],
            cex=ll$cex, srt=ll$srt, adj=ll$adj, xpd=NA)
     }
-    
+
   }
-  
+
   return()
 }
 
@@ -631,7 +656,7 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
       corr <- cor(x, y, use = "pair", method=cor.method)
     }
   }
-  
+
   ncol <- 14
   pal <- col.regions(ncol)
   col.ind <- as.numeric(cut(corr, breaks = seq(from = -1, to = 1,
@@ -648,12 +673,12 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
     rect(minx, miny, maxx, maxy, col = pal[col.ind],
          border = "lightgray")
   }
-  
+
 }
 
 #' @export
 panel.fill <- function(x, y, corr=NULL, col.regions, cor.method, ...){
-  
+
   # If corr not given, try to calculate it
   if(is.null(corr)) {
     if(sum(complete.cases(x,y)) < 2) {
@@ -663,7 +688,7 @@ panel.fill <- function(x, y, corr=NULL, col.regions, cor.method, ...){
       corr <- cor(x, y, use='pair', method=cor.method)
     }
   }
-  
+
   ncol <- 14
   pal <- col.regions(ncol)
   col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=ncol+1),
@@ -678,7 +703,7 @@ panel.fill <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
 
 #' @export
-panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, 
+panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
                       cex.cor, ...){
   # Correlation values only, colored
 
@@ -695,12 +720,12 @@ panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
   auto <- missing(cex.cor)
   usr <- par("usr"); on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
-  
+
   ncol <- 14
   pal <- col.regions(ncol)
   col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=ncol+1),
                             include.lowest=TRUE))
-  
+
   # determine string width using absolute values so that
   # negative numbers are not wider than positive numbers
   abscorr <- formatC(abs(corr), digits=digits, format='f')
@@ -711,7 +736,7 @@ panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
 }
 
 #' @export
-panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2, 
+panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
                        cex.cor, ...){
 
   auto <- missing(cex.cor)
@@ -720,7 +745,7 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
 
   # ncol <- 14
   # pal <- col.regions(ncol)
-  
+
   # For correlation matrix, only show the correlation
   if(!is.null(corr)) {
     est <- corr
@@ -748,7 +773,7 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
       if(auto) cex.cor <- 0.8/strwidth(ci)
       text(0.5, 0.3, ci, cex=cex.cor) # , col=pal[col.ind])
     }
-    
+
   }
 }
 
@@ -785,9 +810,9 @@ panel.minmax <- function(x, corr=NULL, ...){
 # -----
 
 if(FALSE) {
-  
+
 # Exploring ideas for adding a legend
-  
+
 # layout doesn't work because par(mfrow=) is incompatible
 
 # -------------
@@ -803,7 +828,7 @@ grab_grob <- function(){
   grid.grab()
 }
 
-arr <- replicate(4, 
+arr <- replicate(4,
                  matrix(runif(n=9),nrow=3,ncol=3), simplify = FALSE)
 
 library(gplots)
@@ -822,7 +847,7 @@ grid.arrange(grobs=gl, ncol=2, clip=TRUE)
   library(gridExtra)
   library(corrgram)
   corrgram(iris)
-  grid.echo() 
+  grid.echo()
   p1 = grid.grab(warn=0)
   corrgram(state.x77)
   grid.echo() # re-draw using grid graphics...slow
