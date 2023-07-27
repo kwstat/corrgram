@@ -20,7 +20,7 @@ Suggests:
     seriation,
     sfsmisc,
     testthat
-License: GPL-3
+License: MIT + file LICENSE
 LazyData: yes
 Encoding: UTF-8
 URL: https://kwstat.github.io/corrgram/
