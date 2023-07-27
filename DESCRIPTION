@@ -21,7 +21,11 @@ Suggests:
     sfsmisc,
     testthat
 License: MIT + file LICENSE
+<<<<<<< Updated upstream
 LazyData: yes
+=======
+LazyData: true
+>>>>>>> Stashed changes
 Encoding: UTF-8
 URL: https://kwstat.github.io/corrgram/
 BugReports: https://github.com/kwstat/corrgram/issues/

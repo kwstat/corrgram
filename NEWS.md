@@ -1,3 +1,7 @@
+# corrgram 1.15 - unpublished
+
+* Switch to MIT license
+
 # corrgram 1.14 - Apr 2021
 
 * The `seriation` package is moved from Imports to Suggests.  This makes `corrgram` lighter loading for most people. (Requested by P.Kiener and others)
