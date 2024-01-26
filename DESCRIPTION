@@ -1,7 +1,7 @@
 Package: corrgram
 Title: Plot a Correlogram
 Version: 1.14
-Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", comment=c(ORCID = "0000-0002-0617-8673"), role=c("aut","cre"))
+Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", comment=c(ORCID = "0000-0002-0617-8673"), role=c("aut","cre","cph"))
 Date: 2021-04-29
 Type: Package
 Description: Calculates correlation of variables and displays the results
