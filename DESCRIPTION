@@ -21,9 +21,6 @@ Suggests:
     sfsmisc,
     testthat
 License: MIT + file LICENSE
-<<<<<<< Updated upstream
-LazyData: yes
-=======
 LazyData: true
 >>>>>>> Stashed changes
 Encoding: UTF-8
