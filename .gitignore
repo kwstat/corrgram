@@ -20,3 +20,4 @@ vignettes/*.tex
 tests/testthat/Rplots.pdf
 revdep
 pkgdown
+docs

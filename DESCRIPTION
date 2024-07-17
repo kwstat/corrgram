@@ -1,12 +1,18 @@
+Type: Package
 Package: corrgram
 Title: Plot a Correlogram
 Version: 1.14
-Authors@R: person("Kevin","Wright", email="kw.stat@gmail.com", comment=c(ORCID = "0000-0002-0617-8673"), role=c("aut","cre","cph"))
 Date: 2021-04-29
-Type: Package
+Authors@R: 
+    person("Kevin", "Wright", , "kw.stat@gmail.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-0617-8673"))
 Description: Calculates correlation of variables and displays the results
-    graphically. Included panel functions can display points, shading, ellipses, and
-    correlation values with confidence intervals. See Friendly (2002) <doi:10.1198/000313002533>.
+    graphically. Included panel functions can display points, shading,
+    ellipses, and correlation values with confidence intervals. See
+    Friendly (2002) <doi:10.1198/000313002533>.
+License: MIT + file LICENSE
+URL: https://kwstat.github.io/corrgram/, http://kwstat.github.io/corrgram/
+BugReports: https://github.com/kwstat/corrgram/issues/
 Imports:
     graphics,
     grDevices,
@@ -20,11 +26,8 @@ Suggests:
     seriation,
     sfsmisc,
     testthat
-License: MIT + file LICENSE
-LazyData: true
->>>>>>> Stashed changes
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
-URL: https://kwstat.github.io/corrgram/
-BugReports: https://github.com/kwstat/corrgram/issues/
-VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+LazyData: true
+RoxygenNote: 7.3.2
