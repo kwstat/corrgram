@@ -1,10 +1,11 @@
-pandoc: 3.1.11
-pkgdown: 2.1.0
+pandoc: 3.8.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   corrgram_cov2cor: corrgram_cov2cor.html
   corrgram_examples: corrgram_examples.html
-last_built: 2024-07-17T19:01Z
+  corrgram_lattice: corrgram_lattice.html
+last_built: 2026-05-08T20:28Z
 urls:
   reference: http://kwstat.github.io/corrgram/reference
   article: http://kwstat.github.io/corrgram/articles

@@ -8,8 +8,8 @@
 <title>Examples for the corrgram package • corrgram</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Examples for the corrgram package">
 </head>
 <body>
@@ -35,6 +35,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/corrgram_cov2cor.html">Finding the nearest proper correlation matrix</a></li>
     <li><a class="dropdown-item" href="../articles/corrgram_examples.html">Examples for the corrgram package</a></li>
+    <li><a class="dropdown-item" href="../articles/corrgram_lattice.html">Examples of lattice corrgrams</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -60,7 +61,7 @@
                         <h4 data-toc-skip class="author">Kevin
 Wright</h4>
             
-            <h4 data-toc-skip class="date">2024-07-17</h4>
+            <h4 data-toc-skip class="date">2026-05-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwstat/corrgram/blob/main/vignettes/corrgram_examples.Rmd" class="external-link"><code>vignettes/corrgram_examples.Rmd</code></a></small>
       <div class="d-none name"><code>corrgram_examples.Rmd</code></div>
@@ -130,7 +131,7 @@ functions.</p>
 <span>         main<span class="op">=</span><span class="st">"Baseball data PC2/PC1 order"</span>,</span>
 <span>         lower.panel<span class="op">=</span><span class="va">panel.shade</span>, upper.panel<span class="op">=</span><span class="va">panel.pie</span>,</span>
 <span>         diag.panel<span class="op">=</span><span class="va">panel.minmax</span>, text.panel<span class="op">=</span><span class="va">panel.txt</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/fig2-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/fig2-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="figure-3">Figure 3<a class="anchor" aria-label="anchor" href="#figure-3"></a>
@@ -149,7 +150,7 @@ to a change of sign.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">e1</span>,<span class="va">e2</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">baseball.cor</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">"Eigenvector plot of baseball data"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="va">e1</span>, <span class="va">e2</span>, cex<span class="op">=</span><span class="fl">0.5</span>, col<span class="op">=</span><span class="st">"red"</span>, length<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/fig3-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/fig3-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="figure-4a-4b">Figure 4a, 4b<a class="anchor" aria-label="anchor" href="#figure-4a-4b"></a>
@@ -163,12 +164,12 @@ strongly correlated with a higher number of hits and a higher number of
 runs.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/corrgram.html">corrgram</a></span><span class="op">(</span><span class="va">baseball</span><span class="op">[</span>,<span class="va">vars2</span><span class="op">]</span>, main<span class="op">=</span><span class="st">"Baseball data (alphabetic order)"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/fig4-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/fig4-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/corrgram.html">corrgram</a></span><span class="op">(</span><span class="va">baseball</span><span class="op">[</span>,<span class="va">vars2</span><span class="op">]</span>, order<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>         main<span class="op">=</span><span class="st">"Baseball data (PC order)"</span>,</span>
 <span>         panel<span class="op">=</span><span class="va">panel.shade</span>, text.panel<span class="op">=</span><span class="va">panel.txt</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/fig4-2.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/fig4-2.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="figure-5">Figure 5<a class="anchor" aria-label="anchor" href="#figure-5"></a>
@@ -177,7 +178,7 @@ runs.</p>
 Non-numeric columns in the data are ignored.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/corrgram.html">corrgram</a></span><span class="op">(</span><span class="va">baseball</span>, order<span class="op">=</span><span class="cn">TRUE</span>, main<span class="op">=</span><span class="st">"Baseball data (PC order)"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/fig5-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/fig5-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="figure-6-">Figure 6.<a class="anchor" aria-label="anchor" href="#figure-6-"></a>
@@ -187,7 +188,7 @@ of cars from 1979. There are two obvious groups of variables</p>
 <p>Note, the arrangement is slightly different from Friendly.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/corrgram.html">corrgram</a></span><span class="op">(</span><span class="va">auto</span>, order<span class="op">=</span><span class="cn">TRUE</span>, main<span class="op">=</span><span class="st">"Auto data (PC order)"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/fig6-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/fig6-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="figure-7-">Figure 7.<a class="anchor" aria-label="anchor" href="#figure-7-"></a>
@@ -218,7 +219,7 @@ still a large correlation between Years and log Salary.</p>
 <span>           <span class="st">"Runs"</span>, <span class="st">"Hits"</span>, <span class="st">"Atbat"</span>, <span class="st">"Errors"</span>, <span class="st">"Assists"</span><span class="op">)</span></span>
 <span><span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">baseball</span><span class="op">[</span>,<span class="va">vars7</span><span class="op">]</span>, use<span class="op">=</span><span class="st">"pair"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/corrgram.html">corrgram</a></span><span class="op">(</span><span class="op">-</span><span class="fu">rinv</span><span class="op">(</span><span class="va">cb</span><span class="op">)</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Baseball data "</span>, <span class="va">R</span><span class="op">^</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/fig7-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/fig7-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="figure-8">Figure 8<a class="anchor" aria-label="anchor" href="#figure-8"></a>
@@ -252,7 +253,7 @@ data, when Price and MPG are partialed out.</p>
 <span><span class="fu"><a href="../reference/corrgram.html">corrgram</a></span><span class="op">(</span><span class="va">auto.par</span>,</span>
 <span>         lower.panel<span class="op">=</span><span class="va">panel.pie</span>, upper.panel<span class="op">=</span><span class="va">panel.pie</span>,</span>
 <span>         main<span class="op">=</span><span class="st">"Auto data, partialing out Price,MPG"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/fig8-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/fig8-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="figure-11">Figure 11<a class="anchor" aria-label="anchor" href="#figure-11"></a>
@@ -265,7 +266,7 @@ correlations while circular ellipses represent low correlations.</p>
 <span>         main<span class="op">=</span><span class="st">"Baseball correlation ellipses"</span>,</span>
 <span>         panel<span class="op">=</span><span class="va">panel.ellipse</span>,</span>
 <span>         text.panel<span class="op">=</span><span class="va">panel.txt</span>, diag.panel<span class="op">=</span><span class="va">panel.minmax</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/ellipse-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/ellipse-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="further-examples">Further examples<a class="anchor" aria-label="anchor" href="#further-examples"></a>
@@ -282,7 +283,7 @@ correlations while circular ellipses represent low correlations.</p>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span></code></pre>
-<p><img src="corrgram_examples_files/figure-html/scatter-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/scatter-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <p>Demonstrate panel.bar, panel.ellipse, panel.minmax, col.regions</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/corrgram.html">corrgram</a></span><span class="op">(</span><span class="va">auto</span>, order<span class="op">=</span><span class="cn">TRUE</span>,</span>
@@ -291,7 +292,7 @@ correlations while circular ellipses represent low correlations.</p>
 <span>         upper.panel<span class="op">=</span><span class="va">panel.bar</span>, diag.panel<span class="op">=</span><span class="va">panel.minmax</span>,</span>
 <span>         col.regions<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"darkgoldenrod4"</span>, <span class="st">"burlywood1"</span>,</span>
 <span>                                        <span class="st">"darkkhaki"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="corrgram_examples_files/figure-html/panelbar-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/panelbar-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <div class="section level3">
 <h3 id="correlation-matrix">Correlation matrix<a class="anchor" aria-label="anchor" href="#correlation-matrix"></a>
 </h3>
@@ -366,7 +367,7 @@ correlations while circular ellipses represent low correlations.</p>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span></code></pre>
-<p><img src="corrgram_examples_files/figure-html/vote-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/vote-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="ratings-data">Ratings data<a class="anchor" aria-label="anchor" href="#ratings-data"></a>
@@ -395,16 +396,16 @@ correlations while circular ellipses represent low correlations.</p>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span>
 <span><span class="co">## Warning in par(usr): argument 1 does not name a graphical parameter</span></span></code></pre>
-<p><img src="corrgram_examples_files/figure-html/unnamed-chunk-1-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="corrgram_examples_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R version 4.4.1 (2024-06-14)</span></span>
+<pre><code><span><span class="co">## R version 4.6.0 (2026-04-24)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">## Running under: Ubuntu 22.04.4 LTS</span></span>
+<span><span class="co">## Running under: Ubuntu 24.04.4 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
 <span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
+<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## locale:</span></span>
 <span><span class="co">##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
@@ -419,21 +420,21 @@ correlations while circular ellipses represent low correlations.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] Matrix_1.7-0  corrgram_1.14 knitr_1.48   </span></span>
+<span><span class="co">## [1] Matrix_1.7-5  corrgram_1.14 knitr_1.51   </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] digest_0.6.36     desc_1.4.3        R6_2.5.1          fastmap_1.2.0    </span></span>
-<span><span class="co">##  [5] xfun_0.45         lattice_0.22-6    cachem_1.1.0      htmltools_0.5.8.1</span></span>
-<span><span class="co">##  [9] rmarkdown_2.27    lifecycle_1.0.4   cli_3.6.3         grid_4.4.1       </span></span>
-<span><span class="co">## [13] pkgdown_2.1.0     sass_0.4.9        textshaping_0.4.0 jquerylib_0.1.4  </span></span>
-<span><span class="co">## [17] systemfonts_1.1.0 compiler_4.4.1    highr_0.11        tools_4.4.1      </span></span>
-<span><span class="co">## [21] ragg_1.3.2        evaluate_0.24.0   bslib_0.7.0       yaml_2.3.9       </span></span>
-<span><span class="co">## [25] jsonlite_1.8.8    rlang_1.1.4       fs_1.6.4</span></span></code></pre>
+<span><span class="co">##  [1] digest_0.6.39     desc_1.4.3        R6_2.6.1          fastmap_1.2.0    </span></span>
+<span><span class="co">##  [5] xfun_0.57         lattice_0.22-9    cachem_1.1.0      htmltools_0.5.9  </span></span>
+<span><span class="co">##  [9] rmarkdown_2.31    lifecycle_1.0.5   cli_3.6.6         grid_4.6.0       </span></span>
+<span><span class="co">## [13] sass_0.4.10       pkgdown_2.2.0     textshaping_1.0.5 jquerylib_0.1.4  </span></span>
+<span><span class="co">## [17] systemfonts_1.3.2 compiler_4.6.0    tools_4.6.0       ragg_1.5.2       </span></span>
+<span><span class="co">## [21] evaluate_1.0.5    bslib_0.10.0      ellipse_0.5.0     yaml_2.3.12      </span></span>
+<span><span class="co">## [25] jsonlite_2.0.0    rlang_1.2.0       fs_2.1.0</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-friendly2002corrgrams" class="csl-entry">
 Friendly, Michael. 2002. <span>“Corrgrams: Exploratory Displays for
 Correlation Matrices.”</span> <em>The American Statistician</em> 56:
@@ -453,7 +454,7 @@ Correlation Matrices.”</span> <em>The American Statistician</em> 56:
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

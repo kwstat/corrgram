@@ -1,0 +1,73 @@
+# corrgram
+
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/corrgram)](https://cran.r-project.org/package=corrgram)
+[![CRAN_Downloads](https://cranlogs.r-pkg.org/badges/corrgram)](https://cranlogs.r-pkg.org/badges/corrgram)
+
+Homepage: <https://kwstat.github.io/corrgram>
+
+Repository: <https://github.com/kwstat/corrgram>
+
+The `corrgram` package provides a simple way to create correlograms from
+raw data or a correlation matrix.
+
+## Key features
+
+- Stable, well-tested, widely used.
+
+- Extensive examples show how to customize the display.
+
+## Installation
+
+``` r
+
+# Install the released version from CRAN:
+install.packages("corrgram")
+
+# Install the development version from GitHub:
+install.packages("devtools")
+devtools::install_github("kwstat/corrgram")
+```
+
+## Usage
+
+``` r
+
+require(corrgram)
+corrgram(mtcars, order=TRUE, lower.panel=panel.shade, upper.panel=panel.pie,
+         text.panel=panel.txt, main="mtcars")
+```
+
+![corrgram](reference/figures/corrgram_mtcars.png)
+
+corrgram
+
+# Package index
+
+## All functions
+
+- [`auto`](http://kwstat.github.io/corrgram/reference/auto.md) :
+  Statistics of 1979 automobile models
+- [`baseball`](http://kwstat.github.io/corrgram/reference/baseball.md) :
+  Baseball Hitter's Data
+- [`corrgram()`](http://kwstat.github.io/corrgram/reference/corrgram.md)
+  : Draw a correlogram
+- [`levelplot.ellipse()`](http://kwstat.github.io/corrgram/reference/levelplot.ellipse.md)
+  [`levelplot.pie()`](http://kwstat.github.io/corrgram/reference/levelplot.ellipse.md)
+  : Panel functions for lattice corrgrams via levelplot
+- [`splom.pie()`](http://kwstat.github.io/corrgram/reference/splom.pie.md)
+  [`splom.shade()`](http://kwstat.github.io/corrgram/reference/splom.pie.md)
+  [`splom.ellipse()`](http://kwstat.github.io/corrgram/reference/splom.pie.md)
+  : Panel functions for lattice corrgrams via splom
+- [`vote`](http://kwstat.github.io/corrgram/reference/vote.md) : Voting
+  correlations
+
+# Articles
+
+### All vignettes
+
+- [Finding the nearest proper correlation
+  matrix](http://kwstat.github.io/corrgram/articles/corrgram_cov2cor.md):
+- [Examples for the corrgram
+  package](http://kwstat.github.io/corrgram/articles/corrgram_examples.md):
+- [Examples of lattice
+  corrgrams](http://kwstat.github.io/corrgram/articles/corrgram_lattice.md):
