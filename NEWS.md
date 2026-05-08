@@ -1,7 +1,8 @@
-# corrgram 1.15 unpublished
+# corrgram 1.15 ()
 
 * Switch to MIT license
 
+* Documentation pages now created via Github Actions.
 
 # corrgram 1.14 (2021-04-01)
 

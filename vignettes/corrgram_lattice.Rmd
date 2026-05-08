@@ -1,0 +1,80 @@
+---
+title: "Examples of lattice corrgrams"
+author: "Kevin Wright"
+date: "`r Sys.Date()`"
+bibliography: corrgram.bib
+output: 
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Examples of lattice corrgrams}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Abstract
+
+The base R `corrgram` function can accept either a correlation matrix or a dataframe. 
+
+If you want to create a corrgram using `lattice` graphics, you can use some custom panel functions provided in the `corrgram` package along with the `lattice::splom()` or `lattice::levelplot()` functions. An example of each type of corrgram is shown below.
+
+## Correlation matrix corrgram in lattice
+
+The `levelplot()` function in lattice only has a single plotting region, so does not (by default) suppot upper and lower panels. However, you can write a custom panel function with different glyphs above and below the diagonal. See the `panel.ellipse()` example below.
+
+Using `splom()` makes it easy to include a color scale next to the corrgram.
+
+```{r corrgram-lattice-correlation-matrix, fig.width=6, fig.height=6}
+library("lattice")
+library("corrgram")
+
+# The easiest way to have an automatic color key is to set the theme
+opar <- trellis.par.get()
+trellis.par.set(
+  regions=list(col=colorRampPalette(c("red","salmon","white","royalblue","navy")))
+)
+
+# Create a correlation matrix
+library(MASS) # foor Cars93
+cor.Cars93 <-   cor(Cars93[, !sapply(Cars93, is.factor)], use = "pair")
+ord <- order.dendrogram(as.dendrogram(hclust(dist(cor.Cars93))))
+cars93 <- cor.Cars93[ord,ord]
+head(cars93)
+
+# lattice corrgram using pie-shaped glyphs
+levelplot(cars93, xlab = NULL, ylab = NULL,
+          at = do.breaks(c(-1.01, 1.01), 101), panel = levelplot.pie,
+          scales = list(x = list(rot = 90)), colorkey = list(space = "top") )
+
+# lattice corrgram using ellipse-shaped glyphs above the diagonal
+# and value labels below the diagonal
+levelplot(cars93, xlab = NULL, ylab = NULL,
+          at = do.breaks(c(-1.01, 1.01), 101), panel = levelplot.ellipse,
+          label=TRUE,
+          scales = list(x = list(rot = 90)), colorkey = list(space = "top") )
+
+```
+
+## Scatterplot matrix corrgram in lattice
+
+Since the `lattice::splom()` function supports conditioning on a factor, we can use it to create corrgrams that are conditioned on a factor.
+
+The penguins data provides a nice example of Simpson's paradox, where the overall correlation between two variables can be negative, but the correlation within each group (species) can be positive. 
+
+```{r}
+pengvars <- c("bill_len", "bill_dep", "flipper_len", "body_mass")
+splom(~penguins[ , pengvars], upper.panel=splom.pie, pscales=0)
+splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.pie, pscales=0)
+splom(~penguins[ , pengvars], upper.panel=splom.shade, pscales=0)
+splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.shade, pscales=0)
+splom(~penguins[ , pengvars], upper.panel=splom.ellipse, pscales=0)
+splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.ellipse, pscales=0)
+```
+
+You can also use the `hexbin` package to create hexagonal binning plots in the upper panels of the scatterplot matrix.  This is useful when you have a large number of points and want to visualize the density of points in different regions of the plot.
+```{r}
+# Hexbin
+library(lattice)
+library(hexbin)
+splom(~penguins[ , pengvars], upper.panel=hexbin::panel.hexbinplot, pscales=0)
+splom(~penguins[ , pengvars]|penguins$species, upper.panel=hexbin::panel.hexbinplot, pscales=0)
+```

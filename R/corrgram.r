@@ -1,13 +1,5 @@
 # corrgram.R
-# Time-stamp: <29 Apr 2021 10:06:25 c:/one/rpack/corrgram/r/corrgram.R>
 
-# color key
-# http://stackoverflow.com/questions/9852343/how-to-add-a-color-key-to-a-pairs-plot
-
-# To do: Add a legend/ribbon.  See 'corrplot' package for a different
-# way to calculate the layout.
-
-# ----------------------------------------------------------------------------
 
 #' Draw a correlogram
 #'
@@ -273,7 +265,6 @@ corrgram <- function (x, type=NULL,
   cmat <- if(abs) abs(cmat) else cmat
 
 
-
   # Default order
   if(order==FALSE) {
     ord <- 1:nrow(cmat)
@@ -343,8 +334,12 @@ corrgram <- function (x, type=NULL,
     diag.panel <- match.fun( diag.panel)
 
   if(dir=="left") {
-    tmp <- lower.panel; lower.panel <- upper.panel; upper.panel <- tmp
-    tmp <- has.lower; has.lower <- has.upper; has.upper <- tmp
+    tmp <- lower.panel
+    lower.panel <- upper.panel
+    upper.panel <- tmp
+    tmp <- has.lower
+    has.lower <- has.upper
+    has.upper <- tmp
   }
 
   nc <- ncol(x)
@@ -505,7 +500,6 @@ corrgram.outer.labels <- function(side,nc,ord,labels, ll){
 }
 
 # ----------------------------------------------------------------------------
-# ----------------------------------------------------------------------------
 # Panel functions
 
 #' @export
@@ -523,13 +517,15 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
   # coordinates of box
   usr <- par()$usr  # par is in graphics package
-  minx <- usr[1]; maxx <- usr[2]
-  miny <- usr[3]; maxy <- usr[4]
+  xmin <- usr[1]
+  xmax <- usr[2]
+  ymin <- usr[3]
+  ymax <- usr[4]
   # multiply the radius by .96 so the circles do not overlap
-  rx <- (maxx-minx)/2 * .96
-  ry <- (maxy-miny)/2 * .96
-  centerx <- (minx+maxx)/2
-  centery <- (miny+maxy)/2
+  rx <- (xmax-xmin)/2 * .96
+  ry <- (ymax-ymin)/2 * .96
+  centerx <- (xmin+xmax)/2
+  centery <- (ymin+ymax)/2
 
   # if corr not given, try to calculate it
   if(is.null(corr)) {
@@ -542,8 +538,8 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   }
 
   # draw circle
-  segments <- 180
-  angles <- seq(from=0, to=2*pi, length.out=segments)
+  numseg <- 180
+  angles <- seq(from=0, to=2*pi, length.out=numseg)
   circ <- cbind(centerx + cos(angles)*rx, centery + sin(angles)*ry)
   lines(circ[,1], circ[,2], col='gray40',...)
 
@@ -553,10 +549,10 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
                             include.lowest=TRUE))
   col.pie <- pal[col.ind]
 
-  # overlay a colored polygon
-  segments <- round(180*abs(corr),0)
-  if(segments>0){ # Watch out for the case with 0 segments
-    angles <- seq(from=pi/2, to=pi/2+(2*pi* -corr), length.out=segments)
+  # overlay a colored pie piece
+  numseg <- round(180*abs(corr),0)
+  if(numseg>0){ # Watch out for the case with 0 numseg
+    angles <- seq(from=pi/2, to=pi/2+(2*pi* -corr), length.out=numseg)
     circ <- cbind(centerx + cos(angles)*rx, centery + sin(angles)*ry)
     circ <- rbind(circ, c(centerx, centery), circ[1,])
     polygon(circ[,1], circ[,2], col=col.pie,border="gray40")
@@ -605,33 +601,30 @@ panel.ellipse <- function(x,y, corr=NULL, col.regions, cor.method, ...){
     return()
   }
 
-  # Draw an ellipse
-  dfn <- 2
+  # Draw an ellipse. Use df numerator = 2, and df denominator = n-1, as in friendly's code.
+  dfn <- 2 # df numerator
   dfd <- length(x)-1
   shape <- var(cbind(x,y),na.rm=TRUE)
   keep <- (!is.na(x) & !is.na(y))
   center <- c(mean(x[keep]),mean(y[keep]))
   radius <- sqrt(dfn*qf(.68,dfn,dfd))
-  segments <- 180
-  angles <- seq(from=0, to=2*pi, length.out=segments)
+  numseg <- 180
+  angles <- seq(from=0, to=2*pi, length.out=numseg)
   unit.circle <- cbind(cos(angles),sin(angles))
   ellipse.pts <- t(center+radius*t(unit.circle%*%chol(shape)))
   ellx <- ellipse.pts[,1]
   elly <- ellipse.pts[,2]
   # Truncate ellipse at min/max or at bounding box
   usr <- par()$usr
-  minx <- usr[1] #min(x, na.rm=TRUE)
-  maxx <- usr[2] #max(x, na.rm=TRUE)
-  miny <- usr[3] #min(y, na.rm=TRUE)
-  maxy <- usr[4] #max(y, na.rm=TRUE)
-  ellx <- ifelse(ellx < minx, minx, ellx)
-  ellx <- ifelse(ellx > maxx, maxx, ellx)
-  elly <- ifelse(elly < miny, miny, elly)
-  elly <- ifelse(elly > maxy, maxy, elly)
+  xmin <- usr[1]
+  xmax <- usr[2]
+  ymin <- usr[3]
+  ymax <- usr[4]
+  ellx <- ifelse(ellx < xmin, xmin, ellx)
+  ellx <- ifelse(ellx > xmax, xmax, ellx)
+  elly <- ifelse(elly < ymin, ymin, elly)
+  elly <- ifelse(elly > ymax, ymax, elly)
   lines(ellx, elly, col='gray40',...)
-
-  # Filled ellipse
-  # polygon(ellx, elly, col="blue", ...)
 
   # Add a lowess line through the ellipse.  Use 'ok' to remove NAs
   ok <- is.finite(x) & is.finite(y)
@@ -645,8 +638,10 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   # Use 'bars' as in Friendly, figure 1
 
   usr <- par()$usr
-  minx <- usr[1]; maxx <- usr[2]
-  miny <- usr[3];  maxy <- usr[4]
+  xmin <- usr[1]
+  xmax <- usr[2]
+  ymin <- usr[3]
+  ymax <- usr[4]
 
   if (is.null(corr)) {
     if(sum(complete.cases(x,y)) < 2) {
@@ -664,13 +659,13 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   col.bar <- pal[col.ind]
   if(corr < 0) {
     # Draw up from bottom
-    maxy <- miny + (maxy-miny) *  abs(corr)
-    rect(minx, miny, maxx, maxy, col = pal[col.ind],
+    ymax <- ymin + (ymax-ymin) *  abs(corr)
+    rect(xmin, ymin, xmax, ymax, col = pal[col.ind],
          border = "lightgray")
   } else if (corr > 0){
     # Draw down from top
-    miny <- maxy - (maxy-miny)*corr
-    rect(minx, miny, maxx, maxy, col = pal[col.ind],
+    ymin <- ymax - (ymax-ymin)*corr
+    rect(xmin, ymin, xmax, ymax, col = pal[col.ind],
          border = "lightgray")
   }
 
@@ -718,7 +713,8 @@ panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
   }
 
   auto <- missing(cex.cor)
-  usr <- par("usr"); on.exit(par(usr))
+  usr <- par("usr")
+  on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
 
   ncol <- 14
@@ -740,7 +736,8 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
                        cex.cor, ...){
 
   auto <- missing(cex.cor)
-  usr <- par("usr"); on.exit(par(usr))
+  usr <- par("usr")
+  on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
 
   # ncol <- 14
@@ -801,10 +798,10 @@ panel.minmax <- function(x, corr=NULL, ...){
   if(!is.null(corr)) return()
   # Put the minimum in the lower-left corner and the
   # maximum in the upper-right corner
-  minx <- round(min(x, na.rm=TRUE),2)
-  maxx <- round(max(x, na.rm=TRUE),2)
-  text(minx, minx, minx, cex=1, adj=c(0,0))
-  text(maxx, maxx, maxx, cex=1, adj=c(1,1))
+  xmin <- round(min(x, na.rm=TRUE),2)
+  xmax <- round(max(x, na.rm=TRUE),2)
+  text(xmin, xmin, xmin, cex=1, adj=c(0,0))
+  text(xmax, xmax, xmax, cex=1, adj=c(1,1))
 }
 
 # -----
@@ -840,25 +837,5 @@ gl <- lapply(1:4, function(i){
 grid.newpage()
 library(gridExtra)
 grid.arrange(grobs=gl, ncol=2, clip=TRUE)
-
-# -------------
-
-# This also works, but is very slow because of grid.echo
-  library(gridExtra)
-  library(corrgram)
-  corrgram(iris)
-  grid.echo()
-  p1 = grid.grab(warn=0)
-  corrgram(state.x77)
-  grid.echo() # re-draw using grid graphics...slow
-  p2 = grid.grab()
-  grid.newpage(warn=0)
-  grid.arrange(p1, p2, ncol=2)
-
-# ------
-# this quasi works
-corrgram(iris, oma=c(4,4,4,8))
-par(xpd = FALSE) # all plotting is clipped to "figure" region
-legend("bottomright", fill = unique(iris$Species), legend = c( levels(iris$Species)))
 
 }
