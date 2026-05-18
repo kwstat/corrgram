@@ -69,9 +69,29 @@
 <h2 id="package-overview">Package overview<a class="anchor" aria-label="anchor" href="#package-overview"></a>
 </h2>
 <p>The <code>corrgram</code> package provides functions for creating corrgrams using three different graphics systems, base, grid, and lattice.</p>
-<p>Base R graphics + single function <code><a href="reference/corrgram.html">corrgram()</a></code> for dataframes or matrices. + Enables most features found in the paper by @friendly2002corrgrams. - No automatic legend. - Not easily combined with other graphics.</p>
-<p><code>lattice</code> graphics + Separate panel functions for <code><a href="https://rdrr.io/pkg/lattice/man/levelplot.html" class="external-link">lattice::levelplot()</a></code> for dataframes and <code><a href="https://rdrr.io/pkg/lattice/man/splom.html" class="external-link">lattice::splom()</a></code> for correlation matrices. + Enables automatic legend. + Enables corrgrams conditioned on other variables. + Can be combined with other lattice graphics for complex figures. - Not feature complete compared to base R.</p>
-<p><code>grid</code> graphics + single function <code><a href="reference/corrgram2.html">corrgram2()</a></code> for either dataframes or correlation matrices. + Enables automatic legend. + Can be combined with other grid graphics for complex figures. - Not feature complete compared to base R. + Faster than base R when evaluated inside Positron.</p>
+<p>Base R graphics</p>
+<ul>
+<li>single function <code><a href="reference/corrgram.html">corrgram()</a></code> for dataframes or matrices.</li>
+<li>Enables most features found in the paper by @friendly2002corrgrams.</li>
+<li>No automatic legend.</li>
+<li>Not easily combined with other graphics.</li>
+</ul>
+<p><code>lattice</code> graphics</p>
+<ul>
+<li>Separate panel functions for <code><a href="https://rdrr.io/pkg/lattice/man/levelplot.html" class="external-link">lattice::levelplot()</a></code> for dataframes and <code><a href="https://rdrr.io/pkg/lattice/man/splom.html" class="external-link">lattice::splom()</a></code> for correlation matrices.</li>
+<li>Enables automatic legend.</li>
+<li>Enables corrgrams conditioned on other variables.</li>
+<li>Can be combined with other lattice graphics for complex figures.</li>
+<li>Not feature complete compared to base R.</li>
+</ul>
+<p><code>grid</code> graphics</p>
+<ul>
+<li>single function <code><a href="reference/corrgram2.html">corrgram2()</a></code> for either dataframes or correlation matrices.</li>
+<li>Enables automatic legend.</li>
+<li>Can be combined with other grid graphics for complex figures.</li>
+<li>Not feature complete compared to base R.</li>
+<li>Faster than base R when evaluated inside Positron.</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>

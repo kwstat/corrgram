@@ -15,26 +15,36 @@ raw data or a correlation matrix.
 The `corrgram` package provides functions for creating corrgrams using
 three different graphics systems, base, grid, and lattice.
 
-Base R graphics + single function
-[`corrgram()`](http://kwstat.github.io/corrgram/reference/corrgram.md)
-for dataframes or matrices. + Enables most features found in the paper
-by @friendly2002corrgrams. - No automatic legend. - Not easily combined
-with other graphics.
+Base R graphics
 
-`lattice` graphics + Separate panel functions for
-[`lattice::levelplot()`](https://rdrr.io/pkg/lattice/man/levelplot.html)
-for dataframes and
-[`lattice::splom()`](https://rdrr.io/pkg/lattice/man/splom.html) for
-correlation matrices. + Enables automatic legend. + Enables corrgrams
-conditioned on other variables. + Can be combined with other lattice
-graphics for complex figures. - Not feature complete compared to base R.
+- single function
+  [`corrgram()`](http://kwstat.github.io/corrgram/reference/corrgram.md)
+  for dataframes or matrices.
+- Enables most features found in the paper by @friendly2002corrgrams.
+- No automatic legend.
+- Not easily combined with other graphics.
 
-`grid` graphics + single function
-[`corrgram2()`](http://kwstat.github.io/corrgram/reference/corrgram2.md)
-for either dataframes or correlation matrices. + Enables automatic
-legend. + Can be combined with other grid graphics for complex
-figures. - Not feature complete compared to base R. + Faster than base R
-when evaluated inside Positron.
+`lattice` graphics
+
+- Separate panel functions for
+  [`lattice::levelplot()`](https://rdrr.io/pkg/lattice/man/levelplot.html)
+  for dataframes and
+  [`lattice::splom()`](https://rdrr.io/pkg/lattice/man/splom.html) for
+  correlation matrices.
+- Enables automatic legend.
+- Enables corrgrams conditioned on other variables.
+- Can be combined with other lattice graphics for complex figures.
+- Not feature complete compared to base R.
+
+`grid` graphics
+
+- single function
+  [`corrgram2()`](http://kwstat.github.io/corrgram/reference/corrgram2.md)
+  for either dataframes or correlation matrices.
+- Enables automatic legend.
+- Can be combined with other grid graphics for complex figures.
+- Not feature complete compared to base R.
+- Faster than base R when evaluated inside Positron.
 
 ## Installation
 
