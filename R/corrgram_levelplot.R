@@ -15,28 +15,28 @@
 #'
 #' @details
 #' 
-#' \code{levelplot.ellipse} Draws ellipses representing correlation coefficients
+#' \code{levelplot_panel.ellipse} Draws ellipses representing correlation coefficients
 #' in the upper triangle of a matrix. Optionally adds numeric labels in the 
 #' lower triangle.
 #' 
-#' \code{levelplot.pie} Draws pie glyphs representing correlation coefficients,
+#' \code{levelplot_panel.pie} Draws pie glyphs representing correlation coefficients,
 #' omitting the diagonal.
 #' 
-#' @rdname levelplot.ellipse
+#' @rdname levelplot_panel.ellipse
 #' @importFrom ellipse ellipse
-#' @importFrom lattice level.colors panel.polygon panel.text
+#' @importFrom lattice levelplot level.colors panel.polygon panel.text
 #' @examples
 #' library(lattice)
 #' levelplot(vote, at = do.breaks(c(-1.01, 1.01), 20),
 #'             xlab = NULL, ylab = NULL, colorkey = list(space = "top"),
 #'             scales = list(x = list(rot = 90)), 
-#'             panel = levelplot.ellipse, label = TRUE)
+#'             panel = levelplot_panel.ellipse, label = TRUE)
 #' levelplot(vote, at = do.breaks(c(-1.01, 1.01), 20),
 #'             xlab = NULL, ylab = NULL, colorkey = list(space = "top"),
 #'             scales = list(x = list(rot = 90)), 
-#'             panel = levelplot.pie, label = TRUE)
+#'             panel = levelplot_panel.pie, label = TRUE)
 #' @export
-levelplot.ellipse <- function(
+levelplot_panel.ellipse <- function(
   x, y, z, subscripts, 
   at, level = 0.9, label = FALSE, ...) {
   x <- as.numeric(x)[subscripts]
@@ -66,10 +66,10 @@ levelplot.ellipse <- function(
 
 #' @param scale Numeric; scaling factor for pie size (default 0.8).
 #' 
-#' @rdname levelplot.ellipse
+#' @rdname levelplot_panel.ellipse
 #' 
 #' @export
-levelplot.pie <- function(x, y, z, subscripts, at = pretty(z), scale = 0.9, ...) {
+levelplot_panel.pie <- function(x, y, z, subscripts, at = pretty(z), scale = 0.9, ...) {
   # x,y are coordinates of the matrix, z is the correlation value
   x <- as.numeric(x)[subscripts]
   y <- as.numeric(y)[subscripts]

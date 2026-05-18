@@ -11,10 +11,33 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## Abstract
+## Package overview
 
-The `corrgram` package is an implementation of correlograms.  This vignette reproduces most of the figures in @friendly2002corrgrams.
+The `corrgram` package provides functions for creating corrgrams using three different graphics systems, base, grid, and lattice.
 
+Base R graphics
++ single function `corrgram()` for dataframes or matrices.
++ Enables most features found in the paper by @friendly2002corrgrams.
+- No automatic legend.
+- Not easily combined with other graphics.
+
+`lattice` graphics
++ Separate panel functions for `lattice::levelplot()` for dataframes and `lattice::splom()` for correlation matrices.
++ Enables automatic legend.
++ Enables corrgrams conditioned on other variables.
++ Can be combined with other lattice graphics for complex figures.
+- Not feature complete compared to base R.
+
+`grid` graphics
++ single function `corrgram2()` for either dataframes or correlation matrices. 
++ Enables automatic legend.
++ Can be combined with other grid graphics for complex figures.
+- Not feature complete compared to base R.
++ Faster than base R when evaluated inside Positron.
+
+## This vignette
+
+This vignette demonstrates corrgrams with base R graphics and reproduces most of the figures in @friendly2002corrgrams.
 
 ## Setup
 
@@ -24,12 +47,9 @@ opts_chunk$set(fig.align="center", fig.width=6, fig.height=6)
 options(width=90)
 ```
 
-The data are 11 measures of performance and salary for 263 baseball players in
-the 1986 baseball season in the United States.  The data were used in 1988
-Data Expo at the Joint Statistical Meetings.
+The data are 11 measures of performance and salary for 263 baseball players in the 1986 baseball season in the United States.  The data were used in 1988 Data Expo at the Joint Statistical Meetings.
 
-The first 6 rows of the data and the upper-left corner of the
-correlation matrix are given below.
+The first 6 rows of the data and the upper-left corner of the correlation matrix are given below.
 
 ```{r data}
 library("corrgram")
@@ -39,8 +59,7 @@ round(cor(baseball[, 5:14], use="pair"),2)
 
 ## Figure 2
 
-Figure 2 shows two ways to graphically display the correlation matrix using
-the `panel.shade()` and `panel.pie()` functions.
+Figure 2 shows two ways to graphically display the correlation matrix using the `panel.shade()` and `panel.pie()` functions.
 
 ```{r fig2}
 vars2 <- c("Assists","Atbat","Errors","Hits","Homer","logSal",
@@ -84,8 +103,7 @@ corrgram(baseball[,vars2], order=TRUE,
 
 ## Figure 5
 
-Figure 5 shows a corrgram for all numeric variables in the dataframe.
-Non-numeric columns in the data are ignored.
+Figure 5 shows a corrgram for all numeric variables in the dataframe. Non-numeric columns in the data are ignored.
 
 ```{r fig5}
 corrgram(baseball, order=TRUE, main="Baseball data (PC order)")
@@ -94,8 +112,7 @@ corrgram(baseball, order=TRUE, main="Baseball data (PC order)")
 
 ## Figure 6.
 
-Figure 6 shows a corrgram of automotive data on 74 different models of cars
-from 1979.  There are two obvious groups of variables
+Figure 6 shows a corrgram of automotive data on 74 different models of cars from 1979.  There are two obvious groups of variables
 
 Note, the arrangement is slightly different from Friendly.
 
@@ -106,12 +123,9 @@ corrgram(auto, order=TRUE, main="Auto data (PC order)")
 
 ## Figure 7.
 
-The inverse of the correlation matrix expresses conditional dependence and
-independence of the variables.
+The inverse of the correlation matrix expresses conditional dependence and independence of the variables.
 
-The variables are sorted in the same order as in figure 4.  One example
-interpretation is: controlling for all other variables, there is still a large
-correlation between Years and log Salary.
+The variables are sorted in the same order as in figure 4.  One example interpretation is: controlling for all other variables, there is still a large correlation between Years and log Salary.
 
 ```{r fig7}
 rinv <- function(r){
@@ -140,8 +154,7 @@ corrgram(-rinv(cb), main=expression(paste("Baseball data ", R^-1)))
 
 ## Figure 8
 
-Figure 8 shows a partial independence corrgram for the automotive data, when
-Price and MPG are partialed out.
+Figure 8 shows a partial independence corrgram for the automotive data, when Price and MPG are partialed out.
 
 ```{r fig8}
 require(Matrix) # For block diagonal function
@@ -174,9 +187,7 @@ corrgram(auto.par,
 
 ## Figure 11
 
-Figure 11 provides another way to display the data, using both ellipses and
-loess lines.  Long, narrow ellipses represent high correlations while circular
-ellipses represent low correlations.
+Figure 11 provides another way to display the data, using both ellipses and loess lines.  Long, narrow ellipses represent high correlations while circular ellipses represent low correlations.
 
 ```{r ellipse}
 corrgram(baseball[,vars2], order=TRUE,
@@ -239,10 +250,6 @@ panel.raters <- function (x, y, corr = NULL, col.regions, cor.method, ...) {
   box(col = "lightgray")
 }
 corrgram(data.ratings3[,7:10], diag=panel.density, lower.panel=panel.raters, upper.panel=panel.conf)
-```
-
-```{r}
-sessionInfo()
 ```
 
 ## References

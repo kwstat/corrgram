@@ -1,8 +1,8 @@
 Type: Package
 Package: corrgram
 Title: Plot a Correlogram
-Version: 1.14
-Date: 2026-05-08
+Version: 1.15
+Date: 2026-05-18
 Authors@R: 
     person("Kevin", "Wright", , "kw.stat@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-0617-8673"))
@@ -11,12 +11,13 @@ Description: Calculates correlation of variables and displays the results
     ellipses, and correlation values with confidence intervals. See
     Friendly (2002) <doi:10.1198/000313002533>.
 License: MIT + file LICENSE
-URL: https://kwstat.github.io/corrgram/, http://kwstat.github.io/corrgram/
+URL: https://kwstat.github.io/corrgram/
 BugReports: https://github.com/kwstat/corrgram/issues/
 Imports:
     ellipse,
     graphics,
     grDevices,
+    grid,
     lattice,
     stats
 Suggests:

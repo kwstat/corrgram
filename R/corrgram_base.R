@@ -1,8 +1,8 @@
 # corrgram.R
 
-
 #' Draw a correlogram
 #'
+#' Note: `corrgram()` uses base R graphics.
 #' The corrgram function produces a graphical display of a correlation matrix,
 #' called a correlogram.  The cells of the matrix can be shaded or colored to
 #' show the correlation value. Automatic variable reordering can be used to
@@ -13,7 +13,7 @@
 #' Non-numeric columns in the data will be ignored.
 #'
 #' The off-diagonal panels are specified with \code{panel.pts},
-#' \code{panel.pie}, \code{panel.shade}, \code{panel.fill}, `\code{panel.bar},
+#' \code{panel.pie}, \code{panel.shade}, \code{panel.fill}, \code{panel.bar},
 #' \code{panel.ellipse}, \code{panel.conf}. \code{panel.cor}.
 #'
 #' Diagonal panels are specified with \code{panel.txt}, \code{panel.minmax},
@@ -33,8 +33,6 @@
 #' way the panel functions are called inside the main function, your custom
 #' panel function must include the arguments shown in the \code{panel.pts}
 #' function, even if the custom panel function does not use those arguments!
-#'
-#' TODO: legend, grid graphics version.
 #'
 #' @aliases corrgram panel.bar panel.conf panel.cor panel.density panel.ellipse
 #' panel.fill panel.minmax panel.pie panel.pts panel.shade panel.txt
@@ -70,7 +68,7 @@
 #'
 #' @param label.srt String rotation for diagonal labels.
 #'
-#' @param cex.labels,font.labels Graphics parameter for diagonal panels.
+#' @param cex.labels Graphics parameter for diagonal panels.
 #'
 #' @param row1attop TRUE for diagonal like " \ ", FALSE for diagonal like " / ".
 #'
@@ -109,7 +107,7 @@
 #' \url{http://datavis.ca/papers/corrgram.pdf}
 #'
 #' D. J. Murdoch and E. D. Chow. 1996. A Graphical Display of Large Correlation
-#' Matrices.  \emph{The American Statistician}, 50, 178-180.
+#' Matrices. The American Statistician, 50, 178-180.
 #'
 #' Hahsler M, Hornik K, Buchta C. 2008. Getting things in order: An
 #' introduction to the R package seriation.
@@ -180,11 +178,14 @@
 #' @importFrom utils installed.packages
 #' @export corrgram
 corrgram <- function (x, type=NULL,
-            order=FALSE, labels, panel = panel.shade,
-            lower.panel = panel, upper.panel = panel,
-            diag.panel = NULL, text.panel = textPanel,
+            order=FALSE, labels, 
+            panel = panel.shade,
+            lower.panel = panel, 
+            upper.panel = panel,
+            diag.panel = NULL,
+            text.panel = textPanel,
             label.pos = c(0.5, 0.5), label.srt=0,
-            cex.labels = NULL, font.labels = 1,
+            cex.labels = NULL,
             row1attop = TRUE, dir="", gap = 0,
             abs=FALSE,
             col.regions = colorRampPalette(c("red","salmon","white",
@@ -195,12 +196,11 @@ corrgram <- function (x, type=NULL,
 
   if(is.null(order)) order <- FALSE
 
-  if( cor.method != "pearson" &
-      (deparse(substitute(upper.panel)) == "panel.conf" |
+  if( cor.method != "pearson" &&
+      (deparse(substitute(lower.panel)) == "panel.conf" ||
        deparse(substitute(upper.panel)) == "panel.conf"))
     stop("'panel.conf' only allows 'pearson' method. Try 'panel.cor' instead.")
 
-  # Former versions used label.pos=0.5 for vertical positioning.
   if(length(label.pos) < 2) stop("label.pos needs a vector of length 2")
 
   # Direction
@@ -211,15 +211,6 @@ corrgram <- function (x, type=NULL,
   if (dir=="/") dir <-  "right"
 
   if (ncol(x) < 2) stop("Only one column in the argument to 'corrgram'")
-
-  # Do we have a data.frame or correlation matrix?
-  # Note: Important to use "<=" instead of "<" (for example).
-  ## if(is.matrix(x) && isSymmetric(x) &&
-  ##    min(x, na.rm=TRUE) >= -1 - .Machine$double.eps &&
-  ##    max(x, na.rm=TRUE) <= 1 + .Machine$double.eps)
-  ##   maybeCorr <- TRUE
-  ## else
-  ##   maybeCorr <- FALSE
 
   # if a matrix x has only colnames, isSymmetric(x) reports FALSE
   # use unname(x) so it will report TRUE
@@ -294,8 +285,8 @@ corrgram <- function (x, type=NULL,
     cmat.return <- cmat.return[ord,ord]
   }
 
-  textPanel <- function(x = 0.5, y = 0.5, txt, cex, font, srt) {
-    text(x, y, txt, cex=cex, font=font, srt=srt)
+  textPanel <- function(x = 0.5, y = 0.5, txt, cex, srt) {
+    text(x, y, txt, cex=cex, srt=srt)
   }
 
   # Don't pass some arguments on to the panel functions via the '...'
@@ -391,7 +382,7 @@ corrgram <- function (x, type=NULL,
               cex.labels <- max(0.8, min(2, .9 / max(l.wid)))
             }
             text.panel(label.pos[1], label.pos[2], labels[i],
-                       cex = cex.labels, font = font.labels, srt=label.srt)
+                       cex = cex.labels, srt=label.srt)
           }
         } else if(i < j) {
           # Lower panel
@@ -462,11 +453,11 @@ corrgram.outer.labels <- function(side,nc,ord,labels, ll){
   # default cex
   if(is.null(ll$cex)) ll$cex=1
   # default srt
-  if((side==1 | side==3) & is.null(ll$srt)) ll$srt=90 # vert
-  if((side==2 | side==4) & is.null(ll$srt)) ll$srt=0 # horiz
+  if((side==1 | side==3) && is.null(ll$srt)) ll$srt=90 # vert
+  if((side==2 | side==4) && is.null(ll$srt)) ll$srt=0 # horiz
   # default adj
-  if((side==1 | side==2) & is.null(ll$adj)) ll$adj=1
-  if((side==3 | side==4) & is.null(ll$adj)) ll$adj=0
+  if((side==1 | side==2) && is.null(ll$adj)) ll$adj=1
+  if((side==3 | side==4) && is.null(ll$adj)) ll$adj=0
 
 
   for(i in 1:nc){
@@ -515,6 +506,16 @@ panel.pts <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 #' @export
 panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
 
+  # if corr not given, try to calculate it
+  if(is.null(corr)) {
+    if(sum(complete.cases(x,y)) < 2) {
+      warning("Need at least 2 complete cases for cor()")
+      return()
+    } else {
+      corr <- cor(x, y, use='pair', method=cor.method)
+    }
+  }
+
   # coordinates of box
   usr <- par()$usr  # par is in graphics package
   xmin <- usr[1]
@@ -527,30 +528,20 @@ panel.pie <- function(x, y, corr=NULL, col.regions, cor.method, ...){
   centerx <- (xmin+xmax)/2
   centery <- (ymin+ymax)/2
 
-  # if corr not given, try to calculate it
-  if(is.null(corr)) {
-    if(sum(complete.cases(x,y)) < 2) {
-      warning("Need at least 2 complete cases for cor()")
-      return()
-    } else {
-      corr <- cor(x, y, use='pair', method=cor.method)
-    }
-  }
-
   # draw circle
-  numseg <- 180
+  numseg <- 60
   angles <- seq(from=0, to=2*pi, length.out=numseg)
   circ <- cbind(centerx + cos(angles)*rx, centery + sin(angles)*ry)
   lines(circ[,1], circ[,2], col='gray40',...)
 
-  ncol <- 14
-  pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=ncol+1),
+  n_bins <- 14
+  pal <- col.regions(n_bins)
+  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=n_bins+1),
                             include.lowest=TRUE))
   col.pie <- pal[col.ind]
 
   # overlay a colored pie piece
-  numseg <- round(180*abs(corr),0)
+  numseg <- round(60*abs(corr),0)
   if(numseg>0){ # Watch out for the case with 0 numseg
     angles <- seq(from=pi/2, to=pi/2+(2*pi* -corr), length.out=numseg)
     circ <- cbind(centerx + cos(angles)*rx, centery + sin(angles)*ry)
@@ -573,9 +564,9 @@ panel.shade <- function(x, y, corr=NULL, col.regions, cor.method, ...){
     }
   }
 
-  ncol <- 14
-  pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=ncol+1),
+  n_bins <- 14
+  pal <- col.regions(n_bins)
+  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=n_bins+1),
                             include.lowest=TRUE))
   usr <- par("usr")
   # Solid fill
@@ -648,14 +639,14 @@ panel.bar <- function(x, y, corr=NULL, col.regions, cor.method, ...){
       warning("Need at least 2 complete cases for cor()")
       return()
     } else {
-      corr <- cor(x, y, use = "pair", method=cor.method)
+      corr <- cor(x, y, use = "pairwise.complete.obs", method=cor.method)
     }
   }
 
-  ncol <- 14
-  pal <- col.regions(ncol)
+  n_bins <- 14
+  pal <- col.regions(n_bins)
   col.ind <- as.numeric(cut(corr, breaks = seq(from = -1, to = 1,
-                                    length.out = ncol + 1), include.lowest = TRUE))
+                                    length.out = n_bins + 1), include.lowest = TRUE))
   col.bar <- pal[col.ind]
   if(corr < 0) {
     # Draw up from bottom
@@ -684,9 +675,9 @@ panel.fill <- function(x, y, corr=NULL, col.regions, cor.method, ...){
     }
   }
 
-  ncol <- 14
-  pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=ncol+1),
+  n_bins <- 14
+  pal <- col.regions(n_bins)
+  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=n_bins+1),
                             include.lowest=TRUE))
   usr <- par("usr")
   # Solid fill
@@ -717,9 +708,9 @@ panel.cor <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
   on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
 
-  ncol <- 14
-  pal <- col.regions(ncol)
-  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=ncol+1),
+  n_bins <- 14
+  pal <- col.regions(n_bins)
+  col.ind <- as.numeric(cut(corr, breaks=seq(from=-1, to=1, length.out=n_bins+1),
                             include.lowest=TRUE))
 
   # determine string width using absolute values so that
@@ -740,8 +731,8 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
   on.exit(par(usr))
   par(usr = c(0, 1, 0, 1))
 
-  # ncol <- 14
-  # pal <- col.regions(ncol)
+  # n_bins <- 14
+  # pal <- col.regions(n_bins)
 
   # For correlation matrix, only show the correlation
   if(!is.null(corr)) {
@@ -775,8 +766,8 @@ panel.conf <- function(x, y, corr=NULL, col.regions, cor.method, digits=2,
 }
 
 #' @export
-panel.txt <- function(x=0.5, y=0.5, txt, cex, font, srt){
-  text(x, y, txt, cex=cex, font=font, srt=srt)
+panel.txt <- function(x=0.5, y=0.5, txt, cex, srt){
+  text(x, y, txt, cex=cex, srt=srt)
 }
 
 #' @export

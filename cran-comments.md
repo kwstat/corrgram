@@ -1,3 +1,11 @@
+# corrgram 1.15
+
+## Test environments
+
+* local R 4.6.0 Windows 11
+* Win-builder devel
+
+
 # corrgram 1.14
 
 ## Test environments

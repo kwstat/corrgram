@@ -1,12 +1,22 @@
 # corrgram 1.15 ()
 
-* Switch to MIT license
+* Happy 20th anniversary for this package in 2026.
+
+* Add lattice panel functions to make lattice corrgrams.
+
+* Add `corrgram2()` to make grid-based corrgrams.
 
 * Documentation pages now created via Github Actions.
 
+* Remove `corrgram(..., font.labels)` argument.
+
+* Switch to MIT license
+
+
 # corrgram 1.14 (2021-04-01)
 
-* The `seriation` package is moved from Imports to Suggests.  This makes `corrgram` lighter loading for most people. (Requested by P.Kiener and others)
+* The `seriation` package is moved from Imports to Suggests.
+  This makes `corrgram` lighter loading for most people. (Requested by P.Kiener and others)
 
 * The `outer.labels` argument has improved default values.
 

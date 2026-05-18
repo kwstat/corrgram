@@ -1,9 +1,5 @@
 # corrgram_splom.R
 
-#pengvars <- c("bill_len", "bill_dep", "flipper_len", "body_mass")
-
-# ----------------------------------------------------------------------------
-
 #' Panel functions for lattice corrgrams via splom
 #'
 #' These functions provide custom panel methods for \code{lattice::splom()}.
@@ -18,30 +14,31 @@
 #'
 #' @details
 #' 
-#' \code{splom.pie} Draws pie glyphs representing correlation coefficients,
+#' \code{splom_panel.pie} Draws pie glyphs representing correlation coefficients,
 #' omitting the diagonal.
 #' 
-#' \code{splom.shade} Draws shaded rectangles with hash lines representing correlation
+#' \code{splom_panel.shade} Draws shaded rectangles with hash lines representing correlation
 #' coefficients.
 #' 
-#' \code{splom.ellipse} Draws ellipses representing correlation coefficients.
+#' \code{splom_panel.ellipse} Draws ellipses representing correlation coefficients.
 #' The position of the ellipse is determined by the position of the data,
 #' and the shape of the ellipse is determined by the correlation.
 #' 
-#' @rdname splom.pie
+#' @rdname splom_panel.pie
 #' @importFrom ellipse ellipse
 #' @importFrom lattice level.colors panel.polygon panel.text
 #' @examples
 #' library(lattice)
 #' pengvars <- c("bill_len", "bill_dep", "flipper_len", "body_mass")
-#' splom(~penguins[ , pengvars], upper.panel=splom.pie, pscales=0)
-#' splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.pie, pscales=0)
-#' splom(~penguins[ , pengvars], upper.panel=splom.shade, pscales=0)
-#' splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.shade, pscales=0)
-#' splom(~penguins[ , pengvars], upper.panel=splom.ellipse, pscales=0)
-#' splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.ellipse, pscales=0)
+#' splom(~penguins[ , pengvars], upper.panel=splom_panel.pie, pscales=0)
+#' splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.pie, pscales=0)
+#' splom(~penguins[ , pengvars], upper.panel=splom_panel.shade, pscales=0)
+#' splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.shade, pscales=0)
+#' splom(~penguins[ , pengvars], upper.panel=splom_panel.ellipse, pscales=0)
+#' splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.ellipse, pscales=0)
+#' @importFrom lattice current.panel.limits panel.xyplot panel.polygon panel.rect splom
 #' @export
-splom.pie <- function(x, y, z, subscripts, at = pretty(z), 
+splom_panel.pie <- function(x, y, z, subscripts, at = pretty(z), 
                       cor.method="pearson", ...) {
   # Each glyph is in a single panel
   # x and y are for only this panel...do not subset by subscripts
@@ -75,9 +72,9 @@ splom.pie <- function(x, y, z, subscripts, at = pretty(z),
                lty = 1, col="gray30", ...)
 
   # Overlay a colored pacman polygon
-  ncol <- 14
-  pal <- colorRampPalette(c("red","salmon","white","royalblue","navy"))(ncol)
-  col.ind <- as.numeric(cut(z, breaks=seq(from=-1, to=1, length=ncol+1),
+  n_bins <- 14
+  pal <- colorRampPalette(c("red","salmon","white","royalblue","navy"))(n_bins)
+  col.ind <- as.numeric(cut(z, breaks=seq(from=-1, to=1, length=n_bins+1),
                             include.lowest=TRUE))
   col.pie <- pal[col.ind]
   segments <- round(60*abs(z),0)
@@ -88,16 +85,16 @@ splom.pie <- function(x, y, z, subscripts, at = pretty(z),
     panel.polygon(circ[,1], circ[,2], col=col.pie)
   }
 }
-#splom(~penguins[ , pengvars], upper.panel=splom.pie, pscales=0)
-#splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.pie, pscales=0)
+#splom(~penguins[ , pengvars], upper.panel=splom_panel.pie, pscales=0)
+#splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.pie, pscales=0)
 
 # -----------------------------------------------------------------------------
 
-#' @rdname splom.pie
+#' @rdname splom_panel.pie
 #' @param col.regions Color palette for shading (default NULL uses internal
 #' red white blue palette).
 #' @export
-splom.shade <- function(x, y, z, subscripts, at = pretty(z),
+splom_panel.shade <- function(x, y, z, subscripts, at = pretty(z),
   col.regions = NULL,
   cor.method = "pearson", ...) {
   # x and y are already subsetted for this panel
@@ -157,15 +154,15 @@ splom.shade <- function(x, y, z, subscripts, at = pretty(z),
 
 }
 
-#splom(~penguins[ , pengvars], upper.panel=splom.shade, pscales=0)
-#splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.shade, pscales=0)
+#splom(~penguins[ , pengvars], upper.panel=splom_panel.shade, pscales=0)
+#splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.shade, pscales=0)
 
 # ----------------------------------------------------------------------------
 
-#' @rdname splom.pie
+#' @rdname splom_panel.pie
 #' @importFrom lattice llines panel.xyplot panel.rect
 #' @export
-splom.ellipse <- function(x,y, col.regions, cor.method="pearson", ...){
+splom_panel.ellipse <- function(x,y, col.regions, cor.method="pearson", ...){
 
   # For correlation matrix, do nothing
   #if(!is.null(corr)) return()
@@ -204,6 +201,6 @@ splom.ellipse <- function(x,y, col.regions, cor.method="pearson", ...){
   llines(ellx, elly, col='gray40')
 
 }
-#splom(~penguins[ , pengvars], upper.panel=splom.ellipse, pscales=0)
-#splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.ellipse, pscales=0)
+#splom(~penguins[ , pengvars], upper.panel=splom_panel.ellipse, pscales=0)
+#splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.ellipse, pscales=0)
 
