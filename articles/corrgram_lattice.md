@@ -1,13 +1,36 @@
 # Examples of lattice corrgrams
 
-## Abstract
+## Package overview
 
-The base R `corrgram` function can accept either a correlation matrix or
-a dataframe.
+The `corrgram` package provides functions for creating corrgrams using
+three different graphics systems, base, grid, and lattice.
 
-If you want to create a corrgram using `lattice` graphics, you can use
-some custom panel functions provided in the `corrgram` package along
-with the
+Base R graphics + single function
+[`corrgram()`](http://kwstat.github.io/corrgram/reference/corrgram.md)
+for dataframes or matrices. + Enables most features found in the paper
+by Friendly (2002). - No automatic legend. - Not easily combined with
+other graphics.
+
+`lattice` graphics + Separate panel functions for
+[`lattice::levelplot()`](https://rdrr.io/pkg/lattice/man/levelplot.html)
+for dataframes and
+[`lattice::splom()`](https://rdrr.io/pkg/lattice/man/splom.html) for
+correlation matrices. + Enables automatic legend. + Enables corrgrams
+conditioned on other variables. + Can be combined with other lattice
+graphics for complex figures. - Not feature complete compared to base R.
+
+`grid` graphics + single function
+[`corrgram2()`](http://kwstat.github.io/corrgram/reference/corrgram2.md)
+for either dataframes or correlation matrices. + Enables automatic
+legend. + Can be combined with other grid graphics for complex
+figures. - Not feature complete compared to base R. + Faster than base R
+when evaluated inside Positron.
+
+## This vignette
+
+This vignette demonstrates how to create corrgrams using `lattice`
+graphics, you can use some custom panel functions provided in the
+`corrgram` package along with the
 [`lattice::splom()`](https://rdrr.io/pkg/lattice/man/splom.html) or
 [`lattice::levelplot()`](https://rdrr.io/pkg/lattice/man/levelplot.html)
 functions. An example of each type of corrgram is shown below.
@@ -87,7 +110,7 @@ head(cars93)
 
 # lattice corrgram using pie-shaped glyphs
 levelplot(cars93, xlab = NULL, ylab = NULL,
-          at = do.breaks(c(-1.01, 1.01), 101), panel = levelplot.pie,
+          at = do.breaks(c(-1.01, 1.01), 101), panel = levelplot_panel.pie,
           scales = list(x = list(rot = 90)), colorkey = list(space = "top") )
 ```
 
@@ -98,7 +121,7 @@ levelplot(cars93, xlab = NULL, ylab = NULL,
 # lattice corrgram using ellipse-shaped glyphs above the diagonal
 # and value labels below the diagonal
 levelplot(cars93, xlab = NULL, ylab = NULL,
-          at = do.breaks(c(-1.01, 1.01), 101), panel = levelplot.ellipse,
+          at = do.breaks(c(-1.01, 1.01), 101), panel = levelplot_panel.ellipse,
           label=TRUE,
           scales = list(x = list(rot = 90)), colorkey = list(space = "top") )
 ```
@@ -119,42 +142,43 @@ correlation within each group (species) can be positive.
 ``` r
 
 pengvars <- c("bill_len", "bill_dep", "flipper_len", "body_mass")
-splom(~penguins[ , pengvars], upper.panel=splom.pie, pscales=0)
+library(lattice)
+splom(~penguins[ , pengvars], upper.panel=splom_panel.pie, pscales=0)
 ```
 
 ![](corrgram_lattice_files/figure-html/unnamed-chunk-1-1.png)
 
 ``` r
 
-splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.pie, pscales=0)
+splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.pie, pscales=0)
 ```
 
 ![](corrgram_lattice_files/figure-html/unnamed-chunk-1-2.png)
 
 ``` r
 
-splom(~penguins[ , pengvars], upper.panel=splom.shade, pscales=0)
+splom(~penguins[ , pengvars], upper.panel=splom_panel.shade, pscales=0)
 ```
 
 ![](corrgram_lattice_files/figure-html/unnamed-chunk-1-3.png)
 
 ``` r
 
-splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.shade, pscales=0)
+splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.shade, pscales=0)
 ```
 
 ![](corrgram_lattice_files/figure-html/unnamed-chunk-1-4.png)
 
 ``` r
 
-splom(~penguins[ , pengvars], upper.panel=splom.ellipse, pscales=0)
+splom(~penguins[ , pengvars], upper.panel=splom_panel.ellipse, pscales=0)
 ```
 
 ![](corrgram_lattice_files/figure-html/unnamed-chunk-1-5.png)
 
 ``` r
 
-splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom.ellipse, pscales=0)
+splom(~penguins[ , pengvars]|penguins$species, upper.panel=splom_panel.ellipse, pscales=0)
 ```
 
 ![](corrgram_lattice_files/figure-html/unnamed-chunk-1-6.png)
@@ -180,3 +204,7 @@ splom(~penguins[ , pengvars]|penguins$species, upper.panel=hexbin::panel.hexbinp
 ```
 
 ![](corrgram_lattice_files/figure-html/unnamed-chunk-2-2.png)
+
+Friendly, Michael. 2002. “Corrgrams: Exploratory Displays for
+Correlation Matrices.” *The American Statistician* 56: 316–24.
+<https://doi.org/10.1198/000313002533>.

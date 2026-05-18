@@ -8,12 +8,14 @@
   Baseball Hitter's Data
 - [`corrgram()`](http://kwstat.github.io/corrgram/reference/corrgram.md)
   : Draw a correlogram
-- [`levelplot.ellipse()`](http://kwstat.github.io/corrgram/reference/levelplot.ellipse.md)
-  [`levelplot.pie()`](http://kwstat.github.io/corrgram/reference/levelplot.ellipse.md)
+- [`corrgram2()`](http://kwstat.github.io/corrgram/reference/corrgram2.md)
+  : Draw a correlogram using \`grid\` graphics
+- [`levelplot_panel.ellipse()`](http://kwstat.github.io/corrgram/reference/levelplot_panel.ellipse.md)
+  [`levelplot_panel.pie()`](http://kwstat.github.io/corrgram/reference/levelplot_panel.ellipse.md)
   : Panel functions for lattice corrgrams via levelplot
-- [`splom.pie()`](http://kwstat.github.io/corrgram/reference/splom.pie.md)
-  [`splom.shade()`](http://kwstat.github.io/corrgram/reference/splom.pie.md)
-  [`splom.ellipse()`](http://kwstat.github.io/corrgram/reference/splom.pie.md)
+- [`splom_panel.pie()`](http://kwstat.github.io/corrgram/reference/splom_panel.pie.md)
+  [`splom_panel.shade()`](http://kwstat.github.io/corrgram/reference/splom_panel.pie.md)
+  [`splom_panel.ellipse()`](http://kwstat.github.io/corrgram/reference/splom_panel.pie.md)
   : Panel functions for lattice corrgrams via splom
 - [`vote`](http://kwstat.github.io/corrgram/reference/vote.md) : Voting
   correlations

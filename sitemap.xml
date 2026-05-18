@@ -2,8 +2,9 @@
 <url><loc>http://kwstat.github.io/corrgram/404.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/LICENSE-text.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/LICENSE.html</loc></url>
+<url><loc>http://kwstat.github.io/corrgram/articles/corrgram_base.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/articles/corrgram_cov2cor.html</loc></url>
-<url><loc>http://kwstat.github.io/corrgram/articles/corrgram_examples.html</loc></url>
+<url><loc>http://kwstat.github.io/corrgram/articles/corrgram_grid.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/articles/corrgram_lattice.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/articles/index.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/authors.html</loc></url>
@@ -12,9 +13,10 @@
 <url><loc>http://kwstat.github.io/corrgram/reference/auto.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/reference/baseball.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/reference/corrgram.html</loc></url>
+<url><loc>http://kwstat.github.io/corrgram/reference/corrgram2.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/reference/index.html</loc></url>
-<url><loc>http://kwstat.github.io/corrgram/reference/levelplot.ellipse.html</loc></url>
-<url><loc>http://kwstat.github.io/corrgram/reference/splom.pie.html</loc></url>
+<url><loc>http://kwstat.github.io/corrgram/reference/levelplot_panel.ellipse.html</loc></url>
+<url><loc>http://kwstat.github.io/corrgram/reference/splom_panel.pie.html</loc></url>
 <url><loc>http://kwstat.github.io/corrgram/reference/vote.html</loc></url>
 </urlset>
 

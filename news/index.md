@@ -2,9 +2,19 @@
 
 ## corrgram 1.15 ()
 
-- Switch to MIT license
+- Happy 20th anniversary for this package in 2026.
+
+- Add lattice panel functions to make lattice corrgrams.
+
+- Add
+  [`corrgram2()`](http://kwstat.github.io/corrgram/reference/corrgram2.md)
+  to make grid-based corrgrams.
 
 - Documentation pages now created via Github Actions.
+
+- Remove `corrgram(..., font.labels)` argument.
+
+- Switch to MIT license
 
 ## corrgram 1.14 (2021-04-01)
 

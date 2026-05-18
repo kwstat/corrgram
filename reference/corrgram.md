@@ -1,9 +1,10 @@
 # Draw a correlogram
 
-The corrgram function produces a graphical display of a correlation
-matrix, called a correlogram. The cells of the matrix can be shaded or
-colored to show the correlation value. Automatic variable reordering can
-be used to improve the visualization.
+Note: \`corrgram()\` uses base R graphics. The corrgram function
+produces a graphical display of a correlation matrix, called a
+correlogram. The cells of the matrix can be shaded or colored to show
+the correlation value. Automatic variable reordering can be used to
+improve the visualization.
 
 ## Usage
 
@@ -21,7 +22,6 @@ corrgram(
   label.pos = c(0.5, 0.5),
   label.srt = 0,
   cex.labels = NULL,
-  font.labels = 1,
   row1attop = TRUE,
   dir = "",
   gap = 0,
@@ -81,7 +81,7 @@ corrgram(
 
   String rotation for diagonal labels.
 
-- cex.labels, font.labels:
+- cex.labels:
 
   Graphics parameter for diagonal panels.
 
@@ -138,8 +138,8 @@ Note: Use the 'col.regions' argument to specify colors.
 Non-numeric columns in the data will be ignored.
 
 The off-diagonal panels are specified with `panel.pts`, `panel.pie`,
-`panel.shade`, `panel.fill`, \``panel.bar`, `panel.ellipse`,
-`panel.conf`. `panel.cor`.
+`panel.shade`, `panel.fill`, `panel.bar`, `panel.ellipse`, `panel.conf`.
+`panel.cor`.
 
 Diagonal panels are specified with `panel.txt`, `panel.minmax`,
 `panel.density`.
@@ -160,8 +160,6 @@ function, your custom panel function must include the arguments shown in
 the `panel.pts` function, even if the custom panel function does not use
 those arguments!
 
-TODO: legend, grid graphics version.
-
 ## References
 
 Friendly, Michael. 2002. Corrgrams: Exploratory Displays for Correlation
@@ -169,7 +167,7 @@ Matrices. *The American Statistician*, 56, 316–324.
 <http://datavis.ca/papers/corrgram.pdf>
 
 D. J. Murdoch and E. D. Chow. 1996. A Graphical Display of Large
-Correlation Matrices. *The American Statistician*, 50, 178-180.
+Correlation Matrices. The American Statistician, 50, 178-180.
 
 Hahsler M, Hornik K, Buchta C. 2008. Getting things in order: An
 introduction to the R package seriation. *Journal of Statistical
