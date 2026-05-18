@@ -14,12 +14,14 @@ The `corrgram` package provides a simple way to create correlograms from raw dat
 The `corrgram` package provides functions for creating corrgrams using three different graphics systems, base, grid, and lattice.
 
 Base R graphics
+
 + single function `corrgram()` for dataframes or matrices.
 + Enables most features found in the paper by @friendly2002corrgrams.
 - No automatic legend.
 - Not easily combined with other graphics.
 
 `lattice` graphics
+
 + Separate panel functions for `lattice::levelplot()` for dataframes and `lattice::splom()` for correlation matrices.
 + Enables automatic legend.
 + Enables corrgrams conditioned on other variables.
@@ -27,6 +29,7 @@ Base R graphics
 - Not feature complete compared to base R.
 
 `grid` graphics
+
 + single function `corrgram2()` for either dataframes or correlation matrices. 
 + Enables automatic legend.
 + Can be combined with other grid graphics for complex figures.
