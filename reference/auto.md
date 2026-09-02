@@ -14,7 +14,7 @@ A data frame with 74 observations on the following 14 variables.
 
 - Model:
 
-  Make and model of car.
+  Make and model of car
 
 - Origin:
 
@@ -22,51 +22,51 @@ A data frame with 74 observations on the following 14 variables.
 
 - Price:
 
-  Price in dollars.
+  Price in dollars
 
 - MPG:
 
-  Miles per gallon.
+  Miles per gallon
 
 - Rep78:
 
-  Repair record for 1978 on 1 (worst) to 5 (best) scale.
+  Repair record for 1978 on 1 (worst) to 5 (best) scale
 
 - Rep77:
 
-  Repair record for 1978 on 1 to 5 scale.
+  Repair record for 1978 on 1 to 5 scale
 
 - Hroom:
 
-  Headroom in inches.
+  Headroom in inches
 
 - Rseat:
 
-  Rear seat clearance in inches.
+  Rear seat clearance in inches
 
 - Trunk:
 
-  Trunk volume in cubic feet.
+  Trunk volume in cubic feet
 
 - Weight:
 
-  Weight in pounds.
+  Weight in pounds
 
 - Length:
 
-  Length in inches.
+  Length in inches
 
 - Turn:
 
-  Turning diameter in feet.
+  Turning diameter in feet
 
 - Displa:
 
-  Engine displacement in cubic inches.
+  Engine displacement in cubic inches
 
 - Gratio:
 
-  Gear ratio for high gear.
+  Gear ratio for high gear
 
 ## Source
 
@@ -82,7 +82,7 @@ consumption.
 ## References
 
 Originally published in Chambers, Cleveland, Kleiner, and Tukey,
-*Graphical Methods for Data Analysis*, 1983, pages 352-355.
+Graphical Methods for Data Analysis, 1983, pages 352-355.
 
 ## Examples
 

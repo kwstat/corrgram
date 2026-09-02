@@ -127,7 +127,7 @@ Company, New York.
 ## References
 
 Michael Friendly (2002). Corrgrams: Exploratory Displays for Correlation
-Matrices, *The American Statistician*, Vol 56.
+Matrices. The American Statistician, Vol 56.
 
 ## Examples
 

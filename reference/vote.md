@@ -16,7 +16,7 @@ A 12x12 matrix.
 
 Torben Iversen and David Soskice (2006). Electoral institutions and the
 politics of coalitions: Why some democracies redistribute more than
-others. *American Political Science Review*, 100, 165-81. Table A2.
+others. American Political Science Review, 100, 165-81. Table A2.
 
 ## Details
 

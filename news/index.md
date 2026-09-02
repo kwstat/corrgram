@@ -1,6 +1,12 @@
 # Changelog
 
-## corrgram 1.15 ()
+## corrgram 1.16 (2026-09-02)
+
+- CRAN check fix changing .Dimnames to dimnames, etc.
+
+## corrgram 1.15 (2026-05-18)
+
+CRAN release: 2026-05-18
 
 - Happy 20th anniversary for this package in 2026.
 
