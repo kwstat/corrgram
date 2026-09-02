@@ -23,7 +23,7 @@
 #' `cba` package.
 #'
 #' @aliases corrgram2 grid_panel.conf grid_panel.ellipse grid_panel.fill
-#' grid_panel.pie grid_panel.pts grid_panel.shade grid_text.panel
+#' @aliases grid_panel.pie grid_panel.pts grid_panel.shade grid_text.panel
 #' 
 #' @param x A data frame or matrix with one observation per row, or a
 #'   correlation matrix.

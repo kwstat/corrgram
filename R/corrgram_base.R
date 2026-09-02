@@ -35,7 +35,7 @@
 #' function, even if the custom panel function does not use those arguments!
 #'
 #' @aliases corrgram panel.bar panel.conf panel.cor panel.density panel.ellipse
-#' panel.fill panel.minmax panel.pie panel.pts panel.shade panel.txt
+#' @aliases panel.fill panel.minmax panel.pie panel.pts panel.shade panel.txt
 #'
 #' @param x A \emph{tall} data frame with one observation per row, or a
 #' correlation matrix.

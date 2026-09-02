@@ -7,32 +7,31 @@
 #' The data is from various sources, primarily \emph{Consumer Reports}, April,
 #' 1979, and the United States government EPA statistics on fuel consumption.
 #' 
+#' Data provenance: This data frame was created from
+#' http://euclid.psych.yorku.ca/ftp/sas/sssg/data/auto.sas
+#' 
 #' @format
 #' A data frame with 74 observations on the following 14 variables.
 #' \describe{ 
-#' \item{Model}{Make and model of car.}
+#' \item{Model}{Make and model of car}
 #' \item{Origin}{a factor with levels A,E,J}
-#' \item{Price}{Price in dollars.} 
-#' \item{MPG}{Miles per gallon.} 
-#' \item{Rep78}{Repair record for 1978 on 1 (worst) to 5 (best) scale.} 
-#' \item{Rep77}{Repair record for 1978 on 1 to 5 scale.}
-#' \item{Hroom}{Headroom in inches.} 
-#' \item{Rseat}{Rear seat clearance in inches.} 
-#' \item{Trunk}{Trunk volume in cubic feet.}
-#' \item{Weight}{Weight in pounds.} 
-#' \item{Length}{Length in inches.} 
-#' \item{Turn}{Turning diameter in feet.}
-#' \item{Displa}{Engine displacement in cubic inches.}
-#' \item{Gratio}{Gear ratio for high gear.} 
+#' \item{Price}{Price in dollars} 
+#' \item{MPG}{Miles per gallon} 
+#' \item{Rep78}{Repair record for 1978 on 1 (worst) to 5 (best) scale} 
+#' \item{Rep77}{Repair record for 1978 on 1 to 5 scale}
+#' \item{Hroom}{Headroom in inches} 
+#' \item{Rseat}{Rear seat clearance in inches} 
+#' \item{Trunk}{Trunk volume in cubic feet}
+#' \item{Weight}{Weight in pounds} 
+#' \item{Length}{Length in inches} 
+#' \item{Turn}{Turning diameter in feet}
+#' \item{Displa}{Engine displacement in cubic inches}
+#' \item{Gratio}{Gear ratio for high gear} 
 #' }
 #' 
 #' @source 
-#' This data frame was created from
-#' http://euclid.psych.yorku.ca/ftp/sas/sssg/data/auto.sas
-#' 
-#' @references 
-#' Originally published in Chambers, Cleveland, Kleiner, and Tukey,
-#' \emph{Graphical Methods for Data Analysis}, 1983, pages 352-355.
+#' Chambers, Cleveland, Kleiner, and Tukey (1983).
+#' Graphical Methods for Data Analysis, pages 352-355.
 #' 
 #' @examples
 #' 
@@ -93,8 +92,9 @@
 #' http://euclid.psych.yorku.ca/ftp/sas/sssg/data/baseball.sas
 #'
 #' @references 
-#' Michael Friendly (2002). Corrgrams: Exploratory Displays for Correlation 
-#' Matrices, \emph{The American Statistician}, Vol 56.
+#' Michael Friendly (2002).
+#' Corrgrams: Exploratory Displays for Correlation Matrices.
+#' The American Statistician, Vol 56.
 #' 
 #' @examples
 #' 
@@ -119,9 +119,10 @@
 #' @format A 12x12 matrix.
 #' 
 #' @source 
-#' Torben Iversen and David Soskice (2006). Electoral institutions and
-#' the politics of coalitions: Why some democracies redistribute more than
-#' others.  \emph{American Political Science Review}, 100, 165-81.  Table A2.
+#' Torben Iversen and David Soskice (2006).
+#' Electoral institutions and the politics of coalitions:
+#' Why some democracies redistribute more than others. 
+#' American Political Science Review, 100, 165-81.  Table A2.
 #' 
 #' @references 
 #' Using Graphs Instead of Tables.

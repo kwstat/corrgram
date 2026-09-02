@@ -7,20 +7,20 @@
 \format{
 A data frame with 74 observations on the following 14 variables.
 \describe{ 
-\item{Model}{Make and model of car.}
+\item{Model}{Make and model of car}
 \item{Origin}{a factor with levels A,E,J}
-\item{Price}{Price in dollars.} 
-\item{MPG}{Miles per gallon.} 
-\item{Rep78}{Repair record for 1978 on 1 (worst) to 5 (best) scale.} 
-\item{Rep77}{Repair record for 1978 on 1 to 5 scale.}
-\item{Hroom}{Headroom in inches.} 
-\item{Rseat}{Rear seat clearance in inches.} 
-\item{Trunk}{Trunk volume in cubic feet.}
-\item{Weight}{Weight in pounds.} 
-\item{Length}{Length in inches.} 
-\item{Turn}{Turning diameter in feet.}
-\item{Displa}{Engine displacement in cubic inches.}
-\item{Gratio}{Gear ratio for high gear.} 
+\item{Price}{Price in dollars} 
+\item{MPG}{Miles per gallon} 
+\item{Rep78}{Repair record for 1978 on 1 (worst) to 5 (best) scale} 
+\item{Rep77}{Repair record for 1978 on 1 to 5 scale}
+\item{Hroom}{Headroom in inches} 
+\item{Rseat}{Rear seat clearance in inches} 
+\item{Trunk}{Trunk volume in cubic feet}
+\item{Weight}{Weight in pounds} 
+\item{Length}{Length in inches} 
+\item{Turn}{Turning diameter in feet}
+\item{Displa}{Engine displacement in cubic inches}
+\item{Gratio}{Gear ratio for high gear} 
 }
 }
 \source{
@@ -44,6 +44,6 @@ corrgram(auto[, -c(1:2)])
 }
 \references{
 Originally published in Chambers, Cleveland, Kleiner, and Tukey,
-\emph{Graphical Methods for Data Analysis}, 1983, pages 352-355.
+Graphical Methods for Data Analysis, 1983, pages 352-355.
 }
 \keyword{datasets}

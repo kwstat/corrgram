@@ -30,13 +30,15 @@ import(graphics)
 import(grid)
 import(stats)
 importFrom(ellipse,ellipse)
-importFrom(lattice,current.panel.limits)
-importFrom(lattice,level.colors)
-importFrom(lattice,levelplot)
-importFrom(lattice,llines)
-importFrom(lattice,panel.polygon)
-importFrom(lattice,panel.rect)
-importFrom(lattice,panel.text)
-importFrom(lattice,panel.xyplot)
-importFrom(lattice,splom)
+importFrom(lattice,
+  current.panel.limits,
+  level.colors,
+  levelplot,
+  llines,
+  panel.polygon,
+  panel.rect,
+  panel.text,
+  panel.xyplot,
+  splom
+)
 importFrom(utils,installed.packages)

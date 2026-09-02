@@ -1,9 +1,41 @@
+# corrgram 1.16
+
+## Test environments
+
+* local R 4.6.1 Windows 11
+* win-builder devel
+* win-builder release
+
+Results from Rcmd check:
+
+All OK
+
+## revdepcheck results
+
+We checked 6 reverse dependencies (5 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+
 # corrgram 1.15
 
 ## Test environments
 
 * local R 4.6.0 Windows 11
 * Win-builder devel
+* win-builder release
+
+## Results from Rcmd check
+
+All OK
+
+## revdepcheck results
+
+We checked 7 reverse dependencies (5 from CRAN + 2 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+ * Checked gex, fastR2, Doscheda, Guerry, VisCollin, agridat, heplots
 
 
 # corrgram 1.14

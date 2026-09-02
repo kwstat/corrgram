@@ -66,7 +66,8 @@ corrgram(baseball[,vars2],
 
 }
 \references{
-Michael Friendly (2002). Corrgrams: Exploratory Displays for Correlation 
-Matrices, \emph{The American Statistician}, Vol 56.
+Michael Friendly (2002).
+Corrgrams: Exploratory Displays for Correlation Matrices.
+The American Statistician, Vol 56.
 }
 \keyword{datasets}

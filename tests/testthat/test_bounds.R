@@ -63,8 +63,8 @@ cmat2 <-
               0.701081039882255, 0.999980461387252, 1,
               0.584163309675686, 0.556626045335446, 0.584159785791795,
               0.0228895131694637, 0.409550411443535, 0.584144381934955,
-              0.584163309675686, 1), .Dim = c(7L, 7L),
-            .Dimnames = list(NULL, NULL))
+              0.584163309675686, 1), dim = c(7L, 7L),
+            dimnames = list(NULL, NULL))
 test_that("Correlation values outside [-1,1] are flagged.", {
   expect_warning(corrgram(cmat2))
   expect_warning(corrgram(-cmat2))
